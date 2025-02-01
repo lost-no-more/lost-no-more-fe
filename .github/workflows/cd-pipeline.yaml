@@ -1,4 +1,4 @@
-name: Deploy Next.js to Cloudflare Pages
+name: Deploy Pipeline
 run-name: Deploy:${{ github.ref_name }} by @${{ github.actor }}
 
 on:
@@ -19,12 +19,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22.12.0'
+
       - name: Install pnpm
         run: npm install -g pnpm@9.15.0
+
       - name: Cache Dependencies
         uses: actions/cache@v4
         id: pnpm-cache
@@ -35,29 +38,40 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
-      - if: ${{ steps.pnpm-cache.outputs.cache-hit != 'true' }}
-        run: pnpm install
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Build Next.js
         run: pnpm run build
         env:
           NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: '/'
+
+      - name: Verify Build Output
+        run: ls -al .next # 🔍 .next 폴더가 정상적으로 생성되었는지 확인
+
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: next-build
-          path: .next
+          path: ${{ github.workspace }}/.next
           retention-days: 1
+
   deploy:
     name: Deploy to Cloudflare Pages
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
           name: next-build
-          path: .next
+          path: ${{ github.workspace }}/.next
+
+      - name: Verify Downloaded Build Output
+        run: ls -al .next # 🔍 다운로드 후 .next 폴더가 정상적으로 존재하는지 확인
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -65,5 +79,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: lost-no-more-fe
-          directory: .next
+          directory: ${{ github.workspace }}/.next
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
