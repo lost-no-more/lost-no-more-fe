@@ -4,7 +4,7 @@ import NotificationIcon from '../icons/notification-icon';
 import UserIcon from '../icons/user-icon';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import SearchIcon from '../icons/search-icon';
-import IconSearchbar from '../common/icon-searchbar';
+import IconInput from '../common/icon-input';
 import LocationIcon from '../icons/location-icon';
 import CategoryIcon from '../icons/category-icon';
 import {
@@ -65,7 +65,7 @@ export default function SearchbarBanner() {
         <p className="mb-[60px] text-xl text-background">
           모든 분실물을 한눈에, 걱정할 일 없는 일상을 한번에
         </p>
-        <IconSearchbar
+        <IconInput
           className="mb-4"
           slots={{
             icon: () => (
@@ -83,7 +83,7 @@ export default function SearchbarBanner() {
         <div className="flex items-center gap-6">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <IconSearchbar
+              <IconInput
                 slots={{
                   icon: () => (
                     <LocationIcon
@@ -106,7 +106,7 @@ export default function SearchbarBanner() {
           </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <IconSearchbar
+              <IconInput
                 slots={{
                   icon: () => (
                     <CategoryIcon
