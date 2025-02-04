@@ -57,7 +57,7 @@ export default function SearchbarBanner() {
                 </Card>
               </PopoverContent>
             </Popover>
-            <button className="rounded-sm bg-secondary p-2">
+            <button className="rounded-sm p-2 hover:bg-secondary">
               <UserIcon width={32} height={32} fill="hsl(var(--background))" />
             </button>
           </div>
@@ -127,7 +127,7 @@ export default function SearchbarBanner() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-          <button className="whitespace-nowrap rounded-lg bg-secondary-foreground px-8 py-[10px] text-center text-2xl font-bold text-secondary">
+          <button className="whitespace-nowrap rounded-xl bg-secondary-foreground px-8 py-[10px] text-center text-2xl font-bold text-secondary">
             검색
           </button>
         </div>
