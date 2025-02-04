@@ -6,7 +6,7 @@ interface IconSearchbarProps {
   slots: Slots<'icon' | 'input'>;
 }
 
-export default function IconSearchbar({ className, slots }: IconSearchbarProps) {
+export default function IconInput({ className, slots }: IconSearchbarProps) {
   return (
     <div
       className={cn('flex w-full items-center gap-4 rounded-xl bg-background px-5 py-3', className)}
