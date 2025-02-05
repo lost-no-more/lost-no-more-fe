@@ -47,7 +47,7 @@ export default function LoginPopup({ open, onClose }: LoginPopupProps) {
             height={24}
             fill="hsl(var(--secondary-foreground))"
           />
-          <span className="mx-auto">Kakao로 로그인</span>
+          <span className="mx-auto text-secondary-foreground">Kakao로 로그인</span>
         </Button>
         <Button className="relative flex h-11 w-full items-center bg-gray-100 text-lg font-bold text-black hover:bg-gray-200">
           <GoogleIcon
@@ -56,7 +56,7 @@ export default function LoginPopup({ open, onClose }: LoginPopupProps) {
             height={24}
             fill="hsl(var(--secondary-foreground))"
           />
-          <span className="mx-auto">Google로 로그인</span>
+          <span className="mx-auto text-secondary-foreground">Google로 로그인</span>
         </Button>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
