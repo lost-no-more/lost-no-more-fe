@@ -1,7 +1,22 @@
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import KeywordInput from '@/components/mypage/keyword-input';
+import KeywordList from '@/components/mypage/keyword-list';
 
 export const NotificationsSection = () => {
+  const [keywords, setKeywords] = useState<string[]>([]);
+
+  const addKeyword = (keyword: string) => {
+    if (keyword && !keywords.includes(keyword)) {
+      setKeywords([...keywords, keyword]);
+    }
+  };
+
+  const removeKeyword = (removeKeyword: string) => {
+    setKeywords(keywords.filter((kw) => kw !== removeKeyword));
+  };
+
   return (
     <Card>
       <CardContent className="space-y-6">
@@ -21,7 +36,12 @@ export const NotificationsSection = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="keyword" className="p-6">
-            키워드
+            <CardTitle className="text-xl">키워드 알림 설정</CardTitle>
+            <CardDescription className="text-muted-foreground">
+              검색 시 기본적으로 적용되는 위치를 설정합니다.
+            </CardDescription>
+            <KeywordInput addKeyword={addKeyword} />
+            <KeywordList keywords={keywords} removeKeyword={removeKeyword} />
           </TabsContent>
           <TabsContent value="reception" className="p-6">
             수신
