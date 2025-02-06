@@ -6,7 +6,7 @@ import UserButton from './user-button';
 
 export default function Headerbar() {
   return (
-    <div className="flex w-full items-center justify-between bg-primary px-10 py-5">
+    <div className="sticky flex w-full items-center justify-between bg-primary px-10 py-5">
       <Link href="/">
         <LogoIcon width={50} height={50} fill="hsl(var(--background))" />
       </Link>
