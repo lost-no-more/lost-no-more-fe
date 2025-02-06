@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
+    "idev": "pnpm i && next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "prod": "pnpm build && pnpm start",
