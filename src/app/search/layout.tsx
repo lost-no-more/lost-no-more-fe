@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import RootLayout from '@/app/layout';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: '잃.없.다에서 분실물을 검색해보세요!',
@@ -18,5 +19,14 @@ export default function SearchLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <RootLayout>{children}</RootLayout>;
+  return (
+    <RootLayout>
+      <Script
+        type="text/javascript"
+        strategy="beforeInteractive"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4c94c5b2b00b891ab0cba39babe41050&libraries=clusterer,drawing&autoload=false"
+      />
+      {children}
+    </RootLayout>
+  );
 }
