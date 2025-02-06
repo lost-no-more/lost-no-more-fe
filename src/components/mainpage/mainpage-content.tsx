@@ -17,7 +17,7 @@ export default function MainpageContent() {
     icon: () => ReactNode;
   }[] = Array.from({ length: 6 }, () => ({
     name: '전자기기',
-    icon: () => <PackageIcon size={32} />,
+    icon: () => <PackageIcon size={32} color="hsl(var(--primary))" />,
   }));
 
   return (

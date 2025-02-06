@@ -7,7 +7,7 @@ interface CategoryCardProps {
 
 export default function CategoryCard({ slots, cateogry }: CategoryCardProps) {
   return (
-    <div className="flex w-full flex-col items-center justify-center py-4 shadow-lg">
+    <div className="flex w-full flex-col items-center justify-center rounded-2xl py-4 shadow-lg">
       {slots.icon && slots.icon()}
       <p className="mt-2 text-base text-foreground">{cateogry}</p>
     </div>
