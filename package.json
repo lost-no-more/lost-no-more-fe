@@ -39,6 +39,7 @@
     "next": "15.1.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-kakao-maps-sdk": "^1.1.27",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -60,6 +61,7 @@
     "happy-dom": "^16.8.1",
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
+    "kakao.maps.d.ts": "^0.1.40",
     "postcss": "8.5.1",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
