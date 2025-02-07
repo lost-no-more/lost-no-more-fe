@@ -3,7 +3,7 @@ import { MapPin, Bell, CircleHelp, ChevronRight } from 'lucide-react';
 
 const menuItems = [
   { id: 'losts', label: '관심 분실물', icon: <CircleHelp className="h-4 w-4" /> },
-  { id: 'alerts', label: '알림 설정', icon: <Bell className="h-4 w-4" /> },
+  { id: 'notifications', label: '알림 설정', icon: <Bell className="h-4 w-4" /> },
   { id: 'locations', label: '내 위치 설정', icon: <MapPin className="h-4 w-4" /> },
 ];
 
@@ -20,8 +20,8 @@ export const SideNavigation = ({ activeSection, onSectionChange }: SideNavigatio
           <button
             key={item.id}
             onClick={() => onSectionChange(item.id)}
-            className={`mb-1 flex w-full items-center justify-between rounded-lg p-3 text-base hover:bg-gray-100 ${
-              activeSection === item.id ? 'bg-blue-50 text-primary' : ''
+            className={`mb-1 flex w-full items-center justify-between rounded-lg p-3 text-base hover:bg-primary/5 ${
+              activeSection === item.id ? 'bg-primary/5 text-primary' : ''
             }`}
           >
             <div className="flex items-center gap-2">
