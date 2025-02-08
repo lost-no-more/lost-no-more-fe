@@ -16,11 +16,18 @@ export default function KeywordInput({ addKeyword }: KeywordInputProps) {
     }
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleAdd();
+    }
+  };
+
   return (
     <div className="my-4 flex">
       <Input
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
+        onKeyDown={handleKeyPress}
         placeholder="키워드 입력"
         className="mr-4 h-12 flex-1 font-semibold"
       />
