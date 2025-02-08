@@ -27,6 +27,7 @@ export const NotificationsSection = () => {
 
   const handleBackClick = () => {
     setIsSettingsVisible(false);
+    setSelectedKeyword(null);
   };
 
   const updateKeyword = (oldKeyword: string, newKeyword: string) => {
@@ -52,9 +53,13 @@ export const NotificationsSection = () => {
               수신
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="keyword" className="p-6">
-            {!isSettingsVisible && (
-              <>
+          <TabsContent value="keyword" className="relative min-h-[400px] overflow-hidden">
+            <div
+              className={`absolute flex h-full w-[200%] transform transition-transform duration-300 ease-in-out ${
+                isSettingsVisible ? '-translate-x-1/2' : 'translate-x-0'
+              }`}
+            >
+              <div className="w-full p-6">
                 <CardTitle className="text-xl">키워드 알림 설정</CardTitle>
                 <CardDescription className="text-muted-foreground">
                   검색 시 기본적으로 적용되는 위치를 설정합니다.
@@ -65,15 +70,17 @@ export const NotificationsSection = () => {
                   removeKeyword={removeKeyword}
                   onSettingsClick={handleSettingsClick}
                 />
-              </>
-            )}
-            {isSettingsVisible && selectedKeyword && (
-              <KeywordSettings
-                keyword={selectedKeyword}
-                onBackClick={handleBackClick}
-                updateKeyword={updateKeyword}
-              />
-            )}
+              </div>
+              <div className="w-full p-6">
+                {selectedKeyword && (
+                  <KeywordSettings
+                    keyword={selectedKeyword}
+                    onBackClick={handleBackClick}
+                    updateKeyword={updateKeyword}
+                  />
+                )}
+              </div>
+            </div>
           </TabsContent>
           <TabsContent value="reception" className="p-6">
             수신
