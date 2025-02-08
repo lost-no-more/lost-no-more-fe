@@ -5,16 +5,24 @@ import { SlidersHorizontal, Trash2 } from 'lucide-react';
 interface KeywordListProps {
   keywords: string[];
   removeKeyword: (keyword: string) => void;
+  onSettingsClick: (keyword: string) => void;
 }
 
-export default function KeywordList({ keywords, removeKeyword }: KeywordListProps) {
+export default function KeywordList({
+  keywords,
+  removeKeyword,
+  onSettingsClick,
+}: KeywordListProps) {
   return (
-    <ul>
+    <ul className="max-h-64 overflow-y-auto">
       {keywords.map((kw) => (
-        <li key={kw} className="mb-2 flex items-center justify-between rounded-lg bg-secondary p-2">
+        <li
+          key={kw}
+          className="mb-2 flex h-12 items-center justify-between rounded-lg bg-secondary p-2"
+        >
           <span className="px-2 font-semibold text-secondary-foreground">{kw}</span>
           <div className="flex items-center">
-            <Button variant="ghost">
+            <Button variant="ghost" onClick={() => onSettingsClick(kw)}>
               <SlidersHorizontal
                 className="h-5 w-5"
                 color="hsl(var(--secondary-foreground))"

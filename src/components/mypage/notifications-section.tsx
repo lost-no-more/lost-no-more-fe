@@ -3,9 +3,12 @@ import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/c
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import KeywordInput from '@/components/mypage/keyword-input';
 import KeywordList from '@/components/mypage/keyword-list';
+import KeywordSettings from '@/components/mypage/keyword-settings';
 
 export const NotificationsSection = () => {
   const [keywords, setKeywords] = useState<string[]>([]);
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
   const addKeyword = (keyword: string) => {
     if (keyword && !keywords.includes(keyword)) {
@@ -15,6 +18,20 @@ export const NotificationsSection = () => {
 
   const removeKeyword = (removeKeyword: string) => {
     setKeywords(keywords.filter((kw) => kw !== removeKeyword));
+  };
+
+  const handleSettingsClick = (keyword: string) => {
+    setSelectedKeyword(keyword);
+    setIsSettingsVisible(true);
+  };
+
+  const handleBackClick = () => {
+    setIsSettingsVisible(false);
+  };
+
+  const updateKeyword = (oldKeyword: string, newKeyword: string) => {
+    setKeywords(keywords.map((kw) => (kw === oldKeyword ? newKeyword : kw)));
+    setSelectedKeyword(newKeyword);
   };
 
   return (
@@ -36,12 +53,27 @@ export const NotificationsSection = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="keyword" className="p-6">
-            <CardTitle className="text-xl">키워드 알림 설정</CardTitle>
-            <CardDescription className="text-muted-foreground">
-              검색 시 기본적으로 적용되는 위치를 설정합니다.
-            </CardDescription>
-            <KeywordInput addKeyword={addKeyword} />
-            <KeywordList keywords={keywords} removeKeyword={removeKeyword} />
+            {!isSettingsVisible && (
+              <>
+                <CardTitle className="text-xl">키워드 알림 설정</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  검색 시 기본적으로 적용되는 위치를 설정합니다.
+                </CardDescription>
+                <KeywordInput addKeyword={addKeyword} />
+                <KeywordList
+                  keywords={keywords}
+                  removeKeyword={removeKeyword}
+                  onSettingsClick={handleSettingsClick}
+                />
+              </>
+            )}
+            {isSettingsVisible && selectedKeyword && (
+              <KeywordSettings
+                keyword={selectedKeyword}
+                onBackClick={handleBackClick}
+                updateKeyword={updateKeyword}
+              />
+            )}
           </TabsContent>
           <TabsContent value="reception" className="p-6">
             수신
