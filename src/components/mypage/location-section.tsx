@@ -19,7 +19,7 @@ import { LostLocations } from '@/types/lost-property';
 
 export const LocationsSection = () => {
   return (
-    <Card>
+    <Card className="px-2">
       <CardHeader>
         <CardTitle className="text-xl">내 위치 설정</CardTitle>
         <CardDescription className="text-muted-foreground">

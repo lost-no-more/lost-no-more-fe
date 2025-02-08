@@ -29,7 +29,7 @@ export default function KeywordInput({ addKeyword }: KeywordInputProps) {
         onChange={(e) => setKeyword(e.target.value)}
         onKeyDown={handleKeyPress}
         placeholder="키워드 입력"
-        className="mr-4 h-12 flex-1 font-semibold"
+        className="mr-4 h-12 flex-1"
       />
       <Button className="h-12 w-20 text-base font-semibold" onClick={handleAdd}>
         등록
