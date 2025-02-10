@@ -1,8 +1,6 @@
 import Image from 'next/image';
 
-import { Clock10Icon, MapPinIcon } from 'lucide-react';
-
-interface LostCardProps {
+export interface LostCardProps {
   name: string;
   image: string;
   category: string;
