@@ -98,7 +98,7 @@ export default function LostNoMoreMap() {
       onCenterChanged={handleCenterChanged}
       onBoundsChanged={handleBoundsChanged}
       onCreate={(map) => (mapRef.current = map)}
-      className="relative h-full w-full"
+      className="h-full w-full"
     >
       <MarkerClusterer gridSize={250} onClusterclick={handleClusterClick} disableClickZoom={true}>
         {visibleItems.map((item) => (
@@ -109,7 +109,7 @@ export default function LostNoMoreMap() {
           />
         ))}
       </MarkerClusterer>
-      <div className="absolute bottom-10 left-10 z-10 flex items-center gap-2">
+      <div className="absolute bottom-10 right-10 z-10 flex items-center gap-2">
         <MoveMyPosButton />
         <ZoomController />
       </div>
