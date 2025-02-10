@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { cn } from '@/lib/utils';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import SkeletonView from '../common/skeleton-view';
 
 interface ListViewProps<T> {
   items: T[];
@@ -51,7 +52,6 @@ export default function ListView<T>({
 }: ListViewProps<T>) {
   const parentRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useIntersectionObserver({ onIntersect: loadMore });
-
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => parentRef.current,
@@ -66,7 +66,7 @@ export default function ListView<T>({
         {virtualizer.getVirtualItems().map((virtualItem) => (
           <div
             key={virtualItem.index}
-            className="absolute left-0 w-full"
+            className="absolute left-0 top-0 w-full"
             style={{
               height: `${virtualItem.size}px`,
               transform: `translateY(${virtualItem.start}px)`,
@@ -76,6 +76,14 @@ export default function ListView<T>({
           </div>
         ))}
       </div>
+      {/* 데이터 로딩중일 때 로딩 스피너 */}
+      {isFetching && (
+        <div className="flex flex-col" style={{ gap: `${gap}px` }}>
+          {Array.from({ length: 3 }).map((_, i) => (
+            <SkeletonView key={i} height={`${itemHeight}px`} width="100%" />
+          ))}
+        </div>
+      )}
       {/* 리스트뷰 끝에 도달했을 때 더 불러오기 */}
       {isInfinite && loadMore && !isFetching && <div ref={loadMoreRef} />}
     </div>

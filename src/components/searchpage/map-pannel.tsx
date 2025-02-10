@@ -25,21 +25,21 @@ async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
 export default function MapPanel() {
   const [items, setItems] = useState<LostCardProps[]>([]);
   const [cursor, setCursor] = useState(0);
-  const isFetchingRef = useRef(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const mockIds = useMemo(() => Array.from({ length: TOTAL_IDS }, (_, i) => i + 1), []);
 
   const loadMore = useCallback(async () => {
-    if (isFetchingRef.current || cursor >= mockIds.length) return;
-    isFetchingRef.current = true;
+    if (isFetching || cursor >= mockIds.length) return;
+    setIsFetching(true);
 
     const nextIds = mockIds.slice(cursor, cursor + CHUNK_SIZE);
     const newItems = await fetchLostItems(nextIds);
 
     setItems((prev) => [...prev, ...newItems]);
     setCursor((prev) => prev + CHUNK_SIZE);
-    isFetchingRef.current = false;
-  }, [cursor, mockIds]);
+    setIsFetching(false);
+  }, [cursor, isFetching, mockIds]);
 
   return (
     <div className="flex h-full flex-col bg-background">
@@ -47,13 +47,13 @@ export default function MapPanel() {
         분실물 목록
       </p>
       <ListView
-        className="w-[314px] px-5 py-3 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
+        className="w-[314px] py-3 pl-5 pr-3.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
         items={items}
         itemHeight={291}
         renderItem={(item) => <LostCard {...item} />}
         gap={16}
         loadMore={loadMore}
-        isFetching={isFetchingRef.current}
+        isFetching={isFetching}
         isInfinite={true}
       />
     </div>
