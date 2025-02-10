@@ -17,7 +17,7 @@ export default function LostCard({
   acquisitionDate,
 }: LostCardProps) {
   return (
-    <div className="relative box-content flex w-[270px] cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-solid border-border">
+    <div className="relative box-content flex w-[270px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-solid border-border">
       <div className="absolute right-3 top-3 rounded-md bg-foreground px-2.5 py-1.5 text-xs font-semibold text-background">
         {category}
       </div>
