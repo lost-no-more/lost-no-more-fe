@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import KeywordInput from '@/components/mypage/keyword-input';
@@ -37,7 +38,7 @@ export const NotificationsSection = () => {
 
   return (
     <Card>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 p-0">
         <Tabs defaultValue="keyword" className="w-full pt-5">
           <TabsList className="w-full rounded-none border-b bg-transparent p-0">
             <TabsTrigger
@@ -53,7 +54,7 @@ export const NotificationsSection = () => {
               수신
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="keyword" className="relative min-h-[400px] overflow-hidden">
+          <TabsContent value="keyword" className="relative min-h-[400px] overflow-hidden px-2">
             <div
               className={`absolute flex h-full w-[200%] transform transition-transform duration-300 ease-in-out ${
                 isSettingsVisible ? '-translate-x-1/2' : 'translate-x-0'
@@ -82,8 +83,14 @@ export const NotificationsSection = () => {
               </div>
             </div>
           </TabsContent>
-          <TabsContent value="reception" className="p-6">
-            수신
+          <TabsContent value="reception" className="px-8 py-6">
+            <CardTitle className="text-xl">알림 수신 설정</CardTitle>
+            <CardDescription className="text-muted-foreground">
+              알림을 수신할 채널을 설정합니다.
+            </CardDescription>
+            <Button className="mt-6 w-full" type="button">
+              알림 설정
+            </Button>
           </TabsContent>
         </Tabs>
       </CardContent>

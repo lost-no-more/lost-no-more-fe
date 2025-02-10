@@ -3,18 +3,21 @@
 import React, { useState } from 'react';
 import Headerbar from '@/components/common/headerbar';
 import { SideNavigation } from '@/components/mypage/side-navigation';
-import { LocationsSection } from '@/components/mypage/location-section';
+import { LostItemsSection } from '@/components/mypage/lost-items-section';
 import { NotificationsSection } from '@/components/mypage/notifications-section';
+import { LocationsSection } from '@/components/mypage/location-section';
 
 export default function MyPage() {
   const [activeSection, setActiveSection] = useState('locations');
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'locations':
-        return <LocationsSection />;
+      case 'losts':
+        return <LostItemsSection />;
       case 'notifications':
         return <NotificationsSection />;
+      case 'locations':
+        return <LocationsSection />;
       default:
         return null;
     }
