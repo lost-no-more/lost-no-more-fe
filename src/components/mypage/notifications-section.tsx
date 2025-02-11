@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardTitle, CardDescription, CardHeader } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import KeywordInput from '@/components/mypage/keyword-input';
 import KeywordList from '@/components/mypage/keyword-list';
 import KeywordSettings from '@/components/mypage/keyword-settings';
+import CustomSwitch from '@/components/common/custom-switch';
 
 export const NotificationsSection = () => {
   const [keywords, setKeywords] = useState<string[]>([]);
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+  const [emailNotification, setEmailNotification] = useState(false);
 
   const addKeyword = (keyword: string) => {
     if (keyword && !keywords.includes(keyword)) {
@@ -61,10 +63,12 @@ export const NotificationsSection = () => {
               }`}
             >
               <div className="w-full p-6">
-                <CardTitle className="text-xl">키워드 알림 설정</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  검색 시 기본적으로 적용되는 위치를 설정합니다.
-                </CardDescription>
+                <CardHeader className="p-0">
+                  <CardTitle className="text-xl">키워드 알림 설정</CardTitle>
+                  <CardDescription className="text-muted-foreground">
+                    검색 시 기본적으로 적용되는 위치를 설정합니다.
+                  </CardDescription>
+                </CardHeader>
                 <KeywordInput addKeyword={addKeyword} />
                 <KeywordList
                   keywords={keywords}
@@ -83,14 +87,24 @@ export const NotificationsSection = () => {
               </div>
             </div>
           </TabsContent>
-          <TabsContent value="reception" className="px-8 py-6">
-            <CardTitle className="text-xl">알림 수신 설정</CardTitle>
-            <CardDescription className="text-muted-foreground">
-              알림을 수신할 채널을 설정합니다.
-            </CardDescription>
-            <Button className="mt-6 w-full" type="button">
-              알림 설정
-            </Button>
+          <TabsContent value="reception" className="space-y-4 px-8 py-6">
+            <CardHeader className="p-0">
+              <CardTitle className="text-xl">알림 수신 설정</CardTitle>
+              <CardDescription className="text-muted-foreground">
+                알림을 수신할 채널을 설정합니다.
+              </CardDescription>
+            </CardHeader>
+            <CustomSwitch
+              title="이메일 알림"
+              description="키워드 등록한 분실물 발견 시 이메일로 알림"
+              checked={emailNotification}
+              onCheckedChange={setEmailNotification}
+            />
+            <CardHeader className="p-0">
+              <Button className="mt-6 w-full" type="button">
+                알림 설정
+              </Button>
+            </CardHeader>
           </TabsContent>
         </Tabs>
       </CardContent>
