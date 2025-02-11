@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import LostCard, { LostCardProps } from '../common/lost-card';
 import ListView from '../ui/list-view';
 
