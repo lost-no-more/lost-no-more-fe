@@ -62,7 +62,7 @@ const categoryIcons = {
   유류품: Box,
 };
 
-const frameworksList = LostCategories.filter((category) => category !== '전체').map((category) => ({
+const CategoriesList = LostCategories.filter((category) => category !== '전체').map((category) => ({
   value: category,
   label: category,
   icon: categoryIcons[category],
@@ -80,13 +80,20 @@ export default function KeywordSettings({
   updateKeyword,
 }: KeywordSettingsProps) {
   const [keywordInput, setKeywordInput] = useState(keyword);
-  const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>(['react', 'angular']);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const handleClearInput = () => {
     setKeywordInput('');
+    setError('');
   };
 
   const handleUpdateKeyword = () => {
+    if (!keywordInput.trim()) {
+      setError('키워드를 입력해주세요');
+      return;
+    }
     updateKeyword(keyword, keywordInput);
     onBackClick();
   };
@@ -107,8 +114,13 @@ export default function KeywordSettings({
             <Input
               id="keyword"
               value={keywordInput}
-              onChange={(e) => setKeywordInput(e.target.value)}
-              className="w-full border-transparent bg-secondary pr-10 text-base font-semibold text-secondary-foreground"
+              onChange={(e) => {
+                setKeywordInput(e.target.value);
+                if (error) setError('');
+              }}
+              className={`w-full border-transparent bg-secondary pr-10 text-base font-semibold text-secondary-foreground ${
+                error ? 'border-red-500' : ''
+              }`}
             />
             {keywordInput && (
               <Button
@@ -120,24 +132,24 @@ export default function KeywordSettings({
               </Button>
             )}
           </div>
+          {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
         {/* 카테고리 선택 */}
         <div className="space-y-1">
           <Label>카테고리 (중복 선택 가능)</Label>
           <MultiSelect
-            options={frameworksList}
-            onValueChange={setSelectedFrameworks}
-            defaultValue={selectedFrameworks}
+            options={CategoriesList}
+            onValueChange={setSelectedCategories}
+            defaultValue={selectedCategories}
             placeholder="카테고리를 선택하세요."
             variant="inverted"
-            animation={2}
             maxCount={3}
           />
         </div>
         {/* 지역 선택 */}
         <div className="space-y-2">
           <Label>지역</Label>
-          <Select>
+          <Select onValueChange={setSelectedLocation} value={selectedLocation}>
             <SelectTrigger className="w-60">
               <SelectValue placeholder="지역을 선택하세요." />
             </SelectTrigger>

@@ -54,7 +54,7 @@ export const NotificationsSection = () => {
               수신
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="keyword" className="relative min-h-[600px] overflow-hidden px-2">
+          <TabsContent value="keyword" className="relative min-h-[500px] overflow-hidden px-2">
             <div
               className={`absolute flex h-full w-[200%] transform transition-transform duration-300 ease-in-out ${
                 isSettingsVisible ? '-translate-x-1/2' : 'translate-x-0'

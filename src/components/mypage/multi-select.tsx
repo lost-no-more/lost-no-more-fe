@@ -240,7 +240,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
           onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
           <Command>
-            <CommandInput placeholder="Search..." onKeyDown={handleInputKeyDown} />
+            <CommandInput placeholder="카테고리 검색" onKeyDown={handleInputKeyDown} />
             <CommandList>
               <CommandEmpty>결과가 없습니다.</CommandEmpty>
               <CommandGroup>
