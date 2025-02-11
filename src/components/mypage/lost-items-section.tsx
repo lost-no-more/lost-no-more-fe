@@ -14,7 +14,6 @@ import LostCard from '../common/lost-card';
 export const LostItemsSection = () => {
   const [displayCount, setDisplayCount] = useState(8);
 
-  // 실제 환경에서는 API에서 데이터를 가져올 것입니다.
   const dummyData = Array.from({ length: 32 }).map((_, index) => ({
     id: index,
     name: `습득물 ${index + 1}`,

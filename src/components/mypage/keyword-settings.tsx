@@ -1,5 +1,6 @@
+'use client';
+
 import React, { useState } from 'react';
-import { ChevronLeft, X } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,7 +12,61 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { LostLocations } from '@/types/lost-property';
+import { LostLocations, LostCategories } from '@/types/lost-property';
+import { MultiSelect } from '@/components/mypage/multi-select';
+import {
+  ChevronLeft,
+  X,
+  Briefcase,
+  Gem,
+  Book,
+  FileText,
+  Package,
+  ShoppingBag,
+  Dumbbell,
+  Music,
+  DollarSign,
+  Shirt,
+  Car,
+  Smartphone,
+  Wallet,
+  ScrollText,
+  Monitor,
+  CreditCard,
+  Banknote,
+  Phone,
+  Box,
+} from 'lucide-react';
+
+const categoryIcons = {
+  가방: Briefcase,
+  귀금속: Gem,
+  도서용품: Book,
+  무주물: Package,
+  서류: FileText,
+  산업용품: Package,
+  쇼핑백: ShoppingBag,
+  스포츠용품: Dumbbell,
+  악기: Music,
+  유가증권: DollarSign,
+  의류: Shirt,
+  자동차: Car,
+  전자기기: Smartphone,
+  지갑: Wallet,
+  증명서: ScrollText,
+  컴퓨터: Monitor,
+  카트: CreditCard,
+  현금: Banknote,
+  휴대폰: Phone,
+  기타물품: Box,
+  유류품: Box,
+};
+
+const frameworksList = LostCategories.filter((category) => category !== '전체').map((category) => ({
+  value: category,
+  label: category,
+  icon: categoryIcons[category],
+}));
 
 interface KeywordSettingsProps {
   keyword: string;
@@ -25,6 +80,7 @@ export default function KeywordSettings({
   updateKeyword,
 }: KeywordSettingsProps) {
   const [keywordInput, setKeywordInput] = useState(keyword);
+  const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>(['react', 'angular']);
 
   const handleClearInput = () => {
     setKeywordInput('');
@@ -37,17 +93,15 @@ export default function KeywordSettings({
 
   return (
     <div className="h-full w-full">
-      {/* Header */}
       <div className="mb-6 flex items-center">
         <Button variant="ghost" onClick={onBackClick} className="mr-5 px-2">
           <ChevronLeft className="h-5 w-5" />
         </Button>
         <h2 className="text-xl font-semibold">알림 조건 설정</h2>
       </div>
-
-      {/* Content */}
       <div className="space-y-6">
-        <div className="space-y-2">
+        {/* 키워드 입력 */}
+        <div className="space-y-1">
           <Label htmlFor="keyword">키워드</Label>
           <div className="relative">
             <Input
@@ -67,6 +121,20 @@ export default function KeywordSettings({
             )}
           </div>
         </div>
+        {/* 카테고리 선택 */}
+        <div className="space-y-1">
+          <Label>카테고리 (중복 선택 가능)</Label>
+          <MultiSelect
+            options={frameworksList}
+            onValueChange={setSelectedFrameworks}
+            defaultValue={selectedFrameworks}
+            placeholder="카테고리를 선택하세요."
+            variant="inverted"
+            animation={2}
+            maxCount={3}
+          />
+        </div>
+        {/* 지역 선택 */}
         <div className="space-y-2">
           <Label>지역</Label>
           <Select>
