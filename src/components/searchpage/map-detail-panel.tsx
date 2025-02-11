@@ -1,4 +1,5 @@
 'use client';
+
 import { useMapPanelContext } from '@/contexts/map-panel-context';
 import useBoolean from '@/hooks/useBoolean';
 import { LostLocation } from '@/types/lost-property';
@@ -19,7 +20,7 @@ interface MapDetailPanelProps {
 
 export default function MapDetailPanel() {
   const { value: isLoading, setFalse: completeLoad } = useBoolean(true);
-  const { currentItemId } = useMapPanelContext();
+  const { currentItemId, closePanel } = useMapPanelContext();
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [acquisitionLocation, setAcquisitionLocation] = useState<LostLocation | null>(null);
@@ -61,7 +62,7 @@ export default function MapDetailPanel() {
   return (
     <div className="flex w-[540px] shrink-0 flex-col gap-3 bg-background">
       <div className="flex items-center gap-4 p-5 pb-0">
-        <button>
+        <button onClick={closePanel}>
           <ChevronLeftIcon size={24} color="hsl(var(--foreground))" />
         </button>
         {isLoading ? (
