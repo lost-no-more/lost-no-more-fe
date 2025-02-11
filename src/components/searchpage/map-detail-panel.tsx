@@ -2,7 +2,7 @@ import { LostLocation } from '@/types/lost-property';
 import { Building2Icon, CalendarIcon, ChevronLeftIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 import Image from 'next/image';
 
-interface MapDetailPannelProps {
+interface MapDetailPanelProps {
   name: string;
   image: string;
   acquisitionLocation: LostLocation;
@@ -12,7 +12,7 @@ interface MapDetailPannelProps {
   description: string;
 }
 
-export default function MapDetailPannel({
+export default function MapDetailPanel({
   name,
   image,
   acquisitionLocation,
@@ -20,7 +20,7 @@ export default function MapDetailPannel({
   storageLocation,
   contact,
   description,
-}: MapDetailPannelProps) {
+}: MapDetailPanelProps) {
   return (
     <div className="flex w-[540px] flex-col gap-3 bg-background">
       <div className="flex w-full items-center gap-4 p-5 pb-0">
