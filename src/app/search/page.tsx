@@ -1,6 +1,6 @@
 import Headerbar from '@/components/common/headerbar';
 import LostNoMoreMap from '@/components/searchpage/lost-no-more-map';
-import MapPannel from '@/components/searchpage/map-pannel';
+import MapPanel from '@/components/searchpage/map-panel';
 import { LostNoMoreMapProvider } from '@/contexts/lost-no-more-map-context';
 
 export default function SearchPage() {
@@ -8,7 +8,7 @@ export default function SearchPage() {
     <div className="flex h-screen w-full flex-col">
       <Headerbar />
       <div className="flex h-0 flex-1">
-        <MapPannel />
+        <MapPanel />
         <LostNoMoreMapProvider>
           <LostNoMoreMap />
         </LostNoMoreMapProvider>
