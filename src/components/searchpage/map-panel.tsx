@@ -2,6 +2,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import LostCard, { LostCardProps } from '../common/lost-card';
 import ListView from '../ui/list-view';
+import { useMapPanelContext } from '@/contexts/map-panel-context';
 
 const TOTAL_IDS = 100000;
 const CHUNK_SIZE = 15;
@@ -23,6 +24,7 @@ async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
 }
 
 export default function MapPanel() {
+  const { openPanel } = useMapPanelContext();
   const [items, setItems] = useState<LostCardProps[]>([]);
   const [cursor, setCursor] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
@@ -50,7 +52,7 @@ export default function MapPanel() {
         className="w-[314px] py-3 pl-5 pr-3.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
         items={items}
         itemHeight={291}
-        renderItem={(item) => <LostCard {...item} />}
+        renderItem={(item) => <LostCard {...item} onClick={openPanel} />}
         gap={16}
         loadMore={loadMore}
         isFetching={isFetching}
