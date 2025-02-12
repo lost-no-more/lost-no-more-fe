@@ -1,0 +1,46 @@
+name: Daily PR Summary
+on:
+  schedule:
+    # 매일 오전 9시에 실행 (UTC 0시 기준, 한국시간 09:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  pr_summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR List
+        id: pr-list
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            
+            if (prs.data.length === 0) {
+              return 'No open PRs today!';
+            }
+            
+            const prList = prs.data.map(pr => {
+              const createdAt = new Date(pr.created_at).toLocaleDateString('ko-KR');
+              return `- [${pr.title}](${pr.html_url})
+                링크: ${pr.html_url}
+                생성일: ${new Date(pr.created_at).toLocaleDateString('ko-KR')}
+                작성자: ${pr.user.login}
+                리뷰어: ${pr.requested_reviewers.map(r => r.login).join(', ') || '없음'}
+                브랜치: ${pr.head.ref} -> ${pr.base.ref}
+                커밋 수: ${pr.commits}
+                변경된 파일: ${pr.changed_files}개
+            }).join('\n');
+            
+            return `📋 현재 열려있는 PR 목록 (총 ${prs.data.length}개)\n\n${prList}`;
+
+      - name: Send to Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: ${{ steps.pr-list.outputs.result }}
