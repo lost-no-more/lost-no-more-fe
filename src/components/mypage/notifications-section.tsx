@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle, CardDescription, CardHeader } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardTitle,
+  CardDescription,
+  CardHeader,
+  CardFooter,
+} from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import KeywordInput from '@/components/mypage/keyword-input';
 import KeywordList from '@/components/mypage/keyword-list';
@@ -56,7 +63,7 @@ export const NotificationsSection = () => {
               수신
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="keyword" className="relative min-h-[500px] overflow-hidden px-2">
+          <TabsContent value="keyword" className="relative min-h-[480px] overflow-hidden px-2">
             <div
               className={`absolute flex h-full w-[200%] transform transition-transform duration-300 ease-in-out ${
                 isSettingsVisible ? '-translate-x-1/2' : 'translate-x-0'
@@ -100,11 +107,11 @@ export const NotificationsSection = () => {
               checked={emailNotification}
               onCheckedChange={setEmailNotification}
             />
-            <CardHeader className="p-0">
+            <CardFooter className="p-0">
               <Button className="mt-6 w-full" type="button">
                 알림 설정
               </Button>
-            </CardHeader>
+            </CardFooter>
           </TabsContent>
         </Tabs>
       </CardContent>

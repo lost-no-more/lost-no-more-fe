@@ -8,7 +8,7 @@ import { NotificationsSection } from '@/components/mypage/notifications-section'
 import { LocationsSection } from '@/components/mypage/location-section';
 
 export default function MyPage() {
-  const [activeSection, setActiveSection] = useState('locations');
+  const [activeSection, setActiveSection] = useState('losts');
 
   const renderContent = () => {
     switch (activeSection) {

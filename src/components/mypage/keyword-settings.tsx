@@ -164,9 +164,11 @@ export default function KeywordSettings({
             </SelectContent>
           </Select>
         </div>
-        <Button onClick={handleUpdateKeyword} className="w-full">
-          키워드 업데이트
-        </Button>
+        <div className="absolute bottom-0 left-1/2 right-0 bg-background p-6">
+          <Button onClick={handleUpdateKeyword} className="w-full">
+            키워드 업데이트
+          </Button>
+        </div>
       </div>
     </div>
   );
