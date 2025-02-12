@@ -27,8 +27,8 @@ export default function LostCard({
       <div className="absolute right-3 top-3 z-10 rounded-md bg-primary px-2.5 py-1.5 text-xs font-semibold text-background">
         {category}
       </div>
-      <div className="relative h-[165px] w-[270px]">
-        <Image src={image} alt={name} fill className="object-cover" />
+      <div data-cid="div-7cMEXT" className="relative h-[165px] w-[270px]">
+        <Image data-cid="Image-5lTzOJ" src={image} alt={name} fill className="object-cover" />
       </div>
       <div className="flex w-full flex-col border-t-2 border-solid border-border bg-background p-3">
         <h1 className="mb-3 truncate text-2xl font-extrabold text-foreground">{name}</h1>
