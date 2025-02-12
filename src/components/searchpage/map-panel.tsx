@@ -68,7 +68,12 @@ export default function MapPanel() {
         items={items}
         itemHeight={291}
         renderItem={(item) => (
-          <LostCard data-cid="LostCard-4Ro1Tz" {...item} onClick={() => onClickLostCard(item.id)} />
+          <LostCard
+            data-cid="LostCard-4Ro1Tz"
+            {...item}
+            onClick={() => onClickLostCard(item.id)}
+            key={item.id}
+          />
         )}
         renderEmpty={() => (
           <p

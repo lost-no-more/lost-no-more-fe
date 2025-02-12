@@ -7,10 +7,11 @@ export interface LostCardProps {
   category: string;
   location: string;
   acquisitionDate: string;
-  onClick?: () => void;
+  onClick?: (id: number) => void;
 }
 
 export default function LostCard({
+  id,
   name,
   image,
   category,
@@ -18,11 +19,15 @@ export default function LostCard({
   acquisitionDate,
   onClick,
 }: LostCardProps) {
+  const handleClick = () => {
+    onClick?.(id);
+  };
+
   return (
     <div
       data-cid="div-bALPd0"
       className="relative box-border flex w-[274px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-solid border-border"
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div
         data-cid="div-ldZOhI"
