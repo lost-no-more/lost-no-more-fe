@@ -2,6 +2,7 @@ import { Clock10Icon, MapPinIcon } from 'lucide-react';
 import Image from 'next/image';
 
 export interface LostCardProps {
+  id: number;
   name: string;
   image: string;
   category: string;

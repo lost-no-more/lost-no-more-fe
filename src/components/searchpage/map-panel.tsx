@@ -11,6 +11,7 @@ async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
     setTimeout(() => {
       resolve(
         ids.map((id) => ({
+          id,
           name: `분실물 ${id}`,
           image: 'https://sitem.ssgcdn.com/26/64/85/item/1000277856426_i1_750.jpg',
           category: '카테고리',
@@ -23,7 +24,7 @@ async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
 }
 
 export default function MapPanel() {
-  const { openPanel, lostItemIds } = useMapPanelContext();
+  const { openPanel, lostItemIds, setCurrentItemId } = useMapPanelContext();
   const [items, setItems] = useState<LostCardProps[]>([]);
   const [cursor, setCursor] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
@@ -45,6 +46,14 @@ export default function MapPanel() {
     setIsFetching(false);
   }, [cursor, isFetching, lostItemIds]);
 
+  const onClickLostCard = useCallback(
+    (id: number) => {
+      openPanel();
+      setCurrentItemId(id);
+    },
+    [openPanel, setCurrentItemId]
+  );
+
   return (
     <div className="flex h-full flex-col bg-background">
       <p className="w-full border-b border-solid border-border py-3.5 text-center text-base font-extrabold text-foreground">
@@ -54,7 +63,7 @@ export default function MapPanel() {
         className="w-[314px] py-3 pl-5 pr-3.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
         items={items}
         itemHeight={291}
-        renderItem={(item) => <LostCard {...item} onClick={openPanel} />}
+        renderItem={(item) => <LostCard {...item} onClick={() => onClickLostCard(item.id)} />}
         renderEmpty={() => (
           <p className="flex h-full w-full items-center justify-center text-sm text-foreground">
             분실물이 없습니다.
