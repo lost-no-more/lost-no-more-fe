@@ -52,6 +52,7 @@ const MapPanelProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <_MapPanelProvider
+      data-cid="_MapPanelProvider-Ryvoxw"
       lostItemIds={lostItemIds}
       setLostItemIds={setLostItemIds}
       currentItemId={currentItemId}

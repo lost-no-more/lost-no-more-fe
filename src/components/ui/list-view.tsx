@@ -52,15 +52,24 @@ export default function ListView<T>({
   });
 
   return (
-    <div ref={parentRef} className={cn('h-full w-full overflow-y-auto', className)}>
+    <div
+      data-cid="div-zEk15H"
+      ref={parentRef}
+      className={cn('h-full w-full overflow-y-auto', className)}
+    >
       {/* ✅ 데이터가 없고, 로딩 중이 아닐 때 renderEmpty 함수 실행 */}
       {!isFetching && items.length === 0 && renderEmpty?.()}
 
       {/* 리스트 렌더링 */}
       {items.length > 0 && (
-        <div className="relative w-full" style={{ height: `${virtualizer.getTotalSize()}px` }}>
+        <div
+          data-cid="div-mzA7a3"
+          className="relative w-full"
+          style={{ height: `${virtualizer.getTotalSize()}px` }}
+        >
           {virtualizer.getVirtualItems().map((virtualItem) => (
             <div
+              data-cid="div-hxLeDF"
               key={virtualItem.index}
               className="absolute left-0 top-0 w-full"
               style={{
@@ -76,14 +85,19 @@ export default function ListView<T>({
 
       {/* 데이터 로딩 중일 때 로딩 스켈레톤 */}
       {isFetching && (
-        <div className="flex flex-col" style={{ gap: `${gap}px` }}>
+        <div data-cid="div-3pjPzm" className="flex flex-col" style={{ gap: `${gap}px` }}>
           {Array.from({ length: 3 }).map((_, i) => (
-            <SkeletonView key={i} height={`${itemHeight}px`} width="100%" />
+            <SkeletonView
+              data-cid="SkeletonView-CQTjZi"
+              key={i}
+              height={`${itemHeight}px`}
+              width="100%"
+            />
           ))}
         </div>
       )}
       {/* 리스트뷰 끝에 도달했을 때 더 불러오기 */}
-      {isInfinite && loadMore && !isFetching && <div ref={loadMoreRef} />}
+      {isInfinite && loadMore && !isFetching && <div data-cid="div-BSdtZX" ref={loadMoreRef} />}
     </div>
   );
 }

@@ -17,7 +17,11 @@ export function buildContext<ContextValuesType extends object>(
       [...Object.values(contextValues)]
     ) as ContextValuesType;
 
-    return <Context.Provider value={value}>{children}</Context.Provider>;
+    return (
+      <Context.Provider data-cid="element-rzEYYH" value={value}>
+        {children}
+      </Context.Provider>
+    );
   }
 
   function useInnerContext() {

@@ -55,17 +55,26 @@ export default function MapPanel() {
   );
 
   return (
-    <div className="flex h-full flex-col bg-background">
-      <p className="w-full border-b border-solid border-border py-3.5 text-center text-base font-extrabold text-foreground">
+    <div data-cid="div-PqiLON" className="flex h-full flex-col bg-background">
+      <p
+        data-cid="p-xY5Jma"
+        className="w-full border-b border-solid border-border py-3.5 text-center text-base font-extrabold text-foreground"
+      >
         분실물 목록
       </p>
       <ListView
+        data-cid="ListView-Me66Iy"
         className="w-[314px] py-3 pl-5 pr-3.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
         items={items}
         itemHeight={291}
-        renderItem={(item) => <LostCard {...item} onClick={() => onClickLostCard(item.id)} />}
+        renderItem={(item) => (
+          <LostCard data-cid="LostCard-4Ro1Tz" {...item} onClick={() => onClickLostCard(item.id)} />
+        )}
         renderEmpty={() => (
-          <p className="flex h-full w-full items-center justify-center text-sm text-foreground">
+          <p
+            data-cid="p-YSUxFT"
+            className="flex h-full w-full items-center justify-center text-sm text-foreground"
+          >
             분실물이 없습니다.
           </p>
         )}

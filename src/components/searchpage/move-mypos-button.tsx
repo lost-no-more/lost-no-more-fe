@@ -14,13 +14,18 @@ export default function MoveMyPosButton({ className }: { className?: string }) {
 
   return (
     <button
+      data-cid="button-vhigTc"
       onClick={handleClick}
       className={cn(
         'border-1 group rounded-lg border-2 border-solid border-border bg-background p-2 hover:border-background hover:bg-foreground',
         className
       )}
     >
-      <NavigationIcon size={24} className="text-foreground group-hover:text-background" />
+      <NavigationIcon
+        data-cid="NavigationIcon-aJeze8"
+        size={24}
+        className="text-foreground group-hover:text-background"
+      />
     </button>
   );
 }

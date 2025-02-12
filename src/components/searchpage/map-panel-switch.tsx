@@ -10,10 +10,15 @@ export default function MapPanelSwitch() {
 
   return (
     <motion.div
+      data-cid="element-s8073a"
       animate={{ width: isPanelOpen ? 540 : 314 }}
       transition={{ duration: 0.4, ease: 'easeInOut' }}
     >
-      {isPanelOpen ? <MapDetailPanel /> : <MapPanel />}
+      {isPanelOpen ? (
+        <MapDetailPanel data-cid="MapDetailPanel-dMZEen" />
+      ) : (
+        <MapPanel data-cid="MapPanel-BdIICc" />
+      )}
     </motion.div>
   );
 }
