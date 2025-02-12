@@ -55,6 +55,11 @@ export default function MapPanel() {
         items={items}
         itemHeight={291}
         renderItem={(item) => <LostCard {...item} onClick={openPanel} />}
+        renderEmpty={() => (
+          <p className="flex h-full w-full items-center justify-center text-sm text-foreground">
+            분실물이 없습니다.
+          </p>
+        )}
         gap={16}
         loadMore={loadMore}
         isFetching={isFetching}
