@@ -1,10 +1,9 @@
 'use client';
-import { useState, useCallback, useMemo } from 'react';
-import LostCard, { LostCardProps } from '../common/lost-card';
-import ListView from '../ui/list-view';
+import { useState, useCallback, useEffect } from 'react';
+import LostCard, { LostCardProps } from '@/components/common/lost-card';
+import ListView from '@/components/ui/list-view';
 import { useMapPanelContext } from '@/contexts/map-panel-context';
 
-const TOTAL_IDS = 100000;
 const CHUNK_SIZE = 15;
 
 async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
@@ -24,24 +23,27 @@ async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
 }
 
 export default function MapPanel() {
-  const { openPanel } = useMapPanelContext();
+  const { openPanel, lostItemIds } = useMapPanelContext();
   const [items, setItems] = useState<LostCardProps[]>([]);
   const [cursor, setCursor] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
 
-  const mockIds = useMemo(() => Array.from({ length: TOTAL_IDS }, (_, i) => i + 1), []);
+  useEffect(() => {
+    setItems([]);
+    setCursor(0);
+  }, [lostItemIds]);
 
   const loadMore = useCallback(async () => {
-    if (isFetching || cursor >= mockIds.length) return;
+    if (isFetching || cursor >= lostItemIds.length) return;
     setIsFetching(true);
 
-    const nextIds = mockIds.slice(cursor, cursor + CHUNK_SIZE);
+    const nextIds = lostItemIds.slice(cursor, cursor + CHUNK_SIZE);
     const newItems = await fetchLostItems(nextIds);
 
     setItems((prev) => [...prev, ...newItems]);
     setCursor((prev) => prev + CHUNK_SIZE);
     setIsFetching(false);
-  }, [cursor, isFetching, mockIds]);
+  }, [cursor, isFetching, lostItemIds]);
 
   return (
     <div className="flex h-full flex-col bg-background">
