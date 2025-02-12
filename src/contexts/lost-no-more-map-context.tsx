@@ -36,6 +36,7 @@ const LostNoMoreMapProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <_LostNoMoreMapProvider
+      data-cid="_LostNoMoreMapProvider-q5NXTY"
       center={center}
       setCenter={setCenter}
       level={level}

@@ -20,8 +20,9 @@ export default function SearchLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <RootLayout>
+    <RootLayout data-cid="RootLayout-GEY06V">
       <Script
+        data-cid="Script-cqf34K"
         type="text/javascript"
         strategy="beforeInteractive"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4c94c5b2b00b891ab0cba39babe41050&libraries=clusterer,drawing&autoload=false"

@@ -93,6 +93,7 @@ export default function LostNoMoreMap() {
 
   return (
     <Map
+      data-cid="Map-zPKA6l"
       center={center}
       level={level}
       isPanto={true}
@@ -102,18 +103,27 @@ export default function LostNoMoreMap() {
       onCreate={(map) => (mapRef.current = map)}
       className="h-full w-full"
     >
-      <MarkerClusterer gridSize={250} onClusterclick={handleClusterClick} disableClickZoom={true}>
+      <MarkerClusterer
+        data-cid="MarkerClusterer-tCcELZ"
+        gridSize={250}
+        onClusterclick={handleClusterClick}
+        disableClickZoom={true}
+      >
         {visibleItems.map((item) => (
           <MapMarker
+            data-cid="MapMarker-PiXtl2"
             key={item.lostItemID}
             position={{ lat: item.latitude, lng: item.longitude }}
             onClick={() => handleMarkerClick(item)}
           />
         ))}
       </MarkerClusterer>
-      <div className="absolute bottom-10 right-10 z-10 flex items-center gap-2">
-        <MoveMyPosButton />
-        <ZoomController />
+      <div
+        data-cid="div-HXF63W"
+        className="absolute bottom-10 right-10 z-10 flex items-center gap-2"
+      >
+        <MoveMyPosButton data-cid="MoveMyPosButton-zxAiyB" />
+        <ZoomController data-cid="ZoomController-UIJLBM" />
       </div>
     </Map>
   );
