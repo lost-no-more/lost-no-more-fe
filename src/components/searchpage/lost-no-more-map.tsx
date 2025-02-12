@@ -6,11 +6,13 @@ import { useMemo, useRef, useCallback, useState } from 'react';
 import { debounce } from 'lodash';
 import ZoomController from './zoom-controller';
 import { LOSTITEMS_LOCATION } from '@/constants/lost-items';
+import { useMapPanelContext } from '@/contexts/map-panel-context';
 
 const MAP_REFRESH_DELAY = 500;
 
 export default function LostNoMoreMap() {
   const { center, setCenter, level } = useLostNoMoreMapContext();
+  const { setLostItemIds } = useMapPanelContext();
   const mapRef = useRef<kakao.maps.Map>(null);
 
   const handleCenterChanged = useMemo(
@@ -48,13 +50,14 @@ export default function LostNoMoreMap() {
     () =>
       debounce(() => {
         setVisibleItems(getVisibleItems());
+        setLostItemIds(getVisibleItems().map((item) => item.lostItemID));
       }, MAP_REFRESH_DELAY),
-    [getVisibleItems]
+    [getVisibleItems, setLostItemIds]
   );
 
   // 단일 마커 클릭 핸들러
   const handleMarkerClick = (item: (typeof LOSTITEMS_LOCATION)[0]) => {
-    console.log('클릭한 분실물 ID:', item.lostItemID);
+    setLostItemIds([item.lostItemID]);
   };
 
   // 클러스터 클릭 핸들러
@@ -85,8 +88,7 @@ export default function LostNoMoreMap() {
         return matchingItem?.lostItemID;
       })
       .filter((id): id is number => id !== undefined);
-
-    console.log('클러스터 내 분실물 ID 목록:', lostItemIDs);
+    setLostItemIds(lostItemIDs);
   };
 
   return (
