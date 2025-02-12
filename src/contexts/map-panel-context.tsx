@@ -2,7 +2,7 @@
 
 import useBoolean from '@/hooks/useBoolean';
 import { buildContext } from '@/lib/build-context';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /**
  * MapPanelContextProps
@@ -45,6 +45,10 @@ const MapPanelProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentItemId, setCurrentItemId] = useState<number>(0);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const { value: isPanelOpen, setTrue: openPanel, setFalse: closePanel } = useBoolean();
+
+  useEffect(() => {
+    console.log(lostItemIds);
+  }, [lostItemIds]);
 
   return (
     <_MapPanelProvider
