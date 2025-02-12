@@ -11,10 +11,10 @@ export default function SearchPage() {
       <div className="flex h-0 flex-1">
         <MapPanelProvider>
           <MapPanelSwitch />
+          <LostNoMoreMapProvider>
+            <LostNoMoreMap />
+          </LostNoMoreMapProvider>
         </MapPanelProvider>
-        <LostNoMoreMapProvider>
-          <LostNoMoreMap />
-        </LostNoMoreMapProvider>
       </div>
     </div>
   );
