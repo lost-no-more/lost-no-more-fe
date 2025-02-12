@@ -6,13 +6,13 @@ import { MapPanelProvider } from '@/contexts/map-panel-context';
 
 export default function SearchPage() {
   return (
-    <div className="flex h-screen w-full flex-col">
-      <Headerbar />
-      <div className="flex h-0 flex-1">
-        <MapPanelProvider>
-          <MapPanelSwitch />
-          <LostNoMoreMapProvider>
-            <LostNoMoreMap />
+    <div data-cid="div-4y5gnK" className="flex h-screen w-full flex-col">
+      <Headerbar data-cid="Headerbar-C7Nhit" />
+      <div data-cid="div-g6Hnk4" className="flex h-0 flex-1">
+        <MapPanelProvider data-cid="MapPanelProvider-IXs9xN">
+          <MapPanelSwitch data-cid="MapPanelSwitch-grWpHo" />
+          <LostNoMoreMapProvider data-cid="LostNoMoreMapProvider-bLJEWL">
+            <LostNoMoreMap data-cid="LostNoMoreMap-ue0XpN" />
           </LostNoMoreMapProvider>
         </MapPanelProvider>
       </div>
