@@ -14,7 +14,7 @@ interface KeywordSelectProps {
   onKeywordChange: (value: KeywordType) => void;
 }
 
-const KeywordSelect: React.FC<KeywordSelectProps> = ({ keyword, onKeywordChange }) => {
+export default function KeywordSelect({ keyword, onKeywordChange }: KeywordSelectProps) {
   return (
     <Select data-cid="Select-IgJdMr" onValueChange={onKeywordChange} value={keyword}>
       <SelectTrigger data-cid="SelectTrigger-ALC1hC" className="w-[200px]">
@@ -38,6 +38,4 @@ const KeywordSelect: React.FC<KeywordSelectProps> = ({ keyword, onKeywordChange 
       </SelectContent>
     </Select>
   );
-};
-
-export default KeywordSelect;
+}
