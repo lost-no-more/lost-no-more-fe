@@ -77,17 +77,24 @@ export const LostItemsSection: React.FC = () => {
   }, [page, keyword, fetchItems]);
 
   return (
-    <Card className="px-2">
-      <CardHeader>
-        <CardTitle className="text-xl">내 위치 설정</CardTitle>
-        <CardDescription className="text-muted-foreground">
+    <Card data-cid="Card-RbTpGu" className="px-2">
+      <CardHeader data-cid="CardHeader-nX7SoJ">
+        <CardTitle data-cid="CardTitle-94bbSD" className="text-xl">
+          내 위치 설정
+        </CardTitle>
+        <CardDescription data-cid="CardDescription-b2QfGu" className="text-muted-foreground">
           검색 시 기본적으로 적용되는 위치를 설정합니다.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <KeywordSelect keyword={keyword} onKeywordChange={handleKeywordChange} />
-        <div className="relative">
+      <CardContent data-cid="CardContent-WXes0R" className="space-y-6">
+        <KeywordSelect
+          data-cid="KeywordSelect-uab2EA"
+          keyword={keyword}
+          onKeywordChange={handleKeywordChange}
+        />
+        <div data-cid="div-VdaOTc" className="relative">
           <LostItemsGrid
+            data-cid="LostItemsGrid-nvNRTq"
             parentRef={parentRef}
             virtualizer={virtualizer}
             items={items}

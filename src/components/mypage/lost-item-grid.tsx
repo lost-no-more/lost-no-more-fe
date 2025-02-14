@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Virtualizer } from '@tanstack/react-virtual';
+import { Loader2 } from 'lucide-react';
 import LostCard from '../common/lost-card';
 import { LostItem } from '@/utils/data';
 
@@ -49,18 +50,34 @@ const LostItemsGrid: React.FC<LostItemsGridProps> = ({
     }
   }, [items]);
 
+  if (loading && items.length === 0) {
+    return (
+      <div data-cid="div-3210fP" className="flex h-[550px] items-center justify-center">
+        <Loader2 data-cid="Loader2-WqHRBa" className="h-12 w-12 animate-spin text-gray-500" />
+      </div>
+    );
+  }
+
   if (!loading && items.length === 0) {
     return (
-      <div className="flex h-[550px] items-center justify-center">
-        <div className="text-center text-gray-500">검색 결과가 없습니다.</div>
+      <div data-cid="div-3210fP" className="flex h-[550px] items-center justify-center">
+        <div data-cid="div-KGEsHc" className="text-center text-gray-500">
+          검색 결과가 없습니다.
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="relative h-[550px] w-[1200px]">
-      <div ref={parentRef} className="h-full w-full overflow-auto" onScroll={handleScroll}>
+    <div data-cid="div-43Q86L" className="relative h-[550px] w-[1200px]">
+      <div
+        data-cid="div-EmHoih"
+        ref={parentRef}
+        className="h-full w-full overflow-auto"
+        onScroll={handleScroll}
+      >
         <div
+          data-cid="div-PAsBJZ"
           ref={contentRef}
           className="relative w-full"
           style={{
@@ -76,6 +93,7 @@ const LostItemsGrid: React.FC<LostItemsGridProps> = ({
 
             return (
               <div
+                data-cid="div-D2hVem"
                 key={virtualRow.key}
                 className="absolute left-0 grid w-full grid-cols-4 gap-4"
                 style={{
@@ -85,8 +103,9 @@ const LostItemsGrid: React.FC<LostItemsGridProps> = ({
                 }}
               >
                 {rowItems.map((item) => (
-                  <div key={item.id} className="h-64 w-full">
+                  <div data-cid="div-pfcHX7" key={item.id} className="h-64 w-full">
                     <LostCard
+                      data-cid="LostCard-wP3iVF"
                       name={item.name}
                       image={item.image}
                       category={item.category}
