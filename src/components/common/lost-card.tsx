@@ -1,3 +1,5 @@
+'use client';
+
 import { Clock10Icon, MapPinIcon } from 'lucide-react';
 import Image from 'next/image';
 
