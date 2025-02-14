@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardTitle, CardHeader, CardDescription } from '@/components/ui/card';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -11,7 +13,7 @@ const CARD_HEIGHT = 256;
 const GRID_GAP = 32;
 const COLUMNS = 4;
 
-export const LostItemsSection: React.FC = () => {
+export function LostItemsSection() {
   const [keyword, setKeyword] = useState<KeywordType>('all');
   const [items, setItems] = useState<LostItem[]>([]);
   const [page, setPage] = useState(1);
@@ -25,27 +27,16 @@ export const LostItemsSection: React.FC = () => {
     getScrollElement: () => parentRef.current,
     estimateSize: () => CARD_HEIGHT + GRID_GAP,
     overscan: 1,
-    horizontal: false,
   });
 
-  const handleScroll = useCallback(
-    (e: React.UIEvent<HTMLDivElement>) => {
-      if (loading || !hasMore) return;
-
-      const target = e.target as HTMLDivElement;
-      const isNearBottom = target.scrollHeight - target.scrollTop - target.clientHeight < 50;
-
-      if (isNearBottom) {
-        setPage((prev) => prev + 1);
-      }
-    },
-    [loading, hasMore]
-  );
+  const handleLoadMore = useCallback(() => {
+    if (loading || !hasMore) return;
+    setPage((prev) => prev + 1);
+  }, [loading, hasMore]);
 
   const fetchItems = useCallback(async () => {
     try {
       setLoading(true);
-
       const limit = page === 1 ? INITIAL_ITEMS_COUNT : ITEMS_PER_LOAD;
       const data = await fetchDummyData(keyword, page, limit);
 
@@ -80,10 +71,10 @@ export const LostItemsSection: React.FC = () => {
     <Card data-cid="Card-RbTpGu" className="px-2">
       <CardHeader data-cid="CardHeader-nX7SoJ">
         <CardTitle data-cid="CardTitle-94bbSD" className="text-xl">
-          내 위치 설정
+          분실물 알림 리스트
         </CardTitle>
         <CardDescription data-cid="CardDescription-b2QfGu" className="text-muted-foreground">
-          검색 시 기본적으로 적용되는 위치를 설정합니다.
+          등록한 키워드에 해당하는 분실물 알림 리스트입니다.
         </CardDescription>
       </CardHeader>
       <CardContent data-cid="CardContent-WXes0R" className="space-y-6">
@@ -99,10 +90,10 @@ export const LostItemsSection: React.FC = () => {
             virtualizer={virtualizer}
             items={items}
             loading={loading}
-            onScroll={handleScroll}
+            onLoadMore={handleLoadMore}
           />
         </div>
       </CardContent>
     </Card>
   );
-};
+}
