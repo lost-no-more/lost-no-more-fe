@@ -1,13 +1,13 @@
 'use client';
 
-import { format, subDays } from 'date-fns';
+import { format, subDays, isAfter } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';
 import { CalendarIcon } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface DateRangePickerProps {
@@ -25,6 +25,8 @@ export function DateRangePicker({ className, onChange }: DateRangePickerProps) {
     setDate(range);
     onChange?.(range);
   };
+
+  const today = useMemo(() => new Date(), []);
 
   return (
     <div data-cid="div-ZsdQPV" className={cn('grid gap-2', className)}>
@@ -66,6 +68,7 @@ export function DateRangePicker({ className, onChange }: DateRangePickerProps) {
             defaultMonth={date?.from}
             selected={date}
             onSelect={handleSelect}
+            disabled={(date) => isAfter(date, today)}
           />
         </PopoverContent>
       </Popover>
