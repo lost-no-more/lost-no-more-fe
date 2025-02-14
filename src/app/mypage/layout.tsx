@@ -12,5 +12,5 @@ export default function SearchLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <RootLayout>{children}</RootLayout>;
+  return <RootLayout data-cid="RootLayout-xWayzS">{children}</RootLayout>;
 }
