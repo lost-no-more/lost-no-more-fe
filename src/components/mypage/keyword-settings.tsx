@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { LostLocations, LostCategories } from '@/types/lost-property';
+import { LostLocations, LostCategories, LostLocation, LostCategory } from '@/types/lost-property';
 import { MultiSelect } from '@/components/mypage/multi-select';
 import {
   ChevronLeft,
@@ -80,8 +80,8 @@ export default function KeywordSettings({
   updateKeyword,
 }: KeywordSettingsProps) {
   const [keywordInput, setKeywordInput] = useState(keyword);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [selectedCategories, setSelectedCategories] = useState<LostCategory[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<LostLocation>('전체');
   const [error, setError] = useState<string>('');
 
   const handleClearInput = () => {
@@ -155,7 +155,7 @@ export default function KeywordSettings({
           <MultiSelect
             data-cid="MultiSelect-IvwCZx"
             options={CategoriesList}
-            onValueChange={setSelectedCategories}
+            onValueChange={(values: string[]) => setSelectedCategories(values as LostCategory[])}
             defaultValue={selectedCategories}
             placeholder="카테고리를 선택하세요."
             variant="inverted"
@@ -167,7 +167,7 @@ export default function KeywordSettings({
           <Label data-cid="Label-bwIB6C">지역</Label>
           <Select
             data-cid="Select-vPXXWS"
-            onValueChange={setSelectedLocation}
+            onValueChange={(value: string) => setSelectedLocation(value as LostLocation)}
             value={selectedLocation}
           >
             <SelectTrigger data-cid="SelectTrigger-cPNMqJ" className="w-60">
