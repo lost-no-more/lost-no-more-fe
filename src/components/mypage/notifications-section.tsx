@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -88,7 +90,7 @@ export const NotificationsSection = () => {
                     data-cid="CardDescription-0hTxrh"
                     className="text-muted-foreground"
                   >
-                    검색 시 기본적으로 적용되는 위치를 설정합니다.
+                    분실물 알림을 받을 키워드를 설정합니다.
                   </CardDescription>
                 </CardHeader>
                 <KeywordInput data-cid="KeywordInput-MFRnLi" addKeyword={addKeyword} />
