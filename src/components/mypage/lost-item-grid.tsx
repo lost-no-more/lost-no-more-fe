@@ -6,7 +6,7 @@ import { LostItem } from '@/utils/data';
 
 interface LostItemsGridProps {
   parentRef: React.RefObject<HTMLDivElement | null>;
-  virtualizer: Virtualizer<any, any>;
+  virtualizer: Virtualizer<HTMLDivElement, Element>;
   items: LostItem[];
   loading: boolean;
   onScroll: (e: React.UIEvent<HTMLDivElement>) => void;
@@ -48,7 +48,7 @@ const LostItemsGrid: React.FC<LostItemsGridProps> = ({
         }
       });
     }
-  }, [items]);
+  }, [items, parentRef]);
 
   if (loading && items.length === 0) {
     return (

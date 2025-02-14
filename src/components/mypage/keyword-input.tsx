@@ -23,15 +23,20 @@ export default function KeywordInput({ addKeyword }: KeywordInputProps) {
   };
 
   return (
-    <div className="my-4 flex">
+    <div data-cid="div-LYA5VH" className="my-4 flex">
       <Input
+        data-cid="Input-3tuxxd"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         onKeyDown={handleKeyPress}
         placeholder="키워드 입력"
         className="mr-4 h-12 flex-1"
       />
-      <Button className="h-12 w-20 text-base font-semibold" onClick={handleAdd}>
+      <Button
+        data-cid="Button-7b5cof"
+        className="h-12 w-20 text-base font-semibold"
+        onClick={handleAdd}
+      >
         등록
       </Button>
     </div>

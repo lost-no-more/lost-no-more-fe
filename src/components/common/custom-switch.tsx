@@ -23,18 +23,29 @@ export default function CustomSwitch({
 
   return (
     <div
+      data-cid="div-OTrjVn"
       className={cn(
         'flex items-center justify-between rounded-lg border bg-card p-4 shadow-sm',
         className
       )}
     >
-      <div className="space-y-0.5">
-        <Label htmlFor={id} className="text-lg font-semibold">
+      <div data-cid="div-Gj7RSD" className="space-y-0.5">
+        <Label data-cid="Label-YxL59i" htmlFor={id} className="text-lg font-semibold">
           {title}
         </Label>
-        {description && <p className="text-sm text-muted-foreground">{description}</p>}
+        {description && (
+          <p data-cid="p-9aLXTF" className="text-sm text-muted-foreground">
+            {description}
+          </p>
+        )}
       </div>
-      <Switch id={id} checked={checked} onCheckedChange={onCheckedChange} disabled={disabled} />
+      <Switch
+        data-cid="Switch-P3pujw"
+        id={id}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        disabled={disabled}
+      />
     </div>
   );
 }

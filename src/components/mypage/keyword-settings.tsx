@@ -99,19 +99,29 @@ export default function KeywordSettings({
   };
 
   return (
-    <div className="h-full w-full">
-      <div className="mb-6 flex items-center">
-        <Button variant="ghost" onClick={onBackClick} className="mr-5 px-2">
-          <ChevronLeft className="h-5 w-5" />
+    <div data-cid="div-Wkjgj6" className="h-full w-full">
+      <div data-cid="div-4ABR7F" className="mb-6 flex items-center">
+        <Button
+          data-cid="Button-Iz2qRm"
+          variant="ghost"
+          onClick={onBackClick}
+          className="mr-5 px-2"
+        >
+          <ChevronLeft data-cid="ChevronLeft-misItb" className="h-5 w-5" />
         </Button>
-        <h2 className="text-xl font-semibold">알림 조건 설정</h2>
+        <h2 data-cid="h2-vsq2iO" className="text-xl font-semibold">
+          알림 조건 설정
+        </h2>
       </div>
-      <div className="space-y-6">
+      <div data-cid="div-nJYlvI" className="space-y-6">
         {/* 키워드 입력 */}
-        <div className="space-y-1">
-          <Label htmlFor="keyword">키워드</Label>
-          <div className="relative">
+        <div data-cid="div-1q1MgV" className="space-y-1">
+          <Label data-cid="Label-nxEyOn" htmlFor="keyword">
+            키워드
+          </Label>
+          <div data-cid="div-GhaC4u" className="relative">
             <Input
+              data-cid="Input-4TjID6"
               id="keyword"
               value={keywordInput}
               onChange={(e) => {
@@ -124,20 +134,26 @@ export default function KeywordSettings({
             />
             {keywordInput && (
               <Button
+                data-cid="Button-7PVCjI"
                 variant="ghost"
                 onClick={handleClearInput}
                 className="absolute right-0 top-1/2 -translate-y-1/2 transform py-2 text-secondary-foreground"
               >
-                <X className="h-4 w-4" />
+                <X data-cid="X-OukHaI" className="h-4 w-4" />
               </Button>
             )}
           </div>
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && (
+            <p data-cid="p-uo1byx" className="text-sm text-red-500">
+              {error}
+            </p>
+          )}
         </div>
         {/* 카테고리 선택 */}
-        <div className="space-y-1">
-          <Label>카테고리 (중복 선택 가능)</Label>
+        <div data-cid="div-BRP89u" className="space-y-1">
+          <Label data-cid="Label-gteKDa">카테고리 (중복 선택 가능)</Label>
           <MultiSelect
+            data-cid="MultiSelect-IvwCZx"
             options={CategoriesList}
             onValueChange={setSelectedCategories}
             defaultValue={selectedCategories}
@@ -147,16 +163,20 @@ export default function KeywordSettings({
           />
         </div>
         {/* 지역 선택 */}
-        <div className="space-y-2">
-          <Label>지역</Label>
-          <Select onValueChange={setSelectedLocation} value={selectedLocation}>
-            <SelectTrigger className="w-60">
-              <SelectValue placeholder="지역을 선택하세요." />
+        <div data-cid="div-WtwYbE" className="space-y-2">
+          <Label data-cid="Label-bwIB6C">지역</Label>
+          <Select
+            data-cid="Select-vPXXWS"
+            onValueChange={setSelectedLocation}
+            value={selectedLocation}
+          >
+            <SelectTrigger data-cid="SelectTrigger-cPNMqJ" className="w-60">
+              <SelectValue data-cid="SelectValue-ZrQ2fG" placeholder="지역을 선택하세요." />
             </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
+            <SelectContent data-cid="SelectContent-w0AmLa">
+              <SelectGroup data-cid="SelectGroup-EvrfT8">
                 {LostLocations.map((loc) => (
-                  <SelectItem key={loc} value={loc}>
+                  <SelectItem data-cid="SelectItem-a6XZ00" key={loc} value={loc}>
                     {loc}
                   </SelectItem>
                 ))}
@@ -164,8 +184,8 @@ export default function KeywordSettings({
             </SelectContent>
           </Select>
         </div>
-        <div className="absolute bottom-0 left-1/2 right-0 bg-background p-6">
-          <Button onClick={handleUpdateKeyword} className="w-full">
+        <div data-cid="div-aJ5mhT" className="absolute bottom-0 left-1/2 right-0 bg-background p-6">
+          <Button data-cid="Button-1TvAR6" onClick={handleUpdateKeyword} className="w-full">
             키워드 업데이트
           </Button>
         </div>

@@ -160,9 +160,15 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
     };
 
     return (
-      <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen} modal={modalPopover}>
-        <PopoverTrigger asChild>
+      <Popover
+        data-cid="Popover-7R27TP"
+        open={isPopoverOpen}
+        onOpenChange={setIsPopoverOpen}
+        modal={modalPopover}
+      >
+        <PopoverTrigger data-cid="PopoverTrigger-HKHRML" asChild>
           <Button
+            data-cid="Button-sNG4mI"
             ref={ref}
             {...props}
             onClick={handleTogglePopover}
@@ -172,20 +178,24 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             )}
           >
             {selectedValues.length > 0 ? (
-              <div className="flex w-full items-center justify-between">
-                <div className="flex flex-wrap items-center">
+              <div data-cid="div-ybGn7k" className="flex w-full items-center justify-between">
+                <div data-cid="div-HZVPEm" className="flex flex-wrap items-center">
                   {selectedValues.slice(0, maxCount).map((value) => {
                     const option = options.find((o) => o.value === value);
                     const IconComponent = option?.icon;
                     return (
                       <Badge
+                        data-cid="Badge-eaJIK9"
                         key={value}
                         className={cn(multiSelectVariants({ variant }))}
                         style={{ animationDuration: `${animation}s` }}
                       >
-                        {IconComponent && <IconComponent className="mr-2 h-4 w-4" />}
+                        {IconComponent && (
+                          <IconComponent data-cid="IconComponent-VaOlSF" className="mr-2 h-4 w-4" />
+                        )}
                         {option?.label}
                         <XCircle
+                          data-cid="XCircle-t2XweB"
                           className="ml-2 h-4 w-4 cursor-pointer"
                           onClick={(event) => {
                             event.stopPropagation();
@@ -197,6 +207,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   })}
                   {selectedValues.length > maxCount && (
                     <Badge
+                      data-cid="Badge-mYITSW"
                       className={cn(
                         'border-foreground/1 bg-transparent text-foreground hover:bg-transparent',
                         multiSelectVariants({ variant })
@@ -205,6 +216,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     >
                       {`+ ${selectedValues.length - maxCount} 더보기`}
                       <XCircle
+                        data-cid="XCircle-kndb88"
                         className="ml-2 h-4 w-4 cursor-pointer"
                         onClick={(event) => {
                           event.stopPropagation();
@@ -214,38 +226,65 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     </Badge>
                   )}
                 </div>
-                <div className="flex items-center justify-between">
+                <div data-cid="div-VQnNrh" className="flex items-center justify-between">
                   <XIcon
+                    data-cid="XIcon-2RbT31"
                     className="mx-2 h-4 cursor-pointer text-muted-foreground"
                     onClick={(event) => {
                       event.stopPropagation();
                       handleClear();
                     }}
                   />
-                  <Separator orientation="vertical" className="flex h-full min-h-6" />
-                  <ChevronDown className="mx-2 h-4 cursor-pointer text-muted-foreground" />
+                  <Separator
+                    data-cid="Separator-UfsKAy"
+                    orientation="vertical"
+                    className="flex h-full min-h-6"
+                  />
+                  <ChevronDown
+                    data-cid="ChevronDown-2vFbcm"
+                    className="mx-2 h-4 cursor-pointer text-muted-foreground"
+                  />
                 </div>
               </div>
             ) : (
-              <div className="mx-auto flex w-full items-center justify-between">
-                <span className="mx-3 text-sm text-muted-foreground">{placeholder}</span>
-                <ChevronDown className="mx-2 h-4 cursor-pointer text-muted-foreground" />
+              <div
+                data-cid="div-MrzfoB"
+                className="mx-auto flex w-full items-center justify-between"
+              >
+                <span data-cid="span-JmZwsP" className="mx-3 text-sm text-muted-foreground">
+                  {placeholder}
+                </span>
+                <ChevronDown
+                  data-cid="ChevronDown-kHB4Gp"
+                  className="mx-2 h-4 cursor-pointer text-muted-foreground"
+                />
               </div>
             )}
           </Button>
         </PopoverTrigger>
         <PopoverContent
+          data-cid="PopoverContent-1Hac99"
           className="w-auto p-0"
           align="start"
           onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
-          <Command>
-            <CommandInput placeholder="카테고리 검색" onKeyDown={handleInputKeyDown} />
-            <CommandList>
-              <CommandEmpty>결과가 없습니다.</CommandEmpty>
-              <CommandGroup>
-                <CommandItem key="all" onSelect={toggleAll} className="cursor-pointer">
+          <Command data-cid="Command-AA83hw">
+            <CommandInput
+              data-cid="CommandInput-EUhRwH"
+              placeholder="카테고리 검색"
+              onKeyDown={handleInputKeyDown}
+            />
+            <CommandList data-cid="CommandList-M1rkvu">
+              <CommandEmpty data-cid="CommandEmpty-2ybgZR">결과가 없습니다.</CommandEmpty>
+              <CommandGroup data-cid="CommandGroup-REq4AO">
+                <CommandItem
+                  data-cid="CommandItem-rMXYKi"
+                  key="all"
+                  onSelect={toggleAll}
+                  className="cursor-pointer"
+                >
                   <div
+                    data-cid="div-CQA6OD"
                     className={cn(
                       'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
                       selectedValues.length === options.length
@@ -253,19 +292,21 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                         : 'opacity-50 [&_svg]:invisible'
                     )}
                   >
-                    <CheckIcon className="h-4 w-4" />
+                    <CheckIcon data-cid="CheckIcon-cCB4Kd" className="h-4 w-4" />
                   </div>
-                  <span>(전체 선택)</span>
+                  <span data-cid="span-PqQr4z">(전체 선택)</span>
                 </CommandItem>
                 {options.map((option) => {
                   const isSelected = selectedValues.includes(option.value);
                   return (
                     <CommandItem
+                      data-cid="CommandItem-QpGF1X"
                       key={option.value}
                       onSelect={() => toggleOption(option.value)}
                       className="cursor-pointer"
                     >
                       <div
+                        data-cid="div-ca8qLf"
                         className={cn(
                           'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
                           isSelected
@@ -273,31 +314,40 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                             : 'opacity-50 [&_svg]:invisible'
                         )}
                       >
-                        <CheckIcon className="h-4 w-4" />
+                        <CheckIcon data-cid="CheckIcon-ldbNSh" className="h-4 w-4" />
                       </div>
                       {option.icon && (
-                        <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                        <option.icon
+                          data-cid="element-q9o7OQ"
+                          className="mr-2 h-4 w-4 text-muted-foreground"
+                        />
                       )}
-                      <span>{option.label}</span>
+                      <span data-cid="span-tYLM5c">{option.label}</span>
                     </CommandItem>
                   );
                 })}
               </CommandGroup>
-              <CommandSeparator />
-              <CommandGroup>
-                <div className="flex items-center justify-between">
+              <CommandSeparator data-cid="CommandSeparator-JfSOZI" />
+              <CommandGroup data-cid="CommandGroup-tXEnKq">
+                <div data-cid="div-f36h7y" className="flex items-center justify-between">
                   {selectedValues.length > 0 && (
                     <>
                       <CommandItem
+                        data-cid="CommandItem-6Z7t5T"
                         onSelect={handleClear}
                         className="flex-1 cursor-pointer justify-center"
                       >
                         모두 해제
                       </CommandItem>
-                      <Separator orientation="vertical" className="flex h-full min-h-6" />
+                      <Separator
+                        data-cid="Separator-5ANRYi"
+                        orientation="vertical"
+                        className="flex h-full min-h-6"
+                      />
                     </>
                   )}
                   <CommandItem
+                    data-cid="CommandItem-vhAVr8"
                     onSelect={() => setIsPopoverOpen(false)}
                     className="max-w-full flex-1 cursor-pointer justify-center"
                   >
