@@ -1,5 +1,12 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { MapPin, Bell, CircleHelp, ChevronRight } from 'lucide-react';
+import { SectionType } from '@/types/section';
+
+interface menuItems {
+  id: SectionType;
+  label: string;
+  icon: React.ReactNode;
+}
 
 const menuItems = [
   {
