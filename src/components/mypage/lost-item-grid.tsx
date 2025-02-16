@@ -35,6 +35,7 @@ export default function LostItemsGrid({
         location={item.location}
         acquisitionDate={item.acquisitionDate}
         size="md"
+        id={0}
       />
     </div>
   );
