@@ -1,7 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+
+import { MapPinIcon, SearchIcon, TagIcon } from 'lucide-react';
+
+import { LostCategories, LostCategory, LostLocation, LostLocations } from '@/types/lost-property';
+
 import IconInput from '@/components/common/icon-input';
-import SearchIcon from '../icons/search-icon';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,9 +34,8 @@ export default function SearchArea() {
           icon: () => (
             <SearchIcon
               data-cid="SearchIcon-aPbBrs"
-              width={32}
-              height={32}
-              fill="hsl(var(--secondary-foreground))"
+              size={32}
+              color="hsl(var(--secondary-foreground))"
             />
           ),
           input: () => (
@@ -52,12 +57,11 @@ export default function SearchArea() {
               data-cid="IconInput-FSS8M4"
               slots={{
                 icon: () => (
-                  <LocationIcon
-                    data-cid="LocationIcon-zVGa6c"
-                    width={31.61}
-                    height={28}
-                    fill="hsl(var(--secondary-foreground))"
-                  />
+                  <MapPinIcon
+                    data-cid="MapPinIcon-o8GI4E"
+                    size={32}
+                    color="hsl(var(--secondary-foreground))"
+                  ></MapPinIcon>
                 ),
                 input: () => (
                   <p data-cid="p-VaXtRF" className="w-full bg-background text-start">
@@ -90,11 +94,10 @@ export default function SearchArea() {
               data-cid="IconInput-eIm1t2"
               slots={{
                 icon: () => (
-                  <CategoryIcon
-                    data-cid="CategoryIcon-MdHaZD"
-                    width={31.61}
-                    height={28}
-                    fill="hsl(var(--secondary-foreground))"
+                  <TagIcon
+                    data-cid="TagIcon-MdHaZD"
+                    size={32}
+                    color="hsl(var(--secondary-foreground))"
                   />
                 ),
                 input: () => (
