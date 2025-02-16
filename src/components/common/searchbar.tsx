@@ -14,11 +14,7 @@ export default function Searchbar() {
       className="flex w-96 items-center gap-2 rounded-lg bg-background px-3 py-2.5"
     >
       <button data-cid="button-AoeBMA">
-        <SearchIcon
-          data-cid="SearchIcon-rg3Mtd"
-          size={20}
-          color="hsl(var(--primary))"
-        />
+        <SearchIcon data-cid="SearchIcon-rg3Mtd" size={20} color="hsl(var(--primary))" />
       </button>
       <input
         data-cid="input-xsnCOm"
@@ -27,10 +23,7 @@ export default function Searchbar() {
         className="w-full text-start text-base"
         placeholder="분실물 검색"
       />
-      <div
-        data-cid="div-7UNXRe"
-        className="flex items-center justify-center gap-6"
-      ></div>
+      <div data-cid="div-7UNXRe" className="flex items-center justify-center gap-6"></div>
     </div>
   );
 }

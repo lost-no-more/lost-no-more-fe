@@ -18,10 +18,7 @@ export function buildContext<ContextValuesType extends object>(
     ) as ContextValuesType;
 
     return (
-      <Context.Provider
-        data-cid="element-rzEYYH"
-        value={value}
-      >
+      <Context.Provider data-cid="element-rzEYYH" value={value}>
         {children}
       </Context.Provider>
     );

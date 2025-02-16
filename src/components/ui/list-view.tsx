@@ -90,11 +90,7 @@ export default function ListView<T>({
 
       {/* 데이터 로딩 중일 때 로딩 스켈레톤 */}
       {isFetching && (
-        <div
-          data-cid="div-3pjPzm"
-          className="flex flex-col"
-          style={{ gap: `${gap}px` }}
-        >
+        <div data-cid="div-3pjPzm" className="flex flex-col" style={{ gap: `${gap}px` }}>
           {Array.from({ length: 3 }).map((_, i) => (
             <SkeletonView
               data-cid="SkeletonView-CQTjZi"
@@ -106,12 +102,7 @@ export default function ListView<T>({
         </div>
       )}
       {/* 리스트뷰 끝에 도달했을 때 더 불러오기 */}
-      {isInfinite && loadMore && !isFetching && (
-        <div
-          data-cid="div-BSdtZX"
-          ref={loadMoreRef}
-        />
-      )}
+      {isInfinite && loadMore && !isFetching && <div data-cid="div-BSdtZX" ref={loadMoreRef} />}
     </div>
   );
 }

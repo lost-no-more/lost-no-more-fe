@@ -24,10 +24,7 @@ export default function SearchbarBanner() {
               </h1>
             </div>
           </Link>
-          <div
-            data-cid="div-6R7jNw"
-            className="flex items-center gap-4"
-          >
+          <div data-cid="div-6R7jNw" className="flex items-center gap-4">
             <NotificationPopover data-cid="NotificationPopover-aluuHf" />
             <UserButton data-cid="UserButton-dmwzgv" />
           </div>

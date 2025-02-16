@@ -65,18 +65,9 @@ export default function MapDetailPanel() {
   }, [completeLoad, currentItemId, fetchLostItem]);
 
   return (
-    <div
-      data-cid="div-5jn1Yx"
-      className="flex w-[540px] shrink-0 flex-col gap-3 bg-background"
-    >
-      <div
-        data-cid="div-GUmcM8"
-        className="flex items-center gap-4 p-5 pb-0"
-      >
-        <button
-          data-cid="button-VEsfFl"
-          onClick={closePanel}
-        >
+    <div data-cid="div-5jn1Yx" className="flex w-[540px] shrink-0 flex-col gap-3 bg-background">
+      <div data-cid="div-GUmcM8" className="flex items-center gap-4 p-5 pb-0">
+        <button data-cid="button-VEsfFl" onClick={closePanel}>
           <ChevronLeftIcon
             data-cid="ChevronLeftIcon-KyIyn4"
             size={24}
@@ -84,16 +75,9 @@ export default function MapDetailPanel() {
           />
         </button>
         {isLoading ? (
-          <SkeletonView
-            data-cid="SkeletonView-ulSGZB"
-            width="100%"
-            height="32px"
-          />
+          <SkeletonView data-cid="SkeletonView-ulSGZB" width="100%" height="32px" />
         ) : (
-          <p
-            data-cid="p-cH7HOE"
-            className="text-2xl font-extrabold"
-          >
+          <p data-cid="p-cH7HOE" className="text-2xl font-extrabold">
             {name}
           </p>
         )}
@@ -103,16 +87,9 @@ export default function MapDetailPanel() {
         className="h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
         style={{ scrollbarGutter: 'stable' }}
       >
-        <div
-          data-cid="div-LLgC7p"
-          className="flex flex-col gap-3 p-5 pr-3.5 pt-0"
-        >
+        <div data-cid="div-LLgC7p" className="flex flex-col gap-3 p-5 pr-3.5 pt-0">
           {isLoading ? (
-            <SkeletonView
-              data-cid="SkeletonView-ESfADW"
-              width="500px"
-              height="285px"
-            />
+            <SkeletonView data-cid="SkeletonView-ESfADW" width="500px" height="285px" />
           ) : (
             <Image
               data-cid="Image-LvEZdu"
@@ -128,147 +105,72 @@ export default function MapDetailPanel() {
             data-cid="div-y4NWco"
             className="flex flex-col gap-1 rounded-xl border-2 border-solid border-border bg-background p-3"
           >
-            <p
-              data-cid="p-sPCAjr"
-              className="text-lg font-bold"
-            >
+            <p data-cid="p-sPCAjr" className="text-lg font-bold">
               습득물 정보
             </p>
-            <div
-              data-cid="div-2xf1Yr"
-              className="flex items-center gap-2"
-            >
-              <MapPinIcon
-                data-cid="MapPinIcon-MZ4lNL"
-                size={18}
-                color="hsl(var(--foreground))"
-              />
-              <div
-                data-cid="div-IpfA5w"
-                className="flex flex-col gap-1"
-              >
-                <p
-                  data-cid="p-Rhua38"
-                  className="text-base font-semibold"
-                >
+            <div data-cid="div-2xf1Yr" className="flex items-center gap-2">
+              <MapPinIcon data-cid="MapPinIcon-MZ4lNL" size={18} color="hsl(var(--foreground))" />
+              <div data-cid="div-IpfA5w" className="flex flex-col gap-1">
+                <p data-cid="p-Rhua38" className="text-base font-semibold">
                   습득 장소
                 </p>
                 {isLoading ? (
-                  <SkeletonView
-                    data-cid="SkeletonView-JLz5sR"
-                    width="100%"
-                    height="24px"
-                  />
+                  <SkeletonView data-cid="SkeletonView-JLz5sR" width="100%" height="24px" />
                 ) : (
-                  <p
-                    data-cid="p-hHcKN9"
-                    className="text-base"
-                  >
+                  <p data-cid="p-hHcKN9" className="text-base">
                     {acquisitionLocation}
                   </p>
                 )}
               </div>
             </div>
-            <div
-              data-cid="div-IPVN8G"
-              className="flex items-center gap-2"
-            >
+            <div data-cid="div-IPVN8G" className="flex items-center gap-2">
               <CalendarIcon
                 data-cid="CalendarIcon-DUj1kg"
                 size={18}
                 color="hsl(var(--foreground))"
               />
-              <div
-                data-cid="div-bNsMZt"
-                className="flex flex-col gap-1"
-              >
-                <p
-                  data-cid="p-VYnVyy"
-                  className="text-base font-semibold"
-                >
+              <div data-cid="div-bNsMZt" className="flex flex-col gap-1">
+                <p data-cid="p-VYnVyy" className="text-base font-semibold">
                   습득 일자
                 </p>
                 {isLoading ? (
-                  <SkeletonView
-                    data-cid="SkeletonView-sX9gAR"
-                    width="100%"
-                    height="24px"
-                  />
+                  <SkeletonView data-cid="SkeletonView-sX9gAR" width="100%" height="24px" />
                 ) : (
-                  <p
-                    data-cid="p-4n1AWK"
-                    className="text-base"
-                  >
+                  <p data-cid="p-4n1AWK" className="text-base">
                     {acquisitionDate}
                   </p>
                 )}
               </div>
             </div>
-            <div
-              data-cid="div-qQLohe"
-              className="flex items-center gap-2"
-            >
+            <div data-cid="div-qQLohe" className="flex items-center gap-2">
               <Building2Icon
                 data-cid="Building2Icon-PBlNW3"
                 size={18}
                 color="hsl(var(--foreground))"
               />
-              <div
-                data-cid="div-oAmZss"
-                className="flex flex-col gap-1"
-              >
-                <p
-                  data-cid="p-MkwTnC"
-                  className="text-base font-semibold"
-                >
+              <div data-cid="div-oAmZss" className="flex flex-col gap-1">
+                <p data-cid="p-MkwTnC" className="text-base font-semibold">
                   보관 장소
                 </p>
                 {isLoading ? (
-                  <SkeletonView
-                    data-cid="SkeletonView-zF3TW5"
-                    width="100%"
-                    height="24px"
-                  />
+                  <SkeletonView data-cid="SkeletonView-zF3TW5" width="100%" height="24px" />
                 ) : (
-                  <p
-                    data-cid="p-ptY807"
-                    className="text-base"
-                  >
+                  <p data-cid="p-ptY807" className="text-base">
                     {storageLocation}
                   </p>
                 )}
               </div>
             </div>
-            <div
-              data-cid="div-bTXy1y"
-              className="flex items-center gap-2"
-            >
-              <PhoneIcon
-                data-cid="PhoneIcon-Ghmhx1"
-                size={18}
-                color="hsl(var(--foreground))"
-              />
-              <div
-                data-cid="div-YxjUTP"
-                className="flex flex-col gap-1"
-              >
-                <p
-                  data-cid="p-6z3j7J"
-                  className="text-base font-semibold"
-                >
+            <div data-cid="div-bTXy1y" className="flex items-center gap-2">
+              <PhoneIcon data-cid="PhoneIcon-Ghmhx1" size={18} color="hsl(var(--foreground))" />
+              <div data-cid="div-YxjUTP" className="flex flex-col gap-1">
+                <p data-cid="p-6z3j7J" className="text-base font-semibold">
                   연락처
                 </p>
                 {isLoading ? (
-                  <SkeletonView
-                    data-cid="SkeletonView-LrLKWm"
-                    width="100%"
-                    height="24px"
-                  />
+                  <SkeletonView data-cid="SkeletonView-LrLKWm" width="100%" height="24px" />
                 ) : (
-                  <p
-                    data-cid="p-bg8tVu"
-                    className="text-base"
-                  >
+                  <p data-cid="p-bg8tVu" className="text-base">
                     {contact}
                   </p>
                 )}
@@ -279,23 +181,13 @@ export default function MapDetailPanel() {
             data-cid="div-nKMRFC"
             className="flex flex-col gap-1 rounded-xl border-2 border-solid border-border bg-background p-3"
           >
-            <p
-              data-cid="p-SJrU9l"
-              className="text-lg font-bold"
-            >
+            <p data-cid="p-SJrU9l" className="text-lg font-bold">
               습득물 설명
             </p>
             {isLoading ? (
-              <SkeletonView
-                data-cid="SkeletonView-8wvXzT"
-                width="100%"
-                height="24px"
-              />
+              <SkeletonView data-cid="SkeletonView-8wvXzT" width="100%" height="24px" />
             ) : (
-              <p
-                data-cid="p-tLssjW"
-                className="text-base"
-              >
+              <p data-cid="p-tLssjW" className="text-base">
                 {description}
               </p>
             )}

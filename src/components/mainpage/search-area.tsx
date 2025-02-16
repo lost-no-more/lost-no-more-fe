@@ -15,10 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import LocationIcon from '../icons/location-icon';
-import { LostLocations, LostCategories, LostLocation, LostCategory } from '@/types/lost-property';
-import CategoryIcon from '../icons/category-icon';
-import { useState } from 'react';
 
 export default function SearchArea() {
   const [keyword, setKeyword] = useState<string>('');

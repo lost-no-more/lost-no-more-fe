@@ -32,15 +32,9 @@ export function DateRangePicker({ className, onChange }: DateRangePickerProps) {
   const today = useMemo(() => new Date(), []);
 
   return (
-    <div
-      data-cid="div-ZsdQPV"
-      className={cn('grid gap-2', className)}
-    >
+    <div data-cid="div-ZsdQPV" className={cn('grid gap-2', className)}>
       <Popover data-cid="Popover-bC48hf">
-        <PopoverTrigger
-          data-cid="PopoverTrigger-VmejP4"
-          asChild
-        >
+        <PopoverTrigger data-cid="PopoverTrigger-VmejP4" asChild>
           <Button
             data-cid="Button-wf4vkc"
             variant="outline"
@@ -68,10 +62,7 @@ export function DateRangePicker({ className, onChange }: DateRangePickerProps) {
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          data-cid="PopoverContent-wuYcR3"
-          className="w-auto p-0"
-        >
+        <PopoverContent data-cid="PopoverContent-wuYcR3" className="w-auto p-0">
           <Calendar
             locale={ko}
             data-cid="Calendar-r7YVaC"

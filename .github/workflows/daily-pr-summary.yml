@@ -19,11 +19,11 @@ jobs:
               repo: context.repo.repo,
               state: 'open'
             });
-            
+
             if (prs.data.length === 0) {
               return 'No open PRs today!';
             }
-            
+
             const prList = prs.data.map(pr => {
               const createdAt = new Date(pr.created_at).toLocaleDateString('ko-KR');
               return `- [${pr.title}](${pr.html_url})
@@ -35,7 +35,7 @@ jobs:
                 커밋 수: ${pr.commits}
                 변경된 파일: ${pr.changed_files}개
             }).join('\n');
-            
+
             return `📋 현재 열려있는 PR 목록 (총 ${prs.data.length}개)\n\n${prList}`;
 
       - name: Send to Discord

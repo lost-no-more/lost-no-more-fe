@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 import { Clock10Icon, MapPinIcon } from 'lucide-react';
 import Image from 'next/image';
 import clsx from 'clsx';
@@ -59,41 +57,22 @@ export default function LostCard({
         data-cid="div-TUGOiU"
         className="flex w-full flex-col border-t-2 border-solid border-border bg-background p-3"
       >
-        <h1
-          data-cid="h1-e2tv1Q"
-          className="mb-3 truncate text-2xl font-extrabold text-foreground"
-        >
+        <h1 data-cid="h1-e2tv1Q" className="mb-3 truncate text-2xl font-extrabold text-foreground">
           {name}
         </h1>
-        <div
-          data-cid="div-HpLNK7"
-          className="mb-1 flex items-center gap-2"
-        >
-          <MapPinIcon
-            data-cid="MapPinIcon-4pMwpW"
-            size={16}
-            color="hsl(var(--muted-foreground))"
-          />
-          <p
-            data-cid="p-8R3WLW"
-            className="truncate text-base text-muted-foreground"
-          >
+        <div data-cid="div-HpLNK7" className="mb-1 flex items-center gap-2">
+          <MapPinIcon data-cid="MapPinIcon-4pMwpW" size={16} color="hsl(var(--muted-foreground))" />
+          <p data-cid="p-8R3WLW" className="truncate text-base text-muted-foreground">
             {location}
           </p>
         </div>
-        <div
-          data-cid="div-PvM2K3"
-          className="flex items-center gap-2"
-        >
+        <div data-cid="div-PvM2K3" className="flex items-center gap-2">
           <Clock10Icon
             data-cid="Clock10Icon-KoEu8o"
             size={16}
             color="hsl(var(--muted-foreground)"
           />
-          <p
-            data-cid="p-uZf3ev"
-            className="truncate text-base text-muted-foreground"
-          >
+          <p data-cid="p-uZf3ev" className="truncate text-base text-muted-foreground">
             습득일자: {acquisitionDate}
           </p>
         </div>

@@ -58,10 +58,7 @@ export default function MapPanel() {
   );
 
   return (
-    <div
-      data-cid="div-PqiLON"
-      className="flex h-full flex-col bg-background"
-    >
+    <div data-cid="div-PqiLON" className="flex h-full flex-col bg-background">
       <p
         data-cid="p-xY5Jma"
         className="w-full border-b border-solid border-border py-3.5 text-center text-base font-extrabold text-foreground"
