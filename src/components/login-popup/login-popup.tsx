@@ -5,10 +5,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-
-import GoogleIcon from '../icons/google-icon';
-import KakaotalkIcon from '../icons/kakaotalk-icon';
 import { Button } from '../ui/button';
+import KakaotalkIcon from '../icons/kakaotalk-icon';
+import GoogleIcon from '../icons/google-icon';
 
 interface LoginPopupProps {
   open: boolean;
@@ -17,23 +16,10 @@ interface LoginPopupProps {
 
 export default function LoginPopup({ open, onClose }: LoginPopupProps) {
   return (
-    <Dialog
-      data-cid="Dialog-s6KaCg"
-      open={open}
-      onOpenChange={onClose}
-    >
-      <DialogContent
-        data-cid="DialogContent-UNt3ec"
-        className="max-w-xl rounded-lg p-16"
-      >
-        <DialogHeader
-          data-cid="DialogHeader-Np1au7"
-          className="mb-4"
-        >
-          <DialogTitle
-            data-cid="DialogTitle-igxSdH"
-            className="text-center text-2xl font-bold"
-          >
+    <Dialog data-cid="Dialog-s6KaCg" open={open} onOpenChange={onClose}>
+      <DialogContent data-cid="DialogContent-UNt3ec" className="max-w-xl rounded-lg p-16">
+        <DialogHeader data-cid="DialogHeader-Np1au7" className="mb-4">
+          <DialogTitle data-cid="DialogTitle-igxSdH" className="text-center text-2xl font-bold">
             로그인
           </DialogTitle>
           <DialogDescription
@@ -54,10 +40,7 @@ export default function LoginPopup({ open, onClose }: LoginPopupProps) {
             height={24}
             fill="hsl(var(--secondary-foreground))"
           />
-          <span
-            data-cid="span-REL7mu"
-            className="mx-auto text-secondary-foreground"
-          >
+          <span data-cid="span-REL7mu" className="mx-auto text-secondary-foreground">
             Kakao로 로그인
           </span>
         </Button>
@@ -72,10 +55,7 @@ export default function LoginPopup({ open, onClose }: LoginPopupProps) {
             height={24}
             fill="hsl(var(--secondary-foreground))"
           />
-          <span
-            data-cid="span-M3ltR4"
-            className="mx-auto text-secondary-foreground"
-          >
+          <span data-cid="span-M3ltR4" className="mx-auto text-secondary-foreground">
             Google로 로그인
           </span>
         </Button>

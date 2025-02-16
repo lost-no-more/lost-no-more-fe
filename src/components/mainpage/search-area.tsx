@@ -1,13 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import { LostCategories, LostCategory, LostLocation, LostLocations } from '@/types/lost-property';
-
 import IconInput from '@/components/common/icon-input';
-
-import CategoryIcon from '../icons/category-icon';
-import LocationIcon from '../icons/location-icon';
 import SearchIcon from '../icons/search-icon';
 import {
   DropdownMenu,
@@ -16,6 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import LocationIcon from '../icons/location-icon';
+import { LostLocations, LostCategories, LostLocation, LostCategory } from '@/types/lost-property';
+import CategoryIcon from '../icons/category-icon';
+import { useState } from 'react';
 
 export default function SearchArea() {
   const [keyword, setKeyword] = useState<string>('');
@@ -48,15 +45,9 @@ export default function SearchArea() {
           ),
         }}
       />
-      <div
-        data-cid="div-FyG2z0"
-        className="flex items-center gap-6"
-      >
+      <div data-cid="div-FyG2z0" className="flex items-center gap-6">
         <DropdownMenu data-cid="DropdownMenu-g4cXl7">
-          <DropdownMenuTrigger
-            data-cid="DropdownMenuTrigger-Q3VmIz"
-            className="w-full"
-          >
+          <DropdownMenuTrigger data-cid="DropdownMenuTrigger-Q3VmIz" className="w-full">
             <IconInput
               data-cid="IconInput-FSS8M4"
               slots={{
@@ -69,10 +60,7 @@ export default function SearchArea() {
                   />
                 ),
                 input: () => (
-                  <p
-                    data-cid="p-VaXtRF"
-                    className="w-full bg-background text-start"
-                  >
+                  <p data-cid="p-VaXtRF" className="w-full bg-background text-start">
                     {location || '지역'}
                   </p>
                 ),
@@ -97,10 +85,7 @@ export default function SearchArea() {
           </DropdownMenuContent>
         </DropdownMenu>
         <DropdownMenu data-cid="DropdownMenu-mnm5vL">
-          <DropdownMenuTrigger
-            data-cid="DropdownMenuTrigger-WP5utb"
-            className="w-full"
-          >
+          <DropdownMenuTrigger data-cid="DropdownMenuTrigger-WP5utb" className="w-full">
             <IconInput
               data-cid="IconInput-eIm1t2"
               slots={{
@@ -113,10 +98,7 @@ export default function SearchArea() {
                   />
                 ),
                 input: () => (
-                  <p
-                    data-cid="p-wIYMOO"
-                    className="w-full bg-background text-start"
-                  >
+                  <p data-cid="p-wIYMOO" className="w-full bg-background text-start">
                     {category || '상품 카테고리'}
                   </p>
                 ),

@@ -1,8 +1,0 @@
-build/*
-public/*
-documents/*
-node_modules/*
-*.yml
-*.yaml
-*.json
-*.md

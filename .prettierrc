@@ -4,31 +4,7 @@
   "trailingComma": "es5",
   "printWidth": 100,
   "tabWidth": 2,
-  "useTabs": false,
   "endOfLine": "auto",
-  "bracketSpacing": true,
-  "bracketSameLine": false,
-  "arrowParens": "always",
-  "quoteProps": "as-needed",
-  "jsxSingleQuote": false,
-  "htmlWhitespaceSensitivity": "css",
-  "embeddedLanguageFormatting": "auto",
-  "singleAttributePerLine": true,
   "tailwindConfig": "./tailwind.config.ts",
-  "importOrder": [
-    "^(react/(.*)$)|^(react$)",
-    "^(next/(.*)$)|^(next$)",
-    "<THIRD_PARTY_MODULES>",
-    "^@/types/(.*)$",
-    "^@/configs/(.*)$",
-    "^@/lib/(.*)$",
-    "^@/hooks/(.*)$",
-    "^@/components/(.*)$",
-    "^@/styles/(.*)$",
-    "^@/constants/(.*)$",
-    "^[./]"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"]
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

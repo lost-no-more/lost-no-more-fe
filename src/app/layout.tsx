@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -41,10 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html data-cid="html-yIFOlF">
-      <body
-        data-cid="body-jF5a4r"
-        className={nanumSquare.className}
-      >
+      <body data-cid="body-jF5a4r" className={nanumSquare.className}>
         {children}
       </body>
     </html>
