@@ -81,7 +81,8 @@ export default function LostNoMoreMap() {
     };
 
     const lostItemIDs = markers
-      .map((marker: any) => {
+
+      .map((marker: kakao.maps.Marker | kakao.maps.CustomOverlay) => {
         const position = {
           lat: Number(marker.getPosition().getLat().toFixed(6)),
           lng: Number(marker.getPosition().getLng().toFixed(6)),
