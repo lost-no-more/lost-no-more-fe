@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-import LogoIcon from '../icons/logo-icon';
-import SearchArea from './search-area';
 import NotificationPopover from '../common/notification-popover';
 import UserButton from '../common/user-button';
+import LogoIcon from '../icons/logo-icon';
+import SearchArea from './search-area';
 
 export default function SearchbarBanner() {
   return (
@@ -42,7 +42,10 @@ export default function SearchbarBanner() {
               </h1>
             </div>
           </Link>
-          <div data-cid="div-6R7jNw" className="flex items-center gap-4">
+          <div
+            data-cid="div-6R7jNw"
+            className="flex items-center gap-4"
+          >
             <NotificationPopover data-cid="NotificationPopover-aluuHf" />
             <UserButton data-cid="UserButton-dmwzgv" />
           </div>

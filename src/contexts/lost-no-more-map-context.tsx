@@ -1,7 +1,8 @@
 'use client';
 
+import { Dispatch, SetStateAction, useState } from 'react';
+
 import { buildContext } from '@/lib/build-context';
-import { useState, Dispatch, SetStateAction } from 'react';
 
 type LostNoMoreMapContextType = {
   center: { lat: number; lng: number };

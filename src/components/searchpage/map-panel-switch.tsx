@@ -2,6 +2,7 @@
 
 import { useMapPanelContext } from '@/contexts/map-panel-context';
 import { motion } from 'motion/react';
+
 import MapDetailPanel from './map-detail-panel';
 import MapPanel from './map-panel';
 
