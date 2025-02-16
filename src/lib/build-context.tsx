@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useMemo } from 'react';
+import { ReactNode, createContext, useContext, useMemo } from 'react';
 
 type ProviderProps<ContextValuesType> =
   | (ContextValuesType & { children: ReactNode })
@@ -18,7 +18,10 @@ export function buildContext<ContextValuesType extends object>(
     ) as ContextValuesType;
 
     return (
-      <Context.Provider data-cid="element-rzEYYH" value={value}>
+      <Context.Provider
+        data-cid="element-rzEYYH"
+        value={value}
+      >
         {children}
       </Context.Provider>
     );

@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 
+import { MapPinIcon, SearchIcon, TagIcon } from 'lucide-react';
+
 import { LostCategories, LostCategory, LostLocation, LostLocations } from '@/types/lost-property';
 
 import IconInput from '@/components/common/icon-input';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,9 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { LostLocations, LostCategories, LostLocation, LostCategory } from '@/types/lost-property';
-import { useState } from 'react';
-import { MapPinIcon, SearchIcon, TagIcon } from 'lucide-react';
 
 export default function SearchArea() {
   const [keyword, setKeyword] = useState<string>('');

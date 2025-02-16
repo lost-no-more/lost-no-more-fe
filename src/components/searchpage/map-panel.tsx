@@ -1,8 +1,11 @@
 'use client';
-import { useState, useCallback, useEffect } from 'react';
+
+import { useCallback, useEffect, useState } from 'react';
+
+import { useMapPanelContext } from '@/contexts/map-panel-context';
+
 import LostCard, { LostCardProps } from '@/components/common/lost-card';
 import ListView from '@/components/ui/list-view';
-import { useMapPanelContext } from '@/contexts/map-panel-context';
 
 const CHUNK_SIZE = 15;
 
@@ -55,7 +58,10 @@ export default function MapPanel() {
   );
 
   return (
-    <div data-cid="div-PqiLON" className="flex h-full flex-col bg-background">
+    <div
+      data-cid="div-PqiLON"
+      className="flex h-full flex-col bg-background"
+    >
       <p
         data-cid="p-xY5Jma"
         className="w-full border-b border-solid border-border py-3.5 text-center text-base font-extrabold text-foreground"

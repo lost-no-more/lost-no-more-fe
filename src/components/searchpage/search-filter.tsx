@@ -1,33 +1,48 @@
 'use client';
 
+import { useSearchContext } from '@/contexts/search-context';
+import { ChevronDownIcon, MapPinIcon, TagIcon } from 'lucide-react';
+
+import { LostCategories, LostLocations } from '@/types/lost-property';
+
 import { DateRangePicker } from '@/components/searchpage/date-range-picker';
-import { LostLocations, LostCategories } from '@/types/lost-property';
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useSearchContext } from '@/contexts/search-context';
-import { ChevronDownIcon, MapPinIcon, TagIcon } from 'lucide-react';
 
 export default function SearchFilter() {
   const { location, setLocation, category, setCategory } = useSearchContext();
 
   return (
-    <div data-cid="div-ckVaYe" className="absolute right-10 top-24 z-10 flex items-center gap-6">
+    <div
+      data-cid="div-ckVaYe"
+      className="absolute right-10 top-24 z-10 flex items-center gap-6"
+    >
       {/* 날짜 선택 캘린더 */}
       <DateRangePicker data-cid="DateRangePicker-6FkJ4f" />
       {/* 지역 선택 드롭다운 */}
       <DropdownMenu data-cid="DropdownMenu-g4cXl7">
-        <DropdownMenuTrigger data-cid="DropdownMenuTrigger-Q3VmIz" className="w-full">
+        <DropdownMenuTrigger
+          data-cid="DropdownMenuTrigger-Q3VmIz"
+          className="w-full"
+        >
           <div
             data-cid="div-0Di81I"
             className="flex h-[32px] w-[196px] items-center justify-between rounded-lg border-2 border-solid border-border bg-background p-2"
           >
-            <div data-cid="div-yhnWMZ" className="flex items-center gap-3">
-              <MapPinIcon data-cid="MapPinIcon-1ZQ6ZT" size={18} color="hsl(var(--foreground))" />
+            <div
+              data-cid="div-yhnWMZ"
+              className="flex items-center gap-3"
+            >
+              <MapPinIcon
+                data-cid="MapPinIcon-1ZQ6ZT"
+                size={18}
+                color="hsl(var(--foreground))"
+              />
               <p
                 data-cid="p-4xA4Gu"
                 className={`text-base leading-none text-foreground ${!location && 'text-muted-foreground'}`}
@@ -61,13 +76,23 @@ export default function SearchFilter() {
       </DropdownMenu>
       {/* 카테고리 선택 드롭다운 */}
       <DropdownMenu data-cid="DropdownMenu-I9Mbik">
-        <DropdownMenuTrigger data-cid="DropdownMenuTrigger-35zjxH" className="w-full">
+        <DropdownMenuTrigger
+          data-cid="DropdownMenuTrigger-35zjxH"
+          className="w-full"
+        >
           <div
             data-cid="div-HjvR8O"
             className="flex h-[32px] w-[196px] items-center justify-between rounded-lg border-2 border-solid border-border bg-background p-2"
           >
-            <div data-cid="div-gVDBb1" className="flex items-center gap-3">
-              <TagIcon data-cid="TagIcon-xsB7sR" size={18} color="hsl(var(--foreground))" />
+            <div
+              data-cid="div-gVDBb1"
+              className="flex items-center gap-3"
+            >
+              <TagIcon
+                data-cid="TagIcon-xsB7sR"
+                size={18}
+                color="hsl(var(--foreground))"
+              />
               <p
                 data-cid="p-WCBVss"
                 className={`text-base leading-none text-foreground ${!location && 'text-muted-foreground'}`}

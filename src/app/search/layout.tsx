@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
-import '@/styles/globals.css';
-import RootLayout from '@/app/layout';
 import Script from 'next/script';
+
+import RootLayout from '@/app/layout';
+
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: '잃.없.다에서 분실물을 검색해보세요!',
