@@ -1,35 +1,36 @@
 'use client';
 
+import { useSearchContext } from '@/contexts/search-context';
 import { SearchIcon } from 'lucide-react';
-import { useState, useRef } from 'react';
 
 export default function Searchbar() {
-  const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleFocus = () => {
-    setIsFocused(true);
+  const { keyword, setKeyword } = useSearchContext();
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
   };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
-
   return (
     <div
-      data-cid="div-uQ9ujx"
-      className={`flex w-96 items-center gap-2 rounded-lg bg-background px-3 py-2.5 ${isFocused ? 'outline outline-2 outline-foreground' : ''}`}
+      data-cid="div-CKhgXS"
+      className="flex w-96 items-center gap-2 rounded-lg bg-background px-3 py-2.5"
     >
-      <SearchIcon data-cid="SearchIcon-8qWxmq" size={20} color="hsl(var(--primary))" />
+      <button data-cid="button-AoeBMA">
+        <SearchIcon
+          data-cid="SearchIcon-rg3Mtd"
+          size={20}
+          color="hsl(var(--primary))"
+        />
+      </button>
       <input
-        data-cid="input-H8Xy46"
-        ref={inputRef}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className="w-full text-start text-base focus:outline-none"
+        data-cid="input-xsnCOm"
+        value={keyword}
+        onChange={handleInputChange}
+        className="w-full text-start text-base"
         placeholder="분실물 검색"
       />
-      <div data-cid="div-cfA2Gu" className="flex items-center justify-center gap-6"></div>
+      <div
+        data-cid="div-7UNXRe"
+        className="flex items-center justify-center gap-6"
+      ></div>
     </div>
   );
 }
