@@ -1,17 +1,17 @@
 import { ReactNode } from 'react';
 
-import { MoveRightIcon, PackageIcon } from 'lucide-react';
-
-import LostCard from '../common/lost-card';
+import CategoryCard from '@/domain/lost-item/components/category-card';
+import NumberCard from '@/domain/lost-item/components/number-card';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '../ui/carousel';
-import CategoryCard from './category-card';
-import NumberCard from './number-card';
+} from '@/shared/ui/carousel';
+import { MoveRightIcon, PackageIcon } from 'lucide-react';
+
+import LostCard from '../common/lost-card';
 
 export default function MainpageContent() {
   const categries: {
