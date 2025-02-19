@@ -1,6 +1,5 @@
-import type { Slots } from '@/types/slots';
-
-import { cn } from '@/lib/utils';
+import type { Slots } from '../types/slots';
+import { cn } from '../utils/utils';
 
 interface IconSearchbarProps {
   className?: string;
