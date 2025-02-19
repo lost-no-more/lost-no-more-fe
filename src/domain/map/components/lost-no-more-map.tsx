@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react';
 
-import { debounce } from '@tanstack/react-virtual';
+import { debounce } from 'lodash';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 
 import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import type { Virtualizer } from '@tanstack/react-virtual';
 
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface VirtualGridProps<T> {
   parentRef: React.RefObject<HTMLDivElement | null>;
