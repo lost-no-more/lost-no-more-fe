@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
 import CategoryCard from '@/domain/lost-item/components/category-card';
+import CountCards from '@/domain/lost-item/components/cound-cards';
 import LostCard from '@/domain/lost-item/components/lost-card';
-import NumberCard from '@/domain/lost-item/components/number-card';
 import {
   Carousel,
   CarouselContent,
@@ -40,21 +40,7 @@ export default function MainpageContent() {
           data-cid="div-6k6F59"
           className="flex w-[890px] flex-col gap-10"
         >
-          <div
-            data-cid="div-691SVA"
-            className="flex justify-between gap-24"
-          >
-            <NumberCard
-              data-cid="NumberCard-WczZui"
-              number={123}
-              description="금일 등록된 분실물"
-            />
-            <NumberCard
-              data-cid="NumberCard-lIgmji"
-              number={23456}
-              description="전체 등록된 분실물"
-            />
-          </div>
+          <CountCards data-cid="CountCards-bmQEbY" />
           <div
             data-cid="div-DpMTE7"
             className="flex flex-col gap-6"
