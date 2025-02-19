@@ -1,20 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+
+import KeywordInput from '@/domain/notification/components/keyword-input';
+import KeywordList from '@/domain/notification/components/keyword-list';
+import KeywordSettings from '@/domain/notification/components/keyword-settings';
+import CustomSwitch from '@/shared/components/custom-switch';
 import {
   Card,
   CardContent,
-  CardTitle,
   CardDescription,
-  CardHeader,
   CardFooter,
-} from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import KeywordInput from '@/components/mypage/keyword-input';
-import KeywordList from '@/components/mypage/keyword-list';
-import KeywordSettings from '@/components/mypage/keyword-settings';
-import CustomSwitch from '@/components/common/custom-switch';
+  CardHeader,
+  CardTitle,
+} from '@/shared/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
+import { Button } from 'react-day-picker';
 
 export const NotificationsSection = () => {
   const [keywords, setKeywords] = useState<string[]>([]);
@@ -49,8 +50,15 @@ export const NotificationsSection = () => {
 
   return (
     <Card data-cid="Card-cL27dV">
-      <CardContent data-cid="CardContent-HBW4Ie" className="space-y-6 p-0">
-        <Tabs data-cid="Tabs-YkpH7k" defaultValue="keyword" className="w-full pt-5">
+      <CardContent
+        data-cid="CardContent-HBW4Ie"
+        className="space-y-6 p-0"
+      >
+        <Tabs
+          data-cid="Tabs-YkpH7k"
+          defaultValue="keyword"
+          className="w-full pt-5"
+        >
           <TabsList
             data-cid="TabsList-3PGQUw"
             className="w-full rounded-none border-b bg-transparent p-0"
@@ -81,9 +89,18 @@ export const NotificationsSection = () => {
                 isSettingsVisible ? '-translate-x-1/2' : 'translate-x-0'
               }`}
             >
-              <div data-cid="div-g7fCLT" className="w-full p-6">
-                <CardHeader data-cid="CardHeader-UgLN3q" className="p-0">
-                  <CardTitle data-cid="CardTitle-HhxDKh" className="text-xl">
+              <div
+                data-cid="div-g7fCLT"
+                className="w-full p-6"
+              >
+                <CardHeader
+                  data-cid="CardHeader-UgLN3q"
+                  className="p-0"
+                >
+                  <CardTitle
+                    data-cid="CardTitle-HhxDKh"
+                    className="text-xl"
+                  >
                     키워드 알림 설정
                   </CardTitle>
                   <CardDescription
@@ -93,7 +110,10 @@ export const NotificationsSection = () => {
                     분실물 알림을 받을 키워드를 설정합니다.
                   </CardDescription>
                 </CardHeader>
-                <KeywordInput data-cid="KeywordInput-MFRnLi" addKeyword={addKeyword} />
+                <KeywordInput
+                  data-cid="KeywordInput-MFRnLi"
+                  addKeyword={addKeyword}
+                />
                 <KeywordList
                   data-cid="KeywordList-mjaArg"
                   keywords={keywords}
@@ -101,7 +121,10 @@ export const NotificationsSection = () => {
                   onSettingsClick={handleSettingsClick}
                 />
               </div>
-              <div data-cid="div-74guDL" className="w-full p-6">
+              <div
+                data-cid="div-74guDL"
+                className="w-full p-6"
+              >
                 {selectedKeyword && (
                   <KeywordSettings
                     data-cid="KeywordSettings-IJ1OJq"
@@ -118,11 +141,20 @@ export const NotificationsSection = () => {
             value="reception"
             className="space-y-4 px-8 py-6"
           >
-            <CardHeader data-cid="CardHeader-ZRRuUS" className="p-0">
-              <CardTitle data-cid="CardTitle-4qfjPK" className="text-xl">
+            <CardHeader
+              data-cid="CardHeader-ZRRuUS"
+              className="p-0"
+            >
+              <CardTitle
+                data-cid="CardTitle-4qfjPK"
+                className="text-xl"
+              >
                 알림 수신 설정
               </CardTitle>
-              <CardDescription data-cid="CardDescription-XMnx3s" className="text-muted-foreground">
+              <CardDescription
+                data-cid="CardDescription-XMnx3s"
+                className="text-muted-foreground"
+              >
                 알림을 수신할 채널을 설정합니다.
               </CardDescription>
             </CardHeader>
@@ -133,8 +165,15 @@ export const NotificationsSection = () => {
               checked={emailNotification}
               onCheckedChange={setEmailNotification}
             />
-            <CardFooter data-cid="CardFooter-6SyXpZ" className="p-0">
-              <Button data-cid="Button-82ilKL" className="mt-6 w-full" type="button">
+            <CardFooter
+              data-cid="CardFooter-6SyXpZ"
+              className="p-0"
+            >
+              <Button
+                data-cid="Button-82ilKL"
+                className="mt-6 w-full"
+                type="button"
+              >
                 알림 설정
               </Button>
             </CardFooter>

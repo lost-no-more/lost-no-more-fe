@@ -1,5 +1,6 @@
-import { useLostNoMoreMapContext } from '@/contexts/lost-no-more-map-context';
 import { ZoomInIcon, ZoomOutIcon } from 'lucide-react';
+
+import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';
 
 export default function ZoomController() {
   const { setLevel } = useLostNoMoreMapContext();

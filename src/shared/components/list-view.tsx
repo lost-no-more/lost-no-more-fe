@@ -4,11 +4,9 @@ import { useRef } from 'react';
 
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-import { cn } from '@/lib/utils';
-
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-
-import SkeletonView from '../common/skeleton-view';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
+import { cn } from '../utils/utils';
+import SkeletonView from './skeleton-view';
 
 interface ListViewProps<T> {
   items: T[];

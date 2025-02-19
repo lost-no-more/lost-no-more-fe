@@ -1,8 +1,10 @@
 import Link from 'next/link';
+
+import UserButton from '@/domain/auth/components/user-button';
+import NotificationPopover from '@/domain/notification/components/notification-popover';
+import Searchbar from '@/domain/search/components/searchbar';
+
 import LogoIcon from '../icons/logo-icon';
-import NotificationPopover from './notification-popover';
-import Searchbar from './searchbar';
-import UserButton from './user-button';
 
 export default function Headerbar() {
   return (

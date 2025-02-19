@@ -1,14 +1,8 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-
-import GoogleIcon from '../icons/google-icon';
-import KakaotalkIcon from '../icons/kakaotalk-icon';
-import { Button } from '../ui/button';
+import GoogleIcon from '@/shared/icons/google-icon';
+import KakaotalkIcon from '@/shared/icons/kakaotalk-icon';
+import { DialogHeader } from '@/shared/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
+import { Button } from 'react-day-picker';
 
 interface LoginPopupProps {
   open: boolean;

@@ -1,6 +1,6 @@
+import { Card, CardTitle } from '@/shared/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover';
 import { BellIcon } from 'lucide-react';
-import { Card, CardTitle } from '../ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 export default function NotificationPopover() {
   return (

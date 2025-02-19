@@ -1,4 +1,4 @@
-import { Slots } from '@/types/slots';
+import type { Slots } from '@/types/slots';
 
 import { cn } from '@/lib/utils';
 

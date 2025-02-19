@@ -1,10 +1,11 @@
 'use client';
 
 import * as React from 'react';
+
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '../utils/utils';
 
 const Select = SelectPrimitive.Root;
 
@@ -26,8 +27,14 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <SelectPrimitive.Icon data-cid="element-mvqxK9" asChild>
-      <ChevronDown data-cid="ChevronDown-cy95kv" className="h-4 w-4 opacity-50" />
+    <SelectPrimitive.Icon
+      data-cid="element-mvqxK9"
+      asChild
+    >
+      <ChevronDown
+        data-cid="ChevronDown-cy95kv"
+        className="h-4 w-4 opacity-50"
+      />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -43,7 +50,10 @@ const SelectScrollUpButton = React.forwardRef<
     className={cn('flex cursor-default items-center justify-center py-1', className)}
     {...props}
   >
-    <ChevronUp data-cid="ChevronUp-rmTY8N" className="h-4 w-4" />
+    <ChevronUp
+      data-cid="ChevronUp-rmTY8N"
+      className="h-4 w-4"
+    />
   </SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
@@ -58,7 +68,10 @@ const SelectScrollDownButton = React.forwardRef<
     className={cn('flex cursor-default items-center justify-center py-1', className)}
     {...props}
   >
-    <ChevronDown data-cid="ChevronDown-JWbUl4" className="h-4 w-4" />
+    <ChevronDown
+      data-cid="ChevronDown-JWbUl4"
+      className="h-4 w-4"
+    />
   </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
@@ -128,7 +141,10 @@ const SelectItem = React.forwardRef<
       className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center"
     >
       <SelectPrimitive.ItemIndicator data-cid="element-uo3JiV">
-        <Check data-cid="Check-QJZIzN" className="h-4 w-4" />
+        <Check
+          data-cid="Check-QJZIzN"
+          className="h-4 w-4"
+        />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText data-cid="element-c9BQA4">{children}</SelectPrimitive.ItemText>

@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Card, CardContent, CardTitle, CardHeader, CardDescription } from '@/components/ui/card';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import LostItemsGrid from '@/domain/lost-item/components/lost-item-grid';
+import KeywordSelect from '@/domain/lost-item/components/lost-keyword-select';
+import type { KeywordType, LostItem } from '@/domain/lost-item/mocks/data';
+import { fetchDummyData } from '@/domain/lost-item/mocks/data';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { fetchDummyData, KeywordType, LostItem } from '@/utils/data';
-import KeywordSelect from './lost-keyword-select';
-import LostItemsGrid from './lost-item-grid';
 
 const INITIAL_ITEMS_COUNT = 20;
 const ITEMS_PER_LOAD = 20;
@@ -68,22 +70,37 @@ export function LostItemsSection() {
   }, [page, keyword, fetchItems]);
 
   return (
-    <Card data-cid="Card-RbTpGu" className="px-2">
+    <Card
+      data-cid="Card-RbTpGu"
+      className="px-2"
+    >
       <CardHeader data-cid="CardHeader-nX7SoJ">
-        <CardTitle data-cid="CardTitle-94bbSD" className="text-xl">
+        <CardTitle
+          data-cid="CardTitle-94bbSD"
+          className="text-xl"
+        >
           분실물 알림 리스트
         </CardTitle>
-        <CardDescription data-cid="CardDescription-b2QfGu" className="text-muted-foreground">
+        <CardDescription
+          data-cid="CardDescription-b2QfGu"
+          className="text-muted-foreground"
+        >
           등록한 키워드에 해당하는 분실물 알림 리스트입니다.
         </CardDescription>
       </CardHeader>
-      <CardContent data-cid="CardContent-WXes0R" className="space-y-6">
+      <CardContent
+        data-cid="CardContent-WXes0R"
+        className="space-y-6"
+      >
         <KeywordSelect
           data-cid="KeywordSelect-uab2EA"
           keyword={keyword}
           onKeywordChange={handleKeywordChange}
         />
-        <div data-cid="div-VdaOTc" className="relative">
+        <div
+          data-cid="div-VdaOTc"
+          className="relative"
+        >
           <LostItemsGrid
             data-cid="LostItemsGrid-nvNRTq"
             parentRef={parentRef}

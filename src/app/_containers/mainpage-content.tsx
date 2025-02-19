@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import CategoryCard from '@/domain/lost-item/components/category-card';
+import LostCard from '@/domain/lost-item/components/lost-card';
 import NumberCard from '@/domain/lost-item/components/number-card';
 import {
   Carousel,
@@ -10,8 +11,6 @@ import {
   CarouselPrevious,
 } from '@/shared/ui/carousel';
 import { MoveRightIcon, PackageIcon } from 'lucide-react';
-
-import LostCard from '../common/lost-card';
 
 export default function MainpageContent() {
   const categries: {
@@ -70,10 +69,10 @@ export default function MainpageContent() {
               data-cid="div-aymX7X"
               className="grid grid-cols-3 gap-x-10 gap-y-2.5"
             >
-              {categries.map((category, index) => (
+              {categries.map((category) => (
                 <CategoryCard
                   data-cid="CategoryCard-4ApOtE"
-                  key={index}
+                  key={category.name}
                   slots={{ icon: category.icon }}
                   cateogry={category.name}
                 />

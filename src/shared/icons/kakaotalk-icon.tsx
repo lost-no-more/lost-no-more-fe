@@ -1,4 +1,4 @@
-import { IconProps } from '@/types/icon';
+import type { IconProps } from '../types/icon';
 
 export default function KakaotalkIcon({ className, width, height, fill }: IconProps) {
   return (

@@ -1,8 +1,8 @@
 'use client';
 
-import { useMapPanelContext } from '@/contexts/map-panel-context';
 import { motion } from 'motion/react';
 
+import { useMapPanelContext } from '../contexts/map-panel-context';
 import MapDetailPanel from './map-detail-panel';
 import MapPanel from './map-panel';
 

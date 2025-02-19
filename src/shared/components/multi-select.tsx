@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { CheckIcon, XCircle, ChevronDown, XIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { type VariantProps, cva } from 'class-variance-authority';
+import { CheckIcon, ChevronDown, XCircle, XIcon } from 'lucide-react';
+import { Button } from 'react-day-picker';
+
+import { Badge } from '../ui/badge';
 import {
   Command,
   CommandEmpty,
@@ -15,8 +13,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
+} from '../ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Separator } from '../ui/separator';
+import { cn } from '../utils/utils';
 
+// Styles
 const multiSelectVariants = cva('m-1', {
   variants: {
     variant: {
@@ -33,69 +35,261 @@ const multiSelectVariants = cva('m-1', {
   },
 });
 
+// Types
+interface Option {
+  label: string;
+  value: string;
+  icon?: React.ComponentType<{ className?: string }>;
+}
+
 interface MultiSelectProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof multiSelectVariants> {
-  /**
-   * An array of option objects to be displayed in the multi-select component.
-   * Each option object has a label, value, and an optional icon.
-   */
-  options: {
-    /** The text to display for the option. */
-    label: string;
-    /** The unique value associated with the option. */
-    value: string;
-    /** Optional icon component to display alongside the option. */
-    icon?: React.ComponentType<{ className?: string }>;
-  }[];
-
-  /**
-   * Callback function triggered when the selected values change.
-   * Receives an array of the new selected values.
-   */
+  options: Option[];
   onValueChange: (value: string[]) => void;
-
-  /** The default selected values when the component mounts. */
   defaultValue?: string[];
-
-  /**
-   * Placeholder text to be displayed when no values are selected.
-   * Optional, defaults to "Select options".
-   */
   placeholder?: string;
-
-  /**
-   * Animation duration in seconds for the visual effects (e.g., bouncing badges).
-   * Optional, defaults to 0 (no animation).
-   */
   animation?: number;
-
-  /**
-   * Maximum number of items to display. Extra selected items will be summarized.
-   * Optional, defaults to 3.
-   */
   maxCount?: number;
-
-  /**
-   * The modality of the popover. When set to true, interaction with outside elements
-   * will be disabled and only popover content will be visible to screen readers.
-   * Optional, defaults to false.
-   */
   modalPopover?: boolean;
-
-  /**
-   * If true, renders the multi-select component as a child of another component.
-   * Optional, defaults to false.
-   */
   asChild?: boolean;
-
-  /**
-   * Additional class names to apply custom styles to the multi-select component.
-   * Optional, can be used to add custom styles.
-   */
   className?: string;
 }
 
+// Sub-components
+const SelectedBadge = ({
+  option,
+  variant,
+  animation,
+  onRemove,
+}: {
+  option: Option;
+  variant?: 'default' | 'secondary' | 'destructive' | 'inverted' | null;
+  animation?: number;
+  onRemove: (value: string) => void;
+}) => {
+  const IconComponent = option.icon;
+
+  return (
+    <Badge
+      data-cid="Badge-g06Gny"
+      className={cn(multiSelectVariants({ variant }))}
+      style={{ animationDuration: `${animation}s` }}
+    >
+      {IconComponent && (
+        <IconComponent
+          data-cid="IconComponent-tPmsaM"
+          className="mr-2 h-4 w-4"
+        />
+      )}
+      {option.label}
+      <XCircle
+        data-cid="XCircle-UzEfKd"
+        className="ml-2 h-4 w-4 cursor-pointer"
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove(option.value);
+        }}
+      />
+    </Badge>
+  );
+};
+
+const MoreBadge = ({
+  count,
+  variant,
+  animation,
+  onClear,
+}: {
+  count: number;
+  variant?: 'default' | 'secondary' | 'destructive' | 'inverted' | null;
+  animation?: number;
+  onClear: () => void;
+}) => (
+  <Badge
+    data-cid="Badge-O20P9s"
+    className={cn(
+      'border-foreground/1 bg-transparent text-foreground hover:bg-transparent',
+      multiSelectVariants({ variant })
+    )}
+    style={{ animationDuration: `${animation}s` }}
+  >
+    {`+ ${count} 더보기`}
+    <XCircle
+      data-cid="XCircle-DHcdaF"
+      className="ml-2 h-4 w-4 cursor-pointer"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClear();
+      }}
+    />
+  </Badge>
+);
+
+const CommandSection = ({
+  options,
+  selectedValues,
+  onToggleOption,
+  onToggleAll,
+  onClear,
+  onClose,
+}: {
+  options: Option[];
+  selectedValues: string[];
+  onToggleOption: (value: string) => void;
+  onToggleAll: () => void;
+  onClear: () => void;
+  onClose: () => void;
+}) => (
+  <Command data-cid="Command-u2ErCv">
+    <CommandInput
+      data-cid="CommandInput-iagbSN"
+      placeholder="카테고리 검색"
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') onClose();
+      }}
+    />
+    <CommandList data-cid="CommandList-fBhAg3">
+      <CommandEmpty data-cid="CommandEmpty-tw51Mf">결과가 없습니다.</CommandEmpty>
+      <CommandGroup data-cid="CommandGroup-FbQi4l">
+        <CommandItem
+          data-cid="CommandItem-Om6KGk"
+          key="all"
+          onSelect={onToggleAll}
+          className="cursor-pointer"
+        >
+          <div
+            data-cid="div-ELznGe"
+            className={cn(
+              'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+              selectedValues.length === options.length
+                ? 'bg-primary text-primary-foreground'
+                : 'opacity-50 [&_svg]:invisible'
+            )}
+          >
+            <CheckIcon
+              data-cid="CheckIcon-knSKm6"
+              className="h-4 w-4"
+            />
+          </div>
+          <span data-cid="span-K3UOQA">(전체 선택)</span>
+        </CommandItem>
+        {options.map((option) => (
+          <CommandItem
+            data-cid="CommandItem-z9yOnr"
+            key={option.value}
+            onSelect={() => onToggleOption(option.value)}
+            className="cursor-pointer"
+          >
+            <div
+              data-cid="div-354kb0"
+              className={cn(
+                'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                selectedValues.includes(option.value)
+                  ? 'bg-primary text-primary-foreground'
+                  : 'opacity-50 [&_svg]:invisible'
+              )}
+            >
+              <CheckIcon
+                data-cid="CheckIcon-079Fdq"
+                className="h-4 w-4"
+              />
+            </div>
+            {option.icon && (
+              <option.icon
+                data-cid="element-lQqszP"
+                className="mr-2 h-4 w-4 text-muted-foreground"
+              />
+            )}
+            <span data-cid="span-rUatwf">{option.label}</span>
+          </CommandItem>
+        ))}
+      </CommandGroup>
+      <CommandSeparator data-cid="CommandSeparator-Oda59R" />
+      <CommandGroup data-cid="CommandGroup-C70rO3">
+        <div
+          data-cid="div-OOeCwL"
+          className="flex items-center justify-between"
+        >
+          {selectedValues.length > 0 && (
+            <>
+              <CommandItem
+                data-cid="CommandItem-wRHMKn"
+                onSelect={onClear}
+                className="flex-1 cursor-pointer justify-center"
+              >
+                모두 해제
+              </CommandItem>
+              <Separator
+                data-cid="Separator-timZkz"
+                orientation="vertical"
+                className="flex h-full min-h-6"
+              />
+            </>
+          )}
+          <CommandItem
+            data-cid="CommandItem-vNkeYh"
+            onSelect={onClose}
+            className="max-w-full flex-1 cursor-pointer justify-center"
+          >
+            닫기
+          </CommandItem>
+        </div>
+      </CommandGroup>
+    </CommandList>
+  </Command>
+);
+
+// Hook for managing state and handlers
+const useMultiSelect = (
+  options: Option[],
+  onValueChange: (value: string[]) => void,
+  defaultValue: string[] = []
+) => {
+  const [selectedValues, setSelectedValues] = React.useState<string[]>(defaultValue);
+  const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
+
+  const handleToggleOption = (option: string) => {
+    const newSelectedValues = selectedValues.includes(option)
+      ? selectedValues.filter((value) => value !== option)
+      : [...selectedValues, option];
+    setSelectedValues(newSelectedValues);
+    onValueChange(newSelectedValues);
+  };
+
+  const handleClear = () => {
+    setSelectedValues([]);
+    onValueChange([]);
+  };
+
+  const handleToggleAll = () => {
+    if (selectedValues.length === options.length) {
+      handleClear();
+    } else {
+      const allValues = options.map((option) => option.value);
+      setSelectedValues(allValues);
+      onValueChange(allValues);
+    }
+  };
+
+  const clearExtraOptions = (maxCount: number) => {
+    const newSelectedValues = selectedValues.slice(0, maxCount);
+    setSelectedValues(newSelectedValues);
+    onValueChange(newSelectedValues);
+  };
+
+  return {
+    selectedValues,
+    isPopoverOpen,
+    setIsPopoverOpen,
+    handleToggleOption,
+    handleClear,
+    handleToggleAll,
+    clearExtraOptions,
+  };
+};
+
+// Main component
 export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
   (
     {
@@ -112,150 +306,106 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
     },
     ref
   ) => {
-    const [selectedValues, setSelectedValues] = React.useState<string[]>(defaultValue);
-    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-
-    const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        setIsPopoverOpen(true);
-      } else if (event.key === 'Backspace' && !event.currentTarget.value) {
-        const newSelectedValues = [...selectedValues];
-        newSelectedValues.pop();
-        setSelectedValues(newSelectedValues);
-        onValueChange(newSelectedValues);
-      }
-    };
-
-    const toggleOption = (option: string) => {
-      const newSelectedValues = selectedValues.includes(option)
-        ? selectedValues.filter((value) => value !== option)
-        : [...selectedValues, option];
-      setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
-    };
-
-    const handleClear = () => {
-      setSelectedValues([]);
-      onValueChange([]);
-    };
-
-    const handleTogglePopover = () => {
-      setIsPopoverOpen((prev) => !prev);
-    };
-
-    const clearExtraOptions = () => {
-      const newSelectedValues = selectedValues.slice(0, maxCount);
-      setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
-    };
-
-    const toggleAll = () => {
-      if (selectedValues.length === options.length) {
-        handleClear();
-      } else {
-        const allValues = options.map((option) => option.value);
-        setSelectedValues(allValues);
-        onValueChange(allValues);
-      }
-    };
+    const {
+      selectedValues,
+      isPopoverOpen,
+      setIsPopoverOpen,
+      handleToggleOption,
+      handleClear,
+      handleToggleAll,
+      clearExtraOptions,
+    } = useMultiSelect(options, onValueChange, defaultValue);
 
     return (
       <Popover
-        data-cid="Popover-7R27TP"
+        data-cid="Popover-GOiQN5"
         open={isPopoverOpen}
         onOpenChange={setIsPopoverOpen}
         modal={modalPopover}
       >
-        <PopoverTrigger data-cid="PopoverTrigger-HKHRML" asChild>
+        <PopoverTrigger
+          data-cid="PopoverTrigger-SGn1IF"
+          asChild
+        >
           <Button
-            data-cid="Button-sNG4mI"
+            data-cid="Button-6eGvNO"
             ref={ref}
             {...props}
-            onClick={handleTogglePopover}
+            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
             className={cn(
               'flex h-auto min-h-10 w-full items-center justify-between rounded-md border bg-inherit p-1 shadow-none hover:bg-inherit [&_svg]:pointer-events-auto',
               className
             )}
           >
             {selectedValues.length > 0 ? (
-              <div data-cid="div-ybGn7k" className="flex w-full items-center justify-between">
-                <div data-cid="div-HZVPEm" className="flex flex-wrap items-center">
+              <div
+                data-cid="div-QYe7gz"
+                className="flex w-full items-center justify-between"
+              >
+                <div
+                  data-cid="div-YWEYRO"
+                  className="flex flex-wrap items-center"
+                >
                   {selectedValues.slice(0, maxCount).map((value) => {
                     const option = options.find((o) => o.value === value);
-                    const IconComponent = option?.icon;
+                    if (!option) return null;
                     return (
-                      <Badge
-                        data-cid="Badge-eaJIK9"
+                      <SelectedBadge
+                        data-cid="SelectedBadge-rCxTxW"
                         key={value}
-                        className={cn(multiSelectVariants({ variant }))}
-                        style={{ animationDuration: `${animation}s` }}
-                      >
-                        {IconComponent && (
-                          <IconComponent data-cid="IconComponent-VaOlSF" className="mr-2 h-4 w-4" />
-                        )}
-                        {option?.label}
-                        <XCircle
-                          data-cid="XCircle-t2XweB"
-                          className="ml-2 h-4 w-4 cursor-pointer"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            toggleOption(value);
-                          }}
-                        />
-                      </Badge>
+                        option={option}
+                        variant={variant}
+                        animation={animation}
+                        onRemove={handleToggleOption}
+                      />
                     );
                   })}
                   {selectedValues.length > maxCount && (
-                    <Badge
-                      data-cid="Badge-mYITSW"
-                      className={cn(
-                        'border-foreground/1 bg-transparent text-foreground hover:bg-transparent',
-                        multiSelectVariants({ variant })
-                      )}
-                      style={{ animationDuration: `${animation}s` }}
-                    >
-                      {`+ ${selectedValues.length - maxCount} 더보기`}
-                      <XCircle
-                        data-cid="XCircle-kndb88"
-                        className="ml-2 h-4 w-4 cursor-pointer"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          clearExtraOptions();
-                        }}
-                      />
-                    </Badge>
+                    <MoreBadge
+                      data-cid="MoreBadge-uDBXPT"
+                      count={selectedValues.length - maxCount}
+                      variant={variant}
+                      animation={animation}
+                      onClear={() => clearExtraOptions(maxCount)}
+                    />
                   )}
                 </div>
-                <div data-cid="div-VQnNrh" className="flex items-center justify-between">
+                <div
+                  data-cid="div-HSMTdv"
+                  className="flex items-center justify-between"
+                >
                   <XIcon
-                    data-cid="XIcon-2RbT31"
+                    data-cid="XIcon-LX3ARH"
                     className="mx-2 h-4 cursor-pointer text-muted-foreground"
-                    onClick={(event) => {
-                      event.stopPropagation();
+                    onClick={(e) => {
+                      e.stopPropagation();
                       handleClear();
                     }}
                   />
                   <Separator
-                    data-cid="Separator-UfsKAy"
+                    data-cid="Separator-o86ocN"
                     orientation="vertical"
                     className="flex h-full min-h-6"
                   />
                   <ChevronDown
-                    data-cid="ChevronDown-2vFbcm"
+                    data-cid="ChevronDown-vBlfhj"
                     className="mx-2 h-4 cursor-pointer text-muted-foreground"
                   />
                 </div>
               </div>
             ) : (
               <div
-                data-cid="div-MrzfoB"
+                data-cid="div-oeBOAZ"
                 className="mx-auto flex w-full items-center justify-between"
               >
-                <span data-cid="span-JmZwsP" className="mx-3 text-sm text-muted-foreground">
+                <span
+                  data-cid="span-TPYPBq"
+                  className="mx-3 text-sm text-muted-foreground"
+                >
                   {placeholder}
                 </span>
                 <ChevronDown
-                  data-cid="ChevronDown-kHB4Gp"
+                  data-cid="ChevronDown-6qGvLo"
                   className="mx-2 h-4 cursor-pointer text-muted-foreground"
                 />
               </div>
@@ -263,100 +413,19 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          data-cid="PopoverContent-1Hac99"
+          data-cid="PopoverContent-Mg01vp"
           className="w-auto p-0"
           align="start"
-          onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
-          <Command data-cid="Command-AA83hw">
-            <CommandInput
-              data-cid="CommandInput-EUhRwH"
-              placeholder="카테고리 검색"
-              onKeyDown={handleInputKeyDown}
-            />
-            <CommandList data-cid="CommandList-M1rkvu">
-              <CommandEmpty data-cid="CommandEmpty-2ybgZR">결과가 없습니다.</CommandEmpty>
-              <CommandGroup data-cid="CommandGroup-REq4AO">
-                <CommandItem
-                  data-cid="CommandItem-rMXYKi"
-                  key="all"
-                  onSelect={toggleAll}
-                  className="cursor-pointer"
-                >
-                  <div
-                    data-cid="div-CQA6OD"
-                    className={cn(
-                      'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                      selectedValues.length === options.length
-                        ? 'bg-primary text-primary-foreground'
-                        : 'opacity-50 [&_svg]:invisible'
-                    )}
-                  >
-                    <CheckIcon data-cid="CheckIcon-cCB4Kd" className="h-4 w-4" />
-                  </div>
-                  <span data-cid="span-PqQr4z">(전체 선택)</span>
-                </CommandItem>
-                {options.map((option) => {
-                  const isSelected = selectedValues.includes(option.value);
-                  return (
-                    <CommandItem
-                      data-cid="CommandItem-QpGF1X"
-                      key={option.value}
-                      onSelect={() => toggleOption(option.value)}
-                      className="cursor-pointer"
-                    >
-                      <div
-                        data-cid="div-ca8qLf"
-                        className={cn(
-                          'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                          isSelected
-                            ? 'bg-primary text-primary-foreground'
-                            : 'opacity-50 [&_svg]:invisible'
-                        )}
-                      >
-                        <CheckIcon data-cid="CheckIcon-ldbNSh" className="h-4 w-4" />
-                      </div>
-                      {option.icon && (
-                        <option.icon
-                          data-cid="element-q9o7OQ"
-                          className="mr-2 h-4 w-4 text-muted-foreground"
-                        />
-                      )}
-                      <span data-cid="span-tYLM5c">{option.label}</span>
-                    </CommandItem>
-                  );
-                })}
-              </CommandGroup>
-              <CommandSeparator data-cid="CommandSeparator-JfSOZI" />
-              <CommandGroup data-cid="CommandGroup-tXEnKq">
-                <div data-cid="div-f36h7y" className="flex items-center justify-between">
-                  {selectedValues.length > 0 && (
-                    <>
-                      <CommandItem
-                        data-cid="CommandItem-6Z7t5T"
-                        onSelect={handleClear}
-                        className="flex-1 cursor-pointer justify-center"
-                      >
-                        모두 해제
-                      </CommandItem>
-                      <Separator
-                        data-cid="Separator-5ANRYi"
-                        orientation="vertical"
-                        className="flex h-full min-h-6"
-                      />
-                    </>
-                  )}
-                  <CommandItem
-                    data-cid="CommandItem-vhAVr8"
-                    onSelect={() => setIsPopoverOpen(false)}
-                    className="max-w-full flex-1 cursor-pointer justify-center"
-                  >
-                    닫기
-                  </CommandItem>
-                </div>
-              </CommandGroup>
-            </CommandList>
-          </Command>
+          <CommandSection
+            data-cid="CommandSection-dD5lKe"
+            options={options}
+            selectedValues={selectedValues}
+            onToggleOption={handleToggleOption}
+            onToggleAll={handleToggleAll}
+            onClear={handleClear}
+            onClose={() => setIsPopoverOpen(false)}
+          />
         </PopoverContent>
       </Popover>
     );

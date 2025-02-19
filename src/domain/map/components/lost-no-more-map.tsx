@@ -2,13 +2,12 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react';
 
-import { useLostNoMoreMapContext } from '@/contexts/lost-no-more-map-context';
-import { useMapPanelContext } from '@/contexts/map-panel-context';
-import { debounce } from 'lodash';
+import { debounce } from '@tanstack/react-virtual';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 
-import { LOSTITEMS_LOCATION } from '@/constants/lost-items';
-
+import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';
+import { useMapPanelContext } from '../contexts/map-panel-context';
+import { LOSTITEMS_LOCATION } from '../mocks/lostitems-location';
 import MoveMyPosButton from './move-mypos-button';
 import ZoomController from './zoom-controller';
 

@@ -1,18 +1,17 @@
 'use client';
 
-import { useSearchContext } from '@/contexts/search-context';
-import { ChevronDownIcon, MapPinIcon, TagIcon } from 'lucide-react';
-
-import { LostCategories, LostLocations } from '@/types/lost-property';
-
-import { DateRangePicker } from '@/components/searchpage/date-range-picker';
+import { LostCategories, LostLocations } from '@/shared/types/lost-property';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/shared/ui/dropdown-menu';
+import { ChevronDownIcon, MapPinIcon, TagIcon } from 'lucide-react';
+
+import { useSearchContext } from '../contexts/search-context';
+import { DateRangePicker } from './date-range-picker';
 
 export default function SearchFilter() {
   const { location, setLocation, category, setCategory } = useSearchContext();
