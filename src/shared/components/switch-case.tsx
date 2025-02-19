@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 interface Props<Case extends string | number> {
   caseBy: Partial<Record<Case, JSX.Element | null>>;

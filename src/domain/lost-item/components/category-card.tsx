@@ -1,4 +1,4 @@
-import { Slots } from '@/types/slots';
+import type { Slots } from '@/shared/types/slots';
 
 interface CategoryCardProps {
   slots: Slots<'icon'>;

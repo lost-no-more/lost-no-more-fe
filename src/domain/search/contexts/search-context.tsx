@@ -1,10 +1,10 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 
-import { LostCategory, LostLocation } from '@/types/lost-property';
-
-import { buildContext } from '@/lib/build-context';
+import type { LostCategory, LostLocation } from '@/shared/types/lost-property';
+import { buildContext } from '@/shared/utils/build-context';
 
 /**
  * SearchContextProps

@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
-import { Virtualizer } from '@tanstack/react-virtual';
+
+import type { Virtualizer } from '@tanstack/react-virtual';
+
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 interface VirtualGridProps<T> {
@@ -43,7 +45,10 @@ export function VirtualGrid<T>({
 
   if (loading && items.length === 0) {
     return (
-      <div data-cid={`${dataCid}-loading`} className="flex h-[550px] items-center justify-center">
+      <div
+        data-cid={`${dataCid}-loading`}
+        className="flex h-[550px] items-center justify-center"
+      >
         {LoadingComponent}
       </div>
     );
@@ -51,7 +56,10 @@ export function VirtualGrid<T>({
 
   if (!loading && items.length === 0) {
     return (
-      <div data-cid={`${dataCid}-empty`} className="flex h-[550px] items-center justify-center">
+      <div
+        data-cid={`${dataCid}-empty`}
+        className="flex h-[550px] items-center justify-center"
+      >
         {EmptyComponent}
       </div>
     );
@@ -63,7 +71,11 @@ export function VirtualGrid<T>({
       className={`relative ${className}`}
       style={{ height: containerHeight, width: containerWidth }}
     >
-      <div data-cid={`${dataCid}-scroll`} ref={parentRef} className="h-full w-full overflow-auto">
+      <div
+        data-cid={`${dataCid}-scroll`}
+        ref={parentRef}
+        className="h-full w-full overflow-auto"
+      >
         <div
           data-cid={`${dataCid}-content`}
           ref={contentRef}
@@ -96,7 +108,11 @@ export function VirtualGrid<T>({
             );
           })}
         </div>
-        <div data-cid={`${dataCid}-observer`} ref={loadMoreRef} className="h-10 w-full" />
+        <div
+          data-cid={`${dataCid}-observer`}
+          ref={loadMoreRef}
+          className="h-10 w-full"
+        />
       </div>
     </div>
   );

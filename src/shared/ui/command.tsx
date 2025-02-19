@@ -1,12 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { type DialogProps } from '@radix-ui/react-dialog';
+
+import { Dialog, DialogContent, type DialogProps } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { cn } from '../utils/utils';
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -26,8 +26,14 @@ Command.displayName = CommandPrimitive.displayName;
 
 const CommandDialog = ({ children, ...props }: DialogProps) => {
   return (
-    <Dialog data-cid="Dialog-8C4Qjp" {...props}>
-      <DialogContent data-cid="DialogContent-mqCC6c" className="overflow-hidden p-0">
+    <Dialog
+      data-cid="Dialog-8C4Qjp"
+      {...props}
+    >
+      <DialogContent
+        data-cid="DialogContent-mqCC6c"
+        className="overflow-hidden p-0"
+      >
         <Command
           data-cid="Command-pGiyZ0"
           className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
@@ -43,8 +49,15 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
-  <div data-cid="div-4fSvlt" className="flex items-center border-b px-3" cmdk-input-wrapper="">
-    <Search data-cid="Search-9Kg0Tv" className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+  <div
+    data-cid="div-4fSvlt"
+    className="flex items-center border-b px-3"
+    cmdk-input-wrapper=""
+  >
+    <Search
+      data-cid="Search-9Kg0Tv"
+      className="mr-2 h-4 w-4 shrink-0 opacity-50"
+    />
     <CommandPrimitive.Input
       data-cid="element-myHEgD"
       ref={ref}

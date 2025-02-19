@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
-import { useLostNoMoreMapContext } from '@/contexts/lost-no-more-map-context';
+import { cn } from '@/shared/utils/utils';
 import { NavigationIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';
 
 export default function MoveMyPosButton({ className }: { className?: string }) {
   const { setCenter } = useLostNoMoreMapContext();

@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { useMapPanelContext } from '@/contexts/map-panel-context';
+import type { LostCardProps } from '@/domain/lost-item/components/lost-card';
+import LostCard from '@/domain/lost-item/components/lost-card';
+import ListView from '@/shared/components/list-view';
 
-import LostCard, { LostCardProps } from '@/components/common/lost-card';
-import ListView from '@/components/ui/list-view';
+import { useMapPanelContext } from '../contexts/map-panel-context';
 
 const CHUNK_SIZE = 15;
 

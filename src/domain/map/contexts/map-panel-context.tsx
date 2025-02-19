@@ -1,10 +1,10 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 
-import { buildContext } from '@/lib/build-context';
-
-import useBoolean from '@/hooks/useBoolean';
+import useBoolean from '@/shared/hooks/useBoolean';
+import { buildContext } from '@/shared/utils/build-context';
 
 /**
  * MapPanelContextProps

@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+
+import { Button } from '@/shared/ui/button';
+import { Input } from '@/shared/ui/input';
 
 interface KeywordInputProps {
   addKeyword: (keyword: string) => void;
@@ -25,7 +26,10 @@ export default function KeywordInput({ addKeyword }: KeywordInputProps) {
   };
 
   return (
-    <div data-cid="div-LYA5VH" className="my-4 flex">
+    <div
+      data-cid="div-LYA5VH"
+      className="my-4 flex"
+    >
       <Input
         data-cid="Input-3tuxxd"
         value={keyword}

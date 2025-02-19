@@ -1,7 +1,8 @@
 'use client';
 
-import { useSearchContext } from '@/contexts/search-context';
 import { SearchIcon } from 'lucide-react';
+
+import { useSearchContext } from '../contexts/search-context';
 
 export default function Searchbar() {
   const { keyword, setKeyword } = useSearchContext();
@@ -30,7 +31,7 @@ export default function Searchbar() {
       <div
         data-cid="div-7UNXRe"
         className="flex items-center justify-center gap-6"
-      ></div>
+      />
     </div>
   );
 }

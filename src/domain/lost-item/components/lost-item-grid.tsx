@@ -1,9 +1,11 @@
 import React from 'react';
+
+import type { LostItem } from '@/domain/lost-item/mocks/data';
+import { VirtualGrid } from '@/shared/components/virtual-grid';
+import type { Virtualizer } from '@tanstack/react-virtual';
 import { Loader2 } from 'lucide-react';
-import { VirtualGrid } from '@/components/common/virtual-grid';
-import LostCard from '@/components/common/lost-card';
-import { LostItem } from '@/utils/data';
-import { Virtualizer } from '@tanstack/react-virtual';
+
+import LostCard from './lost-card';
 
 interface LostItemsGridProps {
   parentRef: React.RefObject<HTMLDivElement | null>;
@@ -26,7 +28,11 @@ export default function LostItemsGrid({
   'data-cid': dataCid,
 }: LostItemsGridProps) {
   const renderLostItem = (item: LostItem) => (
-    <div data-cid={`${dataCid}-item-${item.id}`} key={item.id} className="h-64 w-full">
+    <div
+      data-cid={`${dataCid}-item-${item.id}`}
+      key={item.id}
+      className="h-64 w-full"
+    >
       <LostCard
         data-cid={`${dataCid}-card-${item.id}`}
         name={item.name}
@@ -41,11 +47,17 @@ export default function LostItemsGrid({
   );
 
   const LoadingComponent = (
-    <Loader2 data-cid={`${dataCid}-loader`} className="h-12 w-12 animate-spin text-gray-500" />
+    <Loader2
+      data-cid={`${dataCid}-loader`}
+      className="h-12 w-12 animate-spin text-gray-500"
+    />
   );
 
   const EmptyComponent = (
-    <div data-cid={`${dataCid}-empty`} className="text-center text-gray-500">
+    <div
+      data-cid={`${dataCid}-empty`}
+      className="text-center text-gray-500"
+    >
       검색 결과가 없습니다.
     </div>
   );

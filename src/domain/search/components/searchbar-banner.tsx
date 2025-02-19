@@ -1,8 +1,9 @@
 import Link from 'next/link';
 
-import NotificationPopover from '../common/notification-popover';
-import UserButton from '../common/user-button';
-import LogoIcon from '../icons/logo-icon';
+import UserButton from '@/domain/auth/components/user-button';
+import NotificationPopover from '@/domain/notification/components/notification-popover';
+import LogoIcon from '@/shared/icons/logo-icon';
+
 import SearchArea from './search-area';
 
 export default function SearchbarBanner() {

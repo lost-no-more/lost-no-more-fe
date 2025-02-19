@@ -1,6 +1,6 @@
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
+import { Label } from '../ui/label';
+import { Switch } from '../ui/switch';
+import { cn } from '../utils/utils';
 
 interface CustomSwitchProps {
   checked: boolean;
@@ -29,12 +29,22 @@ export default function CustomSwitch({
         className
       )}
     >
-      <div data-cid="div-Gj7RSD" className="space-y-0.5">
-        <Label data-cid="Label-YxL59i" htmlFor={id} className="text-lg font-semibold">
+      <div
+        data-cid="div-Gj7RSD"
+        className="space-y-0.5"
+      >
+        <Label
+          data-cid="Label-YxL59i"
+          htmlFor={id}
+          className="text-lg font-semibold"
+        >
           {title}
         </Label>
         {description && (
-          <p data-cid="p-9aLXTF" className="text-sm text-muted-foreground">
+          <p
+            data-cid="p-9aLXTF"
+            className="text-sm text-muted-foreground"
+          >
             {description}
           </p>
         )}
