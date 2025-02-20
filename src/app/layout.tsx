@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
+import { AuthProvider } from '@/contexts/auth-context';
+
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -45,7 +47,7 @@ export default function RootLayout({
         data-cid="body-jF5a4r"
         className={nanumSquare.className}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
