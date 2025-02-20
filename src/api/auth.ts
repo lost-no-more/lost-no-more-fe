@@ -11,9 +11,7 @@ interface OAuthResponse {
 
 interface TokenResponse {
   isSuccess: boolean;
-  data: {
-    accessToken: string;
-  };
+  data: string;
   error: null | {
     code: number;
     message: string;
