@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 
 import { authApi } from '@/api/auth';
+import { useAuth } from '@/contexts/auth-context';
 
 import {
   Dialog,
@@ -24,6 +25,7 @@ interface LoginPopupProps {
 export default function LoginPopup({ open, onClose, onLoginSuccess }: LoginPopupProps) {
   const [error, setError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const { login } = useAuth();
 
   const handleLogin = async (provider: 'kakao' | 'google') => {
     try {
@@ -45,6 +47,7 @@ export default function LoginPopup({ open, onClose, onLoginSuccess }: LoginPopup
               const token = await authApi.getToken(provider, event.data.code);
 
               if (token.isSuccess && token.data) {
+                login(token.data);
                 onLoginSuccess?.();
                 onClose();
               } else {
