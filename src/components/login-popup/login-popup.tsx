@@ -1,3 +1,9 @@
+'use client';
+
+import React, { useState } from 'react';
+
+import { authApi } from '@/api/auth';
+
 import {
   Dialog,
   DialogContent,
@@ -6,79 +12,94 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
-import GoogleIcon from '../icons/google-icon';
-import KakaotalkIcon from '../icons/kakaotalk-icon';
-import { Button } from '../ui/button';
+import LoginProcess from './login-process';
+import SocialLoginButton from './social-login-button';
 
 interface LoginPopupProps {
   open: boolean;
   onClose: () => void;
+  onLoginSuccess?: () => void;
 }
 
-export default function LoginPopup({ open, onClose }: LoginPopupProps) {
+export default function LoginPopup({ open, onClose, onLoginSuccess }: LoginPopupProps) {
+  const [error, setError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleLogin = async (provider: 'kakao' | 'google') => {
+    try {
+      setError(null);
+      const response = await authApi.getOAuthUrl(provider);
+
+      if (response.isSuccess && response.data) {
+        const popup = window.open(response.data, 'Login', 'width=500,height=600,left=400,top=200');
+
+        window.addEventListener('message', async function handleMessage(event) {
+          if (event.origin !== window.location.origin) return;
+
+          if (event.data.type === 'OAUTH_CALLBACK') {
+            window.removeEventListener('message', handleMessage);
+            popup?.close();
+
+            try {
+              setIsProcessing(true);
+              const token = await authApi.getToken(provider, event.data.code);
+
+              if (token.isSuccess && token.data) {
+                onLoginSuccess?.();
+                onClose();
+              } else {
+                throw new Error(token.error?.message);
+              }
+            } catch (error) {
+              handleError(error);
+            } finally {
+              setIsProcessing(false);
+            }
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      handleError(error);
+    }
+  };
+
+  const handleError = (error: unknown) => {
+    setError(error instanceof Error ? error.message : '로그인 처리 중 오류가 발생했습니다.');
+  };
+
   return (
     <Dialog
-      data-cid="Dialog-s6KaCg"
       open={open}
       onOpenChange={onClose}
     >
-      <DialogContent
-        data-cid="DialogContent-UNt3ec"
-        className="max-w-xl rounded-lg p-16"
-      >
-        <DialogHeader
-          data-cid="DialogHeader-Np1au7"
-          className="mb-4"
-        >
-          <DialogTitle
-            data-cid="DialogTitle-igxSdH"
-            className="text-center text-2xl font-bold"
-          >
-            로그인
-          </DialogTitle>
-          <DialogDescription
-            data-cid="DialogDescription-7LSZuk"
-            className="text-center text-sm text-muted-foreground"
-          >
-            소중한 물건을 찾고 계신가요? 로그인하고 맞춤 알림을 받아보세요.
-          </DialogDescription>
-        </DialogHeader>
-        <Button
-          data-cid="Button-B8QSWL"
-          className="relative flex h-11 w-full items-center bg-gray-100 text-lg font-bold text-black hover:bg-gray-200"
-        >
-          <KakaotalkIcon
-            data-cid="KakaotalkIcon-2X4EVZ"
-            className="absolute left-4"
-            width={24}
-            height={24}
-            fill="hsl(var(--secondary-foreground))"
-          />
-          <span
-            data-cid="span-REL7mu"
-            className="mx-auto text-secondary-foreground"
-          >
-            Kakao로 로그인
-          </span>
-        </Button>
-        <Button
-          data-cid="Button-qtTxhE"
-          className="relative flex h-11 w-full items-center bg-gray-100 text-lg font-bold text-black hover:bg-gray-200"
-        >
-          <GoogleIcon
-            data-cid="GoogleIcon-lXtxIS"
-            className="absolute left-4"
-            width={24}
-            height={24}
-            fill="hsl(var(--secondary-foreground))"
-          />
-          <span
-            data-cid="span-M3ltR4"
-            className="mx-auto text-secondary-foreground"
-          >
-            Google로 로그인
-          </span>
-        </Button>
+      <DialogContent className="max-w-xl rounded-lg p-16">
+        {!isProcessing ? (
+          <>
+            <DialogHeader className="mb-4">
+              <DialogTitle className="text-center text-2xl font-bold">로그인</DialogTitle>
+
+              <DialogDescription className="text-center text-sm text-muted-foreground">
+                소중한 물건을 찾고 계신가요? 로그인하고 맞춤 알림을 받아보세요.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              <SocialLoginButton
+                provider="kakao"
+                onLogin={() => handleLogin('kakao')}
+              />
+              <SocialLoginButton
+                provider="google"
+                onLogin={() => handleLogin('google')}
+              />
+            </div>
+
+            <div className="text-destructive text-sm text-center">{error}</div>
+          </>
+        ) : (
+          <LoginProcess />
+        )}
       </DialogContent>
     </Dialog>
   );
