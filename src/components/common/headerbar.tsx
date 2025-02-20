@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import LogoIcon from '../icons/logo-icon';
 import NotificationPopover from './notification-popover';
