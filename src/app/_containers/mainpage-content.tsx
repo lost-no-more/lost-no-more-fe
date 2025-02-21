@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
 import CategoryCard from '@/domain/lost-item/components/category-card';
-import CountCards from '@/domain/lost-item/components/cound-cards';
 import LostCard from '@/domain/lost-item/components/lost-card';
+import { getItemsCount } from '@/domain/lost-item/queries/getItemsCount';
 import type { LostCategory } from '@/shared/types/lost-property';
 import {
   Carousel,
@@ -39,6 +39,52 @@ function CategoryCards() {
           cateogry={category.name}
         />
       ))}
+    </div>
+  );
+}
+
+async function CountCards() {
+  const data = await getItemsCount();
+  return (
+    <div
+      data-cid="div-691SVA"
+      className="flex justify-between gap-24"
+    >
+      <div
+        data-cid="div-wMCIBK"
+        className="flex w-full flex-col items-center justify-center rounded-2xl py-4 shadow-lg"
+      >
+        <p
+          data-cid="p-WJ9ETQ"
+          className="mb-2 text-4xl font-bold text-primary"
+        >
+          {data.data.today.toLocaleString()}
+        </p>
+        <p
+          data-cid="p-B4pETk"
+          className="text-base text-muted-foreground"
+        >
+          금일 등록 분실물
+        </p>
+      </div>
+
+      <div
+        data-cid="div-wMCIBK"
+        className="flex w-full flex-col items-center justify-center rounded-2xl py-4 shadow-lg"
+      >
+        <p
+          data-cid="p-WJ9ETQ"
+          className="mb-2 text-4xl font-bold text-primary"
+        >
+          {data.data.total.toLocaleString()}
+        </p>
+        <p
+          data-cid="p-B4pETk"
+          className="text-base text-muted-foreground"
+        >
+          전체 등록 분실물
+        </p>
+      </div>
     </div>
   );
 }
