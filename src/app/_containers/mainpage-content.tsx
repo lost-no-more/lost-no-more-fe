@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import CategoryCard from '@/domain/lost-item/components/category-card';
 import CountCards from '@/domain/lost-item/components/cound-cards';
 import LostCard from '@/domain/lost-item/components/lost-card';
+import type { LostCategory } from '@/shared/types/lost-property';
 import {
   Carousel,
   CarouselContent,
@@ -12,12 +13,10 @@ import {
 } from '@/shared/ui/carousel';
 import { MoveRightIcon, PackageIcon } from 'lucide-react';
 
-export default function MainpageContent() {
-  const categries: {
-    name: string;
-    icon: () => ReactNode;
-  }[] = Array.from({ length: 6 }, () => ({
-    name: '전자기기',
+function CategoryCards() {
+  const names: LostCategory[] = ['전자기기', '지갑', '가방', '의류', '휴대폰', '현금'];
+  const categries: { name: LostCategory; icon: () => ReactNode }[] = names.map((name) => ({
+    name,
     icon: () => (
       <PackageIcon
         data-cid="PackageIcon-AV6Xx7"
@@ -27,6 +26,24 @@ export default function MainpageContent() {
     ),
   }));
 
+  return (
+    <div
+      data-cid="div-aymX7X"
+      className="grid grid-cols-3 gap-x-10 gap-y-2.5"
+    >
+      {categries.map((category) => (
+        <CategoryCard
+          data-cid="CategoryCard-4ApOtE"
+          key={category.name}
+          slots={{ icon: category.icon }}
+          cateogry={category.name}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default function MainpageContent() {
   return (
     <div
       data-cid="div-2eWLfz"
@@ -51,19 +68,7 @@ export default function MainpageContent() {
             >
               카테고리
             </p>
-            <div
-              data-cid="div-aymX7X"
-              className="grid grid-cols-3 gap-x-10 gap-y-2.5"
-            >
-              {categries.map((category) => (
-                <CategoryCard
-                  data-cid="CategoryCard-4ApOtE"
-                  key={category.name}
-                  slots={{ icon: category.icon }}
-                  cateogry={category.name}
-                />
-              ))}
-            </div>
+            <CategoryCards data-cid="CategoryCards-2M4vRt" />
           </div>
           <div
             data-cid="div-gfl5wS"
