@@ -1,5 +1,11 @@
 import type { Metadata } from 'next';
 
+<<<<<<< HEAD
+import '@/styles/globals.css';
+=======
+import RootLayout from '@/app/layout';
+>>>>>>> develop
+
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
