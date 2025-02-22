@@ -35,7 +35,6 @@ export const authApi = {
     return api
       .post(ApiEndpoint.OAUTH_TOKEN(provider, code), {
         headers,
-        json: { code },
       })
       .json<Response<TokenData>>();
   },
