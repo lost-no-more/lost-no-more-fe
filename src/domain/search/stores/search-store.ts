@@ -1,4 +1,5 @@
 import type { LostCategory, LostLocation } from '@/shared/types/lost-property';
+import { subDays } from 'date-fns';
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 
@@ -6,12 +7,12 @@ interface SearchState {
   keyword: string;
   category: LostCategory | null;
   location: LostLocation | null;
-  dateStart: Date | null;
-  dateEnd: Date | null;
-  topLeftLat: number | null;
-  topLeftLon: number | null;
-  bottomRightLat: number | null;
-  bottomRightLon: number | null;
+  dateStart: Date;
+  dateEnd: Date;
+  topLeftLat: number;
+  topLeftLon: number;
+  bottomRightLat: number;
+  bottomRightLon: number;
 }
 
 interface SearchActions {
@@ -32,12 +33,12 @@ const useSearchStore = create(
       keyword: '',
       category: null,
       location: null,
-      dateStart: null,
-      dateEnd: null,
-      topLeftLat: null,
-      topLeftLon: null,
-      bottomRightLat: null,
-      bottomRightLon: null,
+      dateStart: subDays(new Date(), 7),
+      dateEnd: new Date(),
+      topLeftLat: 0,
+      topLeftLon: 0,
+      bottomRightLat: 0,
+      bottomRightLon: 0,
     },
     (set) => ({
       updateKeyword: (keyword) => set({ keyword }),
