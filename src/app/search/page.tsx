@@ -3,7 +3,6 @@ import MapPanelSwitch from '@/domain/map/components/map-panel-switch';
 import { LostNoMoreMapProvider } from '@/domain/map/contexts/lost-no-more-map-context';
 import { MapPanelProvider } from '@/domain/map/contexts/map-panel-context';
 import SearchFilter from '@/domain/search/components/search-filter';
-import { SearchProvider } from '@/domain/search/contexts/search-context';
 import Headerbar from '@/shared/components/headerbar';
 
 export default function SearchPage() {
@@ -12,10 +11,8 @@ export default function SearchPage() {
       data-cid="div-4y5gnK"
       className="flex h-screen w-full flex-col"
     >
-      <SearchProvider data-cid="SearchProvider-XJRJNN">
-        <Headerbar data-cid="Headerbar-C7Nhit" />
-        <SearchFilter data-cid="SearchFilter-s8q90v" />
-      </SearchProvider>
+      <Headerbar data-cid="Headerbar-C7Nhit" />
+      <SearchFilter data-cid="SearchFilter-s8q90v" />
       <div
         data-cid="div-g6Hnk4"
         className="flex h-0 flex-1"
