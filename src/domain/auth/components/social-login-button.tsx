@@ -1,6 +1,6 @@
-import GoogleIcon from '../icons/google-icon';
-import KakaotalkIcon from '../icons/kakaotalk-icon';
-import { Button } from '../ui/button';
+import GoogleIcon from '@/shared/icons/google-icon';
+import KakaotalkIcon from '@/shared/icons/kakaotalk-icon';
+import { Button } from '@/shared/ui/button';
 
 interface LoginButtonProps {
   provider: 'kakao' | 'google';
