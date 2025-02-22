@@ -21,6 +21,12 @@ import useSearchStore from '../stores/search-store';
 function Searchbar() {
   const keyword = useSearchStore((state) => state.keyword);
   const updateKeyword = useSearchStore((state) => state.updateKeyword);
+  const router = useRouter();
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && keyword) {
+      router.push('/search');
+    }
+  };
 
   return (
     <IconInput
@@ -40,6 +46,7 @@ function Searchbar() {
             className="w-full bg-background outline-none"
             type="text"
             value={keyword}
+            onKeyDown={handleKeyDown}
             onChange={(e) => updateKeyword(e.target.value)}
             placeholder={'무엇을 잃어버리셨나요?'}
           />
