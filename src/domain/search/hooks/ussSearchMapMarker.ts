@@ -20,7 +20,7 @@ export function useSearchMapMarker() {
     (coord) => coord !== 0
   );
   // 전체인 경우는 쿼리스트링에 넣지 않아야하므로 undefined로 처리
-  const { data, isLoading } = useItemsSearchMapQuery(
+  const { data, isFetching } = useItemsSearchMapQuery(
     {
       keyword,
       category: category === '전체' ? undefined : category?.toString(),
@@ -37,6 +37,6 @@ export function useSearchMapMarker() {
 
   return {
     data: data?.data.lostItems ?? [],
-    isLoading,
+    isFetching,
   };
 }

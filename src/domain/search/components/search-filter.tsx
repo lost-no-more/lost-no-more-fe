@@ -11,7 +11,24 @@ import {
 import { ChevronDownIcon, MapPinIcon, TagIcon } from 'lucide-react';
 
 import useSearchStore from '../stores/search-store';
-import { DateRangePicker } from './date-range-picker';
+import { DateRangePicker as _DateRangePicker } from './date-range-picker';
+
+function DateRangePicker() {
+  const updateDateStart = useSearchStore((state) => state.updateDateStart);
+  const updateDateEnd = useSearchStore((state) => state.updateDateEnd);
+
+  return (
+    <_DateRangePicker
+      data-cid="_DateRangePicker-8BdiMf"
+      onChange={(range) => {
+        if (range && range.from && range.to) {
+          updateDateStart(range.from);
+          updateDateEnd(range.to);
+        }
+      }}
+    />
+  );
+}
 
 function LocationPicker() {
   const location = useSearchStore((state) => state.location);
