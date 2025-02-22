@@ -2,12 +2,14 @@
 
 import { SearchIcon } from 'lucide-react';
 
-import { useSearchContext } from '../contexts/search-context';
+import useSearchStore from '../stores/search-store';
 
 export default function Searchbar() {
-  const { keyword, setKeyword } = useSearchContext();
+  const keyword = useSearchStore((state) => state.keyword);
+  const updateKeyword = useSearchStore((state) => state.updateKeyword);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
+    updateKeyword(event.target.value);
   };
   return (
     <div
