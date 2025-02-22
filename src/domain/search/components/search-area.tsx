@@ -1,7 +1,12 @@
 'use client';
 
+import { useMemo } from 'react';
+
+import { useRouter } from 'next/navigation';
+
 import IconInput from '@/shared/components/icon-input';
 import { LostCategories, LostLocations } from '@/shared/types/lost-property';
+import { Button } from '@/shared/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -146,6 +151,29 @@ function CategoryPicker() {
   );
 }
 
+function SearchButton() {
+  const keyword = useSearchStore((state) => state.keyword);
+  const location = useSearchStore((state) => state.location);
+  const category = useSearchStore((state) => state.category);
+
+  const router = useRouter();
+
+  const isEnabled = useMemo(() => {
+    return keyword || location || category;
+  }, [keyword, location, category]);
+
+  return (
+    <Button
+      data-cid="button-mlleZa"
+      disabled={!isEnabled}
+      onClick={() => router.push('/search')}
+      className="whitespace-nowrap rounded-xl bg-secondary-foreground px-8 h-14 text-center text-2xl font-bold text-secondary"
+    >
+      검색
+    </Button>
+  );
+}
+
 export default function SearchArea() {
   return (
     <>
@@ -156,12 +184,7 @@ export default function SearchArea() {
       >
         <LocationPicker data-cid="LocationPicker-1rZw5k" />
         <CategoryPicker data-cid="CategoryPicker-575k2U" />
-        <button
-          data-cid="button-mlleZa"
-          className="whitespace-nowrap rounded-xl bg-secondary-foreground px-8 py-[10px] text-center text-2xl font-bold text-secondary"
-        >
-          검색
-        </button>
+        <SearchButton data-cid="SearchButton-1xrH5c" />
       </div>
     </>
   );
