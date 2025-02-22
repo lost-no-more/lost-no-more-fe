@@ -1,7 +1,3 @@
-'use client';
-
-import React, { useState } from 'react';
-
 import { useLogin } from '@/domain/auth/hooks/useLogin';
 import {
   Dialog,

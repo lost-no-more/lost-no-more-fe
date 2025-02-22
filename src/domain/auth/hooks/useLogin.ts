@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { useAuth } from '@/domain/auth/hooks/useAuth';
-import { Provider } from '@/shared/types/api-endpoint';
+import type { Provider } from '@/shared/types/api-endpoint';
 
 export function useLogin(onLoginSuccess?: () => void, onClose?: () => void) {
   const [error, setError] = useState<string | null>(null);

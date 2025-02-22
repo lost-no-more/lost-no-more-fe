@@ -1,6 +1,5 @@
-import { Provider } from '@/shared/types/api-endpoint';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
+import type { Provider } from '@/shared/types/api-endpoint';
+import { useQuery, useQueryClient , useMutation } from '@tanstack/react-query';
 
 import { authApi } from '../apis/auth';
 
