@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { AuthProvider } from '@/domain/auth/contexts/auth-context';
-
 import '@/styles/globals.css';
+
+import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -47,7 +47,7 @@ export default function RootLayout({
         data-cid="body-jF5a4r"
         className={nanumSquare.className}
       >
-        <AuthProvider data-cid="AuthProvider-dV3aUe">{children}</AuthProvider>
+        <Providers data-cid="Providers-dV3aUe">{children}</Providers>
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { useAuth } from '@/domain/auth/contexts/auth-context';
+import { useAuth } from '@/domain/auth/hooks/useAuth';
 import { UserIcon } from 'lucide-react';
 
 import LoginPopup from '@/domain/auth/components/login-popup';
