@@ -72,36 +72,36 @@ export default function LoginPopup({ open, onClose, onLoginSuccess }: LoginPopup
   };
 
   return (
-    <Dialog
+    <Dialog data-cid="Dialog-VT0ye7"
       open={open}
       onOpenChange={onClose}
     >
-      <DialogContent className="max-w-xl rounded-lg p-16">
+      <DialogContent data-cid="DialogContent-xSnJhK" className="max-w-xl rounded-lg p-16">
         {!isProcessing ? (
           <>
-            <DialogHeader className="mb-4">
-              <DialogTitle className="text-center text-2xl font-bold">로그인</DialogTitle>
+            <DialogHeader data-cid="DialogHeader-4XqRj7" className="mb-4">
+              <DialogTitle data-cid="DialogTitle-DXApVY" className="text-center text-2xl font-bold">로그인</DialogTitle>
 
-              <DialogDescription className="text-center text-sm text-muted-foreground">
+              <DialogDescription data-cid="DialogDescription-UTbHBp" className="text-center text-sm text-muted-foreground">
                 소중한 물건을 찾고 계신가요? 로그인하고 맞춤 알림을 받아보세요.
               </DialogDescription>
             </DialogHeader>
 
-            <div className="space-y-4">
-              <SocialLoginButton
+            <div data-cid="div-4rQRwg" className="space-y-4">
+              <SocialLoginButton data-cid="SocialLoginButton-1BSzuD"
                 provider="kakao"
                 onLogin={() => handleLogin('kakao')}
               />
-              <SocialLoginButton
+              <SocialLoginButton data-cid="SocialLoginButton-j95p5W"
                 provider="google"
                 onLogin={() => handleLogin('google')}
               />
             </div>
 
-            <div className="text-destructive text-sm text-center">{error}</div>
+            <div data-cid="div-sYOmbO" className="text-destructive text-sm text-center">{error}</div>
           </>
         ) : (
-          <LoginProcess />
+          <LoginProcess data-cid="LoginProcess-SBvomE" />
         )}
       </DialogContent>
     </Dialog>

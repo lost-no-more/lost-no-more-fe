@@ -20,7 +20,7 @@ export default function SearchLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div data-cid="div-9ihoGu">
       <Script
         data-cid="Script-cqf34K"
         type="text/javascript"

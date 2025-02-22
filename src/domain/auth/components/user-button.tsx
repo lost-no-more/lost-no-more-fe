@@ -4,10 +4,10 @@ import { useState } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/domain/auth/contexts/auth-context';
 import { UserIcon } from 'lucide-react';
 
-import LoginPopup from '../login-popup/login-popup';
+import LoginPopup from '@/domain/auth/components/login-popup';
 
 export default function UserButton() {
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function UserButton() {
         />
       </button>
 
-      <LoginPopup
+      <LoginPopup data-cid="LoginPopup-EKnj5g"
         open={isLoginPopupOpen}
         onClose={() => setIsLoginPopupOpen(false)}
       />

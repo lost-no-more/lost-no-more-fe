@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
 
-<<<<<<< HEAD
-import '@/styles/globals.css';
-=======
-import RootLayout from '@/app/layout';
->>>>>>> develop
-
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -18,5 +12,5 @@ export default function MyPageLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return <div data-cid="div-dW3pBe">{children}</div>;
 }

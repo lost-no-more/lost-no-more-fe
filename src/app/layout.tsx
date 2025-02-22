@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { AuthProvider } from '@/contexts/auth-context';
+import { AuthProvider } from '@/domain/auth/contexts/auth-context';
 
 import '@/styles/globals.css';
 
@@ -47,7 +47,7 @@ export default function RootLayout({
         data-cid="body-jF5a4r"
         className={nanumSquare.className}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider data-cid="AuthProvider-dV3aUe">{children}</AuthProvider>
       </body>
     </html>
   );

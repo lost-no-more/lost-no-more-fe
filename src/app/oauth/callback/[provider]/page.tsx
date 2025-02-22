@@ -10,5 +10,5 @@ export default function CallbackPage() {
     }
   }, []);
 
-  return <div>로그인 처리중...</div>;
+  return <div data-cid="div-dW3PBD">로그인 처리중...</div>;
 }
