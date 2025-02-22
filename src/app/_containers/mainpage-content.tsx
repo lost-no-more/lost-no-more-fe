@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import CategoryCard from '@/domain/lost-item/components/category-card';
 import LostCard from '@/domain/lost-item/components/lost-card';
-import { getItemsCount } from '@/domain/lost-item/queries/getItemsCount';
+import { fetchItemsCount } from '@/domain/lost-item/queries/fetchItemsCount';
 import type { LostCategory } from '@/shared/types/lost-property';
 import {
   Carousel,
@@ -44,7 +44,7 @@ function CategoryCards() {
 }
 
 async function CountCards() {
-  const data = await getItemsCount();
+  const data = await fetchItemsCount();
   return (
     <div
       data-cid="div-691SVA"
