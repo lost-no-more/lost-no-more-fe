@@ -4,6 +4,7 @@ import { LostNoMoreMapProvider } from '@/domain/map/contexts/lost-no-more-map-co
 import { MapPanelProvider } from '@/domain/map/contexts/map-panel-context';
 import SearchFilter from '@/domain/search/components/search-filter';
 import Headerbar from '@/shared/components/headerbar';
+import { QueryProvider } from '@/shared/lib/query-client';
 
 export default function SearchPage() {
   return (
@@ -20,7 +21,9 @@ export default function SearchPage() {
         <MapPanelProvider data-cid="MapPanelProvider-IXs9xN">
           <MapPanelSwitch data-cid="MapPanelSwitch-grWpHo" />
           <LostNoMoreMapProvider data-cid="LostNoMoreMapProvider-bLJEWL">
-            <LostNoMoreMap data-cid="LostNoMoreMap-ue0XpN" />
+            <QueryProvider data-cid="QueryProvider-1J9J9">
+              <LostNoMoreMap data-cid="LostNoMoreMap-ue0XpN" />
+            </QueryProvider>
           </LostNoMoreMapProvider>
         </MapPanelProvider>
       </div>
