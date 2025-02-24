@@ -12,7 +12,7 @@ import { MoveRightIcon } from 'lucide-react';
 import CategoryCards from './category-cards';
 
 async function CountCards() {
-  const data = await fetchItemsCount();
+  const { data } = await fetchItemsCount();
   return (
     <div
       data-cid="div-691SVA"
@@ -26,7 +26,7 @@ async function CountCards() {
           data-cid="p-WJ9ETQ"
           className="mb-2 text-4xl font-bold text-primary"
         >
-          {data.data.today.toLocaleString()}
+          {data.today.toLocaleString()}
         </p>
         <p
           data-cid="p-B4pETk"
@@ -44,7 +44,7 @@ async function CountCards() {
           data-cid="p-WJ9ETQ"
           className="mb-2 text-4xl font-bold text-primary"
         >
-          {data.data.total.toLocaleString()}
+          {data.total.toLocaleString()}
         </p>
         <p
           data-cid="p-B4pETk"
