@@ -1,6 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { useAuth } from '@/domain/auth/hooks/useAuth';
+import useLoginPopupStore from '@/domain/auth/stores/login-popup-store';
 import LostCard from '@/domain/lost-item/components/lost-card';
 import { useItemsRecentQuery } from '@/domain/lost-item/queries/useItemsRecentQuery';
 import { Button } from '@/shared/ui/button';
@@ -54,8 +57,9 @@ function LoginRecentCards() {
 }
 
 function LoginNoRecentCards() {
+  const router = useRouter();
   const goToNotification = () => {
-    // TODO: 마이페이지 알림설정 섹션으로 이동
+    router.push('/mypage');
   };
   return (
     <BlurredCarousel
@@ -67,14 +71,12 @@ function LoginNoRecentCards() {
 }
 
 function NoLoginRecentCards() {
-  const openLoginModal = () => {
-    // TODO: 로그인모달 열기
-  };
+  const openPopup = useLoginPopupStore((state) => state.openPopup);
   return (
     <BlurredCarousel
       data-cid="BlurredCarousel-kd0WrW"
       description="로그인 후 관심 분실물을 확인해보세요!"
-      onClick={openLoginModal}
+      onClick={openPopup}
     />
   );
 }
@@ -104,6 +106,8 @@ function BlurredCarousel({ description, onClick }: { description: string; onClic
 
 export default function RecentCards() {
   const { isLoggedIn } = useAuth();
+  const router = useRouter();
+  const openPopup = useLoginPopupStore((state) => state.openPopup);
 
   return (
     <div
@@ -123,6 +127,7 @@ export default function RecentCards() {
         <div
           data-cid="div-bN99AZ"
           className="flex cursor-pointer items-center gap-1"
+          onClick={isLoggedIn ? () => router.push('/mypage') : openPopup}
         >
           <p
             data-cid="p-JrF39w"
