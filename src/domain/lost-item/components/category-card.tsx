@@ -3,13 +3,15 @@ import type { Slots } from '@/shared/types/slots';
 interface CategoryCardProps {
   slots: Slots<'icon'>;
   cateogry: string;
+  onClick: () => void;
 }
 
-export default function CategoryCard({ slots, cateogry }: CategoryCardProps) {
+export default function CategoryCard({ slots, cateogry, onClick }: CategoryCardProps) {
   return (
     <div
       data-cid="div-vtDc2p"
-      className="flex w-full flex-col items-center justify-center rounded-2xl py-4 shadow-lg"
+      className="cursor-pointer flex w-full flex-col items-center justify-center rounded-2xl py-4 shadow-lg"
+      onClick={onClick}
     >
       {slots.icon && slots.icon()}
       <p
