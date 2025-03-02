@@ -35,7 +35,19 @@ export const authApi = {
     return api
       .post(ApiEndpoint.OAUTH_TOKEN(provider, code), {
         headers,
+        credentials: 'include'
       })
       .json<Response<TokenData>>();
+  },
+
+  logout: async (token: string) => {
+    const headers = getHeaders(token);
+
+    return api
+      .delete(ApiEndpoint.LOGOUT, {
+        headers,
+        credentials: 'include'
+      })
+      .json<Response<null>>();
   },
 };
