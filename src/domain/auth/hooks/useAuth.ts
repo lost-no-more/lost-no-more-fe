@@ -1,10 +1,12 @@
+import { useRouter } from 'next/navigation';
 import type { Provider } from '@/shared/types/api-endpoint';
-import { useQuery, useQueryClient , useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { authApi } from '../apis/auth';
 
 export function useAuth() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const getAuthState = () => {
     if (typeof window === 'undefined') {
@@ -13,7 +15,7 @@ export function useAuth() {
         accessToken: null,
       };
     }
-    
+
     const token = localStorage.getItem('accessToken');
     return {
       isLoggedIn: !!token,
@@ -54,11 +56,39 @@ export function useAuth() {
     },
   });
 
-  const logout = () => {
-    localStorage.removeItem('accessToken');
-    queryClient.setQueryData(['auth'], {
-      isLoggedIn: false,
-      accessToken: null,
+  const logoutMutation = useMutation({
+    mutationFn: () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) return Promise.resolve({ isSuccess: true, data: null, error: null });
+      return authApi.logout(token);
+    },
+    onSuccess: () => {
+      localStorage.removeItem('accessToken');
+      queryClient.setQueryData(['auth'], {
+        isLoggedIn: false,
+        accessToken: null,
+      });
+      queryClient.invalidateQueries();
+    },
+    onError: (error) => {
+      console.error('Logout error:', error);
+      localStorage.removeItem('accessToken');
+      queryClient.setQueryData(['auth'], {
+        isLoggedIn: false,
+        accessToken: null,
+      });
+    },
+  });
+
+  const logout = (callback?: () => void) => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        if (callback) {
+          callback();
+        } else {
+          router.push('/');
+        }
+      }
     });
   };
 
