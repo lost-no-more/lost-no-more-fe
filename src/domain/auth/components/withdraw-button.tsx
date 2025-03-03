@@ -108,7 +108,7 @@ export const WithdrawButton = ({ authCode }: WithdrawButtonProps) => {
         <Button
           data-cid="Button-vQAJ8f"
           variant="outline"
-          className="hover:bg-destructive"
+          className="hover:bg-muted-foreground/10"
         >
           회원 탈퇴
         </Button>
