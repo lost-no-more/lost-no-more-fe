@@ -13,6 +13,8 @@ export const ApiEndpoint = {
   OAUTH_URL: (provider: Provider) => `auth/oauth/${provider}/code`,
   OAUTH_TOKEN: (provider: Provider, code: string) => `auth/oauth/${provider}/login?code=${code}`,
   LOGOUT: 'auth/logout',
+  WITHDRAW: (provider: Provider) => `auth/${provider}/withdraw`,
+  REISSUE: 'auth/reissue',
 
   ITEMS_COUNT: 'items/count',
 } as const;
