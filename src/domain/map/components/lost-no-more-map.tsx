@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { useSearchMapMarker } from '@/domain/search/hooks/ussSearchMapMarker';
 import useSearchStore from '@/domain/search/stores/search-store';
 import { debounce } from 'lodash';
-import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, MarkerClusterer, useKakaoLoader } from 'react-kakao-maps-sdk';
 
 import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';
 import { useMapPanelContext } from '../contexts/map-panel-context';
@@ -15,6 +15,15 @@ import ZoomController from './zoom-controller';
 const MAP_REFRESH_DELAY = 500;
 
 export default function LostNoMoreMap() {
+  /**
+   * kakao sdk 자체에서 loading, error을 관찰함
+   *@ref: https://react-kakao-maps-sdk.jaeseokim.dev/docs/setup/withHook
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, error] = useKakaoLoader({
+    appkey: process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY ?? '',
+    libraries: ['clusterer'],
+  });
   const { center, setCenter, level } = useLostNoMoreMapContext();
   const { setLostItemIds } = useMapPanelContext();
 
@@ -100,41 +109,43 @@ export default function LostNoMoreMap() {
   );
 
   return (
-    <Map
-      ref={mapRef}
-      data-cid="Map-zPKA6l"
-      center={center}
-      level={level}
-      isPanto={true}
-      zoomable={false}
-      onCenterChanged={handleCenterChanged}
-      onBoundsChanged={handleBoundsChanged}
-      className="h-full w-full"
-    >
-      {!isMapMarkerFetching && (
-        <MarkerClusterer
-          data-cid="MarkerClusterer-tCcELZ"
-          gridSize={50}
-          onClusterclick={handleClusterClick}
-          disableClickZoom={true}
-        >
-          {mapMarkers.map((item) => (
-            <MapMarker
-              data-cid="MapMarker-PiXtl2"
-              key={item.lostItemId}
-              position={{ lat: item.latitude, lng: item.longitude }}
-              onClick={() => handleMarkerClick(item)}
-            />
-          ))}
-        </MarkerClusterer>
-      )}
-      <div
-        data-cid="div-HXF63W"
-        className="absolute bottom-10 right-10 z-10 flex items-center gap-2"
+    <>
+      <Map
+        ref={mapRef}
+        data-cid="Map-zPKA6l"
+        center={center}
+        level={level}
+        isPanto={true}
+        zoomable={false}
+        onCenterChanged={handleCenterChanged}
+        onBoundsChanged={handleBoundsChanged}
+        className="h-full w-full"
       >
-        <MoveMyPosButton data-cid="MoveMyPosButton-zxAiyB" />
-        <ZoomController data-cid="ZoomController-UIJLBM" />
-      </div>
-    </Map>
+        {!isMapMarkerFetching && (
+          <MarkerClusterer
+            data-cid="MarkerClusterer-tCcELZ"
+            gridSize={50}
+            onClusterclick={handleClusterClick}
+            disableClickZoom={true}
+          >
+            {mapMarkers.map((item) => (
+              <MapMarker
+                data-cid="MapMarker-PiXtl2"
+                key={item.lostItemId}
+                position={{ lat: item.latitude, lng: item.longitude }}
+                onClick={() => handleMarkerClick(item)}
+              />
+            ))}
+          </MarkerClusterer>
+        )}
+        <div
+          data-cid="div-HXF63W"
+          className="absolute bottom-10 right-10 z-10 flex items-center gap-2"
+        >
+          <MoveMyPosButton data-cid="MoveMyPosButton-zxAiyB" />
+          <ZoomController data-cid="ZoomController-UIJLBM" />
+        </div>
+      </Map>
+    </>
   );
 }
