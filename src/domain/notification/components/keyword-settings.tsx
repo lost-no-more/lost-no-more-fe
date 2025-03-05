@@ -2,20 +2,13 @@
 
 import React, { useState } from 'react';
 
+import { GenericSelect } from '@/shared/components/generic-select';
 import type { KeywordItem } from '@/shared/types/keyword';
 import type { LostCategory, LostLocation } from '@/shared/types/lost-property';
 import { LostCategories, LostLocations } from '@/shared/types/lost-property';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/shared/ui/select';
 import { ChevronLeft, X } from 'lucide-react';
 
 interface KeywordSettingsProps {
@@ -134,70 +127,29 @@ export default function KeywordSettings({
           data-cid="div-BRP89u"
           className="space-y-1"
         >
-          <Label data-cid="Label-1Y2t9b">카테고리</Label>
-          <Select
-            data-cid="Select-cUO8g9"
-            onValueChange={(value: string) => setSelectedCategory(value as LostCategory)}
+          <GenericSelect
+            data-cid="GenericSelect-SibZvc"
             value={selectedCategory}
-          >
-            <SelectTrigger
-              data-cid="SelectTrigger-PJx2PY"
-              className="w-60"
-            >
-              <SelectValue
-                data-cid="SelectValue-OrQx59"
-                placeholder="카테고리를 선택하세요."
-              />
-            </SelectTrigger>
-            <SelectContent data-cid="SelectContent-1ZQv3v">
-              <SelectGroup data-cid="SelectGroup-nLhsh6">
-                {LostCategories.map((category) => (
-                  <SelectItem
-                    data-cid="SelectItem-ZKEJAM"
-                    key={category}
-                    value={category}
-                  >
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+            onChange={setSelectedCategory}
+            options={[...LostCategories]}
+            width="w-60"
+            label="카테고리"
+            placeholder="카테고리를 선택하세요"
+          />
         </div>
         {/* 지역 선택 */}
         <div
           data-cid="div-WtwYbE"
           className="space-y-2"
         >
-          <Label data-cid="Label-bwIB6C">지역</Label>
-          <Select
-            data-cid="Select-vPXXWS"
-            onValueChange={(value: string) => setSelectedLocation(value as LostLocation)}
+          <GenericSelect data-cid="GenericSelect-EXfUuk"
             value={selectedLocation}
-          >
-            <SelectTrigger
-              data-cid="SelectTrigger-cPNMqJ"
-              className="w-60"
-            >
-              <SelectValue
-                data-cid="SelectValue-ZrQ2fG"
-                placeholder="지역을 선택하세요."
-              />
-            </SelectTrigger>
-            <SelectContent data-cid="SelectContent-w0AmLa">
-              <SelectGroup data-cid="SelectGroup-EvrfT8">
-                {LostLocations.map((loc) => (
-                  <SelectItem
-                    data-cid="SelectItem-a6XZ00"
-                    key={loc}
-                    value={loc}
-                  >
-                    {loc}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+            onChange={setSelectedLocation}
+            options={[...LostLocations]}
+            width="w-60"
+            label="지역"
+            placeholder="지역을 선택하세요"
+          />
         </div>
         <div
           data-cid="div-aJ5mhT"
