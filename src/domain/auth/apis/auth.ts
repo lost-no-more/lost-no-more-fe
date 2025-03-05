@@ -2,6 +2,7 @@ import { BASE_URL } from '@/shared/config/api-config';
 import type { Provider } from '@/shared/types/api-endpoint';
 import { ApiEndpoint } from '@/shared/types/api-endpoint';
 import type { Response } from '@/shared/types/response';
+import { isTokenExpired } from '@/shared/utils/jwt-utils';
 import ky from 'ky';
 
 type OAuthUrlData = string;
@@ -12,6 +13,7 @@ const api = ky.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 });
 
 const getHeaders = (token?: string): Record<string, string> => {
@@ -26,6 +28,7 @@ async function attemptTokenReissue(): Promise<string | null> {
   try {
     const result = await authApi.reissueToken();
     if (result.isSuccess && result.data) {
+      localStorage.setItem('accessToken', result.data);
       return result.data;
     }
     return null;
@@ -40,18 +43,17 @@ async function authenticatedRequest<T>(
   token: string
 ): Promise<Response<T>> {
   try {
+    if (isTokenExpired(token)) {
+      const newToken = await attemptTokenReissue();
+      if (!newToken) {
+        throw new Error('토큰 재발급에 실패했습니다.');
+      }
+      return await requestFn(newToken);
+    }
+
     return await requestFn(token);
   } catch (error: any) {
-    if (error?.response?.data?.message !== '만료된 AccessToken입니다.') {
-      throw error;
-    }
-
-    const newToken = await attemptTokenReissue();
-    if (!newToken) {
-      throw error;
-    }
-
-    return await requestFn(newToken);
+    throw error;
   }
 }
 
@@ -72,7 +74,10 @@ export const authApi = {
     code: string,
     options?: { token?: string; state?: string }
   ) => {
-    if (options?.state === 'withdrawal' || localStorage.getItem('withdraw_in_progress') === 'true') {
+    if (
+      options?.state === 'withdrawal' ||
+      localStorage.getItem('withdraw_in_progress') === 'true'
+    ) {
       return {
         isSuccess: false,
         data: null,
@@ -88,7 +93,6 @@ export const authApi = {
     return api
       .post(ApiEndpoint.OAUTH_TOKEN(provider, code), {
         headers,
-        credentials: 'include',
       })
       .json<Response<TokenData>>();
   },
@@ -99,7 +103,6 @@ export const authApi = {
       return api
         .delete(ApiEndpoint.LOGOUT, {
           headers,
-          credentials: 'include',
         })
         .json<Response<null>>();
     }, token);
@@ -107,11 +110,7 @@ export const authApi = {
 
   reissueToken: async () => {
     try {
-      return await api
-        .post(ApiEndpoint.REISSUE, {
-          credentials: 'include',
-        })
-        .json<Response<TokenData>>();
+      return await api.post(ApiEndpoint.REISSUE, {}).json<Response<TokenData>>();
     } catch (error) {
       console.error(':', error);
       throw error;
@@ -129,7 +128,6 @@ export const authApi = {
       return api
         .delete(endpoint, {
           headers,
-          credentials: 'include',
         })
         .json<Response<null>>();
     }, token);

@@ -4,6 +4,7 @@ import type { Provider } from '@/shared/types/api-endpoint';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { authApi } from '../apis/auth';
+import { isTokenExpired } from '@/shared/utils/jwt-utils';
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -20,10 +21,43 @@ export function useAuth() {
 
     const token = localStorage.getItem('accessToken');
     const provider = localStorage.getItem('auth_provider');
+
+    const isExpired = isTokenExpired(token);
+
+    if (token && isExpired) {
+      authApi.reissueToken()
+        .then(response => {
+          if (response.isSuccess && response.data) {
+            localStorage.setItem('accessToken', response.data);
+            queryClient.invalidateQueries({ queryKey: ['auth'] });
+          } else {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('auth_provider');
+            queryClient.setQueryData(['auth'], {
+              isLoggedIn: false,
+              accessToken: null,
+              provider: null,
+            });
+            router.push('/');
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('auth_provider');
+          queryClient.setQueryData(['auth'], {
+            isLoggedIn: false,
+            accessToken: null,
+            provider: null,
+          });
+          router.push('/');
+        });
+    }
+
     return {
       isLoggedIn: !!token,
       accessToken: token,
       provider: provider as Provider,
+      isTokenExpired: isExpired,
     };
   };
 
@@ -57,6 +91,7 @@ export function useAuth() {
           isLoggedIn: true,
           accessToken: response.data,
           provider: variables.provider,
+          isTokenExpired: false,
         });
       }
     },
@@ -74,6 +109,8 @@ export function useAuth() {
       queryClient.setQueryData(['auth'], {
         isLoggedIn: false,
         accessToken: null,
+        provider: null,
+        isTokenExpired: true,
       });
       queryClient.invalidateQueries();
     },
@@ -84,6 +121,8 @@ export function useAuth() {
       queryClient.setQueryData(['auth'], {
         isLoggedIn: false,
         accessToken: null,
+        provider: null,
+        isTokenExpired: true,
       });
     },
   });
@@ -108,6 +147,15 @@ export function useAuth() {
         throw new Error('액세스 토큰이 없습니다.');
       }
 
+      if (isTokenExpired(token)) {
+        const reissueResponse = await authApi.reissueToken();
+        if (!reissueResponse.isSuccess || !reissueResponse.data) {
+          throw new Error('토큰 재발급에 실패했습니다. 다시 로그인해주세요.');
+        }
+        localStorage.setItem('accessToken', reissueResponse.data);
+        return await authApi.withdraw(provider, reissueResponse.data, code);
+      }
+
       return await authApi.withdraw(provider, token, code);
     },
     onSuccess: () => {
@@ -118,6 +166,7 @@ export function useAuth() {
         isLoggedIn: false,
         accessToken: null,
         provider: null,
+        isTokenExpired: true,
       });
 
       queryClient.clear();
