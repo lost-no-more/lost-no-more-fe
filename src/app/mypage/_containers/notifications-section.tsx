@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
 
 export const NotificationsSection = () => {
   const [keywords, setKeywords] = useState<string[]>([]);
