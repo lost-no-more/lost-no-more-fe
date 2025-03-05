@@ -41,7 +41,7 @@ export default function CategoryCards() {
           data-cid="CategoryCard-4ApOtE"
           key={category.name}
           slots={{ icon: category.icon }}
-          cateogry={category.name}
+          category={category.name}
           onClick={category.onClick}
         />
       ))}

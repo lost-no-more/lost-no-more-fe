@@ -1,12 +1,13 @@
+import type { LostCategory } from '@/shared/types/lost-property';
 import type { Slots } from '@/shared/types/slots';
 
 interface CategoryCardProps {
   slots: Slots<'icon'>;
-  cateogry: string;
+  category: LostCategory;
   onClick: () => void;
 }
 
-export default function CategoryCard({ slots, cateogry, onClick }: CategoryCardProps) {
+export default function CategoryCard({ slots, category, onClick }: CategoryCardProps) {
   return (
     <div
       data-cid="div-vtDc2p"
@@ -18,7 +19,7 @@ export default function CategoryCard({ slots, cateogry, onClick }: CategoryCardP
         data-cid="p-XSlzd9"
         className="mt-2 text-base text-foreground"
       >
-        {cateogry}
+        {category}
       </p>
     </div>
   );
