@@ -16,24 +16,29 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
+import type { KeywordItem } from '@/shared/types/keyword';
 
 export const NotificationsSection = () => {
-  const [keywords, setKeywords] = useState<string[]>([]);
-  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+  const [keywords, setKeywords] = useState<KeywordItem[]>([]);
+  const [selectedKeyword, setSelectedKeyword] = useState<KeywordItem | null>(null);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [emailNotification, setEmailNotification] = useState(false);
 
   const addKeyword = (keyword: string) => {
-    if (keyword && !keywords.includes(keyword)) {
-      setKeywords([...keywords, keyword]);
+    if (keyword) {
+      const newKeyword: KeywordItem = {
+        id: Date.now().toString(),
+        text: keyword,
+      };
+      setKeywords([...keywords, newKeyword]);
     }
   };
 
-  const removeKeyword = (removeKeyword: string) => {
-    setKeywords(keywords.filter((kw) => kw !== removeKeyword));
+  const removeKeyword = (keywordId: string) => {
+    setKeywords(keywords.filter((kw) => kw.id !== keywordId));
   };
 
-  const handleSettingsClick = (keyword: string) => {
+  const handleSettingsClick = (keyword: KeywordItem) => {
     setSelectedKeyword(keyword);
     setIsSettingsVisible(true);
   };
@@ -43,9 +48,11 @@ export const NotificationsSection = () => {
     setSelectedKeyword(null);
   };
 
-  const updateKeyword = (oldKeyword: string, newKeyword: string) => {
-    setKeywords(keywords.map((kw) => (kw === oldKeyword ? newKeyword : kw)));
-    setSelectedKeyword(newKeyword);
+  const updateKeyword = (keywordId: string, newText: string) => {
+    setKeywords(keywords.map((kw) => (kw.id === keywordId ? { ...kw, text: newText } : kw)));
+    if (selectedKeyword && selectedKeyword.id === keywordId) {
+      setSelectedKeyword({ ...selectedKeyword, text: newText });
+    }
   };
 
   return (
