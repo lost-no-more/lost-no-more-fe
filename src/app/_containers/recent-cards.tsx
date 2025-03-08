@@ -6,6 +6,7 @@ import { useAuth } from '@/domain/auth/hooks/useAuth';
 import useLoginPopupStore from '@/domain/auth/stores/login-popup-store';
 import LostCard from '@/domain/lost-item/components/lost-card';
 import { useItemsRecentQuery } from '@/domain/lost-item/queries/useItemsRecentQuery';
+import SkeletonView from '@/shared/components/skeleton-view';
 import { Button } from '@/shared/ui/button';
 import {
   Carousel,
@@ -63,7 +64,7 @@ function LoginNoRecentCards() {
   };
   return (
     <BlurredCarousel
-      data-cid="BlurredCarousel-kd0WrW"
+      data-cid="BlurredCarousel-1bJ9Zb"
       description="알림을 설정해서 새로운 분실물을 놓치지 마세요!"
       onClick={goToNotification}
     />
@@ -81,31 +82,50 @@ function NoLoginRecentCards() {
   );
 }
 
-function BlurredCarousel({ description, onClick }: { description: string; onClick: () => void }) {
+function NotLoadingRecentCards() {
+  return (
+    <BlurredCarousel
+      data-cid="BlurredCarousel-EfaAGl"
+      isDescriptionInvisible
+    />
+  );
+}
+
+function BlurredCarousel({
+  description,
+  onClick,
+  isDescriptionInvisible,
+}: {
+  description?: string;
+  onClick?: () => void;
+  isDescriptionInvisible?: boolean;
+}) {
   return (
     <div
       data-cid="div-jOUH2q"
       className="relative"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+      {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text*/}
       <img
         data-cid="img-zQLdT4"
         src="/images/blurred-carousel.png"
         className="w-full h-[275.63px] rounded-xl filter blur-sm"
       />
-      <Button
-        data-cid="p-ut3jtu"
-        onClick={onClick}
-        className="bg-foreground rounded-md py-1 px-2 text-lg text-background font-extrabold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-      >
-        {description}
-      </Button>
+      {isDescriptionInvisible ? null : (
+        <Button
+          data-cid="p-ut3jtu"
+          onClick={onClick}
+          className="bg-foreground rounded-md py-1 px-2 text-lg text-background font-extrabold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        >
+          {description}
+        </Button>
+      )}
     </div>
   );
 }
 
 export default function RecentCards() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isLoadingAuth } = useAuth();
   const router = useRouter();
   const openPopup = useLoginPopupStore((state) => state.openPopup);
 
@@ -142,7 +162,9 @@ export default function RecentCards() {
           />
         </div>
       </div>
-      {isLoggedIn ? (
+      {isLoadingAuth ? (
+        <NotLoadingRecentCards data-cid="NotLoadingRecentCards-TRZHjt" />
+      ) : isLoggedIn ? (
         <LoginRecentCards data-cid="LoginRecentCards-aGH8bp" />
       ) : (
         <NoLoginRecentCards data-cid="NoLoginRecentCards-ZJ5DCq" />
