@@ -14,7 +14,7 @@ import { ChevronLeft, X } from 'lucide-react';
 interface KeywordSettingsProps {
   keyword: KeywordItem;
   onBackClick: () => void;
-  updateKeyword: (oldKeyword: string, newKeyword: string) => void;
+  updateKeyword: (keywordId: string, updatedKeyword: Omit<KeywordItem, 'id'>) => void;
 }
 
 export default function KeywordSettings({
@@ -22,22 +22,28 @@ export default function KeywordSettings({
   onBackClick,
   updateKeyword,
 }: KeywordSettingsProps) {
-  const [keywordInput, setKeywordInput] = useState(keyword.text);
+  const [keywordText, setKeywordText] = useState(keyword.text);
   const [selectedCategory, setSelectedCategory] = useState<LostCategory>('전체');
   const [selectedLocation, setSelectedLocation] = useState<LostLocation>('전체');
   const [error, setError] = useState<string>('');
 
   const handleClearInput = () => {
-    setKeywordInput('');
+    setKeywordText('');
     setError('');
   };
 
   const handleUpdateKeyword = () => {
-    if (!keywordInput.trim()) {
+    if (!keywordText.trim()) {
       setError('키워드를 입력해주세요');
       return;
     }
-    updateKeyword(keyword.id, keywordInput);
+
+    updateKeyword(keyword.id, {
+      text: keywordText,
+      category: selectedCategory,
+      location: selectedLocation
+    });
+
     onBackClick();
   };
 
@@ -90,16 +96,16 @@ export default function KeywordSettings({
             <Input
               data-cid="Input-4TjID6"
               id="keyword"
-              value={keywordInput}
+              value={keywordText}
               onChange={(e) => {
-                setKeywordInput(e.target.value);
+                setKeywordText(e.target.value);
                 if (error) setError('');
               }}
               className={`w-full border-transparent bg-secondary pr-10 text-base font-semibold text-secondary-foreground ${
                 error ? 'border-destructive' : ''
               }`}
             />
-            {keywordInput && (
+            {keywordText && (
               <Button
                 data-cid="Button-7PVCjI"
                 variant="ghost"

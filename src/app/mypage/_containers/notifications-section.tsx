@@ -1,10 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import KeywordInput from '@/domain/notification/components/keyword-input';
 import KeywordList from '@/domain/notification/components/keyword-list';
 import KeywordSettings from '@/domain/notification/components/keyword-settings';
+import {
+  useKeywordManagement,
+  useNotificationSettings,
+} from '@/domain/notification/hooks/useKeywordManagement';
 import CustomSwitch from '@/shared/components/custom-switch';
 import { Button } from '@/shared/ui/button';
 import {
@@ -16,44 +20,20 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs';
-import type { KeywordItem } from '@/shared/types/keyword';
 
 export const NotificationsSection = () => {
-  const [keywords, setKeywords] = useState<KeywordItem[]>([]);
-  const [selectedKeyword, setSelectedKeyword] = useState<KeywordItem | null>(null);
-  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  const [emailNotification, setEmailNotification] = useState(false);
+  const {
+    keywords,
+    selectedKeyword,
+    isSettingsVisible,
+    addKeyword,
+    removeKeyword,
+    handleSettingsClick,
+    handleBackClick,
+    updateKeyword,
+  } = useKeywordManagement();
 
-  const addKeyword = (keyword: string) => {
-    if (keyword) {
-      const newKeyword: KeywordItem = {
-        id: Date.now().toString(),
-        text: keyword,
-      };
-      setKeywords([...keywords, newKeyword]);
-    }
-  };
-
-  const removeKeyword = (keywordId: string) => {
-    setKeywords(keywords.filter((kw) => kw.id !== keywordId));
-  };
-
-  const handleSettingsClick = (keyword: KeywordItem) => {
-    setSelectedKeyword(keyword);
-    setIsSettingsVisible(true);
-  };
-
-  const handleBackClick = () => {
-    setIsSettingsVisible(false);
-    setSelectedKeyword(null);
-  };
-
-  const updateKeyword = (keywordId: string, newText: string) => {
-    setKeywords(keywords.map((kw) => (kw.id === keywordId ? { ...kw, text: newText } : kw)));
-    if (selectedKeyword && selectedKeyword.id === keywordId) {
-      setSelectedKeyword({ ...selectedKeyword, text: newText });
-    }
-  };
+  const { emailNotification, setEmailNotification } = useNotificationSettings();
 
   return (
     <Card data-cid="Card-cL27dV">
