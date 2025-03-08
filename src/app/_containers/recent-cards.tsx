@@ -6,7 +6,6 @@ import { useAuth } from '@/domain/auth/hooks/useAuth';
 import useLoginPopupStore from '@/domain/auth/stores/login-popup-store';
 import LostCard from '@/domain/lost-item/components/lost-card';
 import { useItemsRecentQuery } from '@/domain/lost-item/queries/useItemsRecentQuery';
-import SkeletonView from '@/shared/components/skeleton-view';
 import { Button } from '@/shared/ui/button';
 import {
   Carousel,
