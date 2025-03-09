@@ -1,6 +1,6 @@
 import { BASE_URL } from '@/shared/config/api-config';
 import type { Provider } from '@/shared/types/api-endpoint';
-import { ApiEndpoint } from '@/shared/types/api-endpoint';
+import { ApiEndpoint, getAuthHeaders } from '@/shared/types/api-endpoint';
 import type { Response } from '@/shared/types/response';
 import { isTokenExpired } from '@/shared/utils/jwt-utils';
 import ky from 'ky';
@@ -15,14 +15,6 @@ const api = ky.create({
   },
   credentials: 'include',
 });
-
-const getHeaders = (token?: string): Record<string, string> => {
-  const headers: Record<string, string> = {};
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  return headers;
-};
 
 async function attemptTokenReissue(): Promise<string | null> {
   try {
@@ -59,7 +51,7 @@ async function authenticatedRequest<T>(
 
 export const authApi = {
   getOAuthUrl: async (provider: Provider, token?: string, state?: string) => {
-    const headers = getHeaders(token);
+    const headers = getAuthHeaders(token);
     let url = ApiEndpoint.OAUTH_URL(provider);
 
     if (state) {
@@ -88,7 +80,7 @@ export const authApi = {
       };
     }
 
-    const headers = getHeaders(options?.token);
+    const headers = getAuthHeaders(options?.token);
 
     return api
       .post(ApiEndpoint.OAUTH_TOKEN(provider, code), {
@@ -99,7 +91,7 @@ export const authApi = {
 
   logout: async (token: string) => {
     return authenticatedRequest((currentToken) => {
-      const headers = getHeaders(currentToken);
+      const headers = getAuthHeaders(currentToken);
       return api
         .delete(ApiEndpoint.LOGOUT, {
           headers,
@@ -124,7 +116,7 @@ export const authApi = {
         : ApiEndpoint.WITHDRAW(provider);
 
     return authenticatedRequest((currentToken) => {
-      const headers = getHeaders(currentToken);
+      const headers = getAuthHeaders(currentToken);
       return api
         .delete(endpoint, {
           headers,
