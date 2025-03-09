@@ -2,13 +2,11 @@
 
 import React from 'react';
 
+import { useKeywordManagement } from '@/domain/notification/hooks/useKeywordManagement';
 import KeywordInput from '@/domain/notification/components/keyword-input';
 import KeywordList from '@/domain/notification/components/keyword-list';
 import KeywordSettings from '@/domain/notification/components/keyword-settings';
-import {
-  useKeywordManagement,
-  useNotificationSettings,
-} from '@/domain/notification/hooks/useKeywordManagement';
+import { useNotificationSettings } from '@/domain/notification/hooks/useNotificationSettings';
 import CustomSwitch from '@/shared/components/custom-switch';
 import { Button } from '@/shared/ui/button';
 import {
@@ -26,6 +24,7 @@ export const NotificationsSection = () => {
     keywords,
     selectedKeyword,
     isSettingsVisible,
+    isLoading,
     addKeyword,
     removeKeyword,
     handleSettingsClick,
@@ -97,16 +96,29 @@ export const NotificationsSection = () => {
                     분실물 알림을 받을 키워드를 설정합니다.
                   </CardDescription>
                 </CardHeader>
+
                 <KeywordInput
                   data-cid="KeywordInput-MFRnLi"
                   addKeyword={addKeyword}
                 />
-                <KeywordList
-                  data-cid="KeywordList-mjaArg"
-                  keywords={keywords}
-                  removeKeyword={removeKeyword}
-                  onSettingsClick={handleSettingsClick}
-                />
+
+                {isLoading ? (
+                  <p data-cid="p-fw61Du" className="text-center py-4">키워드를 불러오는 중...</p>
+                ) : keywords.length === 0 ? (
+                  <p
+                    data-cid="p-Hb9FyA"
+                    className="text-center text-muted-foreground py-8"
+                  >
+                    등록된 키워드가 없습니다.
+                  </p>
+                ) : (
+                  <KeywordList
+                    data-cid="KeywordList-mjaArg"
+                    keywords={keywords}
+                    removeKeyword={removeKeyword}
+                    onSettingsClick={handleSettingsClick}
+                  />
+                )}
               </div>
               <div
                 data-cid="div-74guDL"
