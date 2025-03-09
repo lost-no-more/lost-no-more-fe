@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { useSearchMapMarker } from '@/domain/search/hooks/ussSearchMapMarker';
 import useSearchStore from '@/domain/search/stores/search-store';
+import type { LostLocation } from '@/shared/types/lost-property';
 import { debounce } from 'lodash';
 import { Map, MapMarker, MarkerClusterer, useKakaoLoader } from 'react-kakao-maps-sdk';
 
@@ -31,6 +32,37 @@ export default function LostNoMoreMap() {
   const updateTopLeftLon = useSearchStore((state) => state.updateTopLeftLon);
   const updateBottomRightLat = useSearchStore((state) => state.updateBottomRightLat);
   const updateBottomRightLon = useSearchStore((state) => state.updateBottomRightLon);
+
+  useEffect(() => {
+    const unsubscribe = useSearchStore.subscribe(
+      (state) => state.location,
+      (newLocation) => {
+        const cities: Partial<Record<LostLocation, { lat: number; lng: number }>> = {
+          서울특별시: { lat: 37.5665, lng: 126.978 },
+          강원도: { lat: 37.8852, lng: 127.7299 },
+          경기도: { lat: 37.2888, lng: 127.0535 },
+          경상남도: { lat: 35.2377, lng: 128.6918 },
+          경상북도: { lat: 36.5759, lng: 128.5055 },
+          광주광역시: { lat: 35.1595, lng: 126.8526 },
+          대구광역시: { lat: 35.8714, lng: 128.6014 },
+          대전광역시: { lat: 36.3504, lng: 127.3845 },
+          부산광역시: { lat: 35.1796, lng: 129.0756 },
+          울산광역시: { lat: 35.5384, lng: 129.3114 },
+          인천광역시: { lat: 37.4563, lng: 126.7052 },
+          전라남도: { lat: 34.816, lng: 126.4627 },
+          전라북도: { lat: 35.8202, lng: 127.1088 },
+          충청남도: { lat: 36.6588, lng: 126.6725 },
+          충청북도: { lat: 36.6353, lng: 127.4915 },
+          제주특별자치도: { lat: 33.4996, lng: 126.5312 },
+          세종특별자치시: { lat: 36.4801, lng: 127.289 },
+        };
+
+        if (newLocation !== null && cities[newLocation]) setCenter(cities[newLocation]);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   const { data: mapMarkers, isFetching: isMapMarkerFetching } = useSearchMapMarker();
 
@@ -109,43 +141,41 @@ export default function LostNoMoreMap() {
   );
 
   return (
-    <>
-      <Map
-        ref={mapRef}
-        data-cid="Map-zPKA6l"
-        center={center}
-        level={level}
-        isPanto={true}
-        zoomable={false}
-        onCenterChanged={handleCenterChanged}
-        onBoundsChanged={handleBoundsChanged}
-        className="h-full w-full"
-      >
-        {!isMapMarkerFetching && (
-          <MarkerClusterer
-            data-cid="MarkerClusterer-tCcELZ"
-            gridSize={50}
-            onClusterclick={handleClusterClick}
-            disableClickZoom={true}
-          >
-            {mapMarkers.map((item) => (
-              <MapMarker
-                data-cid="MapMarker-PiXtl2"
-                key={item.lostItemId}
-                position={{ lat: item.latitude, lng: item.longitude }}
-                onClick={() => handleMarkerClick(item)}
-              />
-            ))}
-          </MarkerClusterer>
-        )}
-        <div
-          data-cid="div-HXF63W"
-          className="absolute bottom-10 right-10 z-10 flex items-center gap-2"
+    <Map
+      ref={mapRef}
+      data-cid="Map-zPKA6l"
+      center={center}
+      level={level}
+      isPanto={true}
+      zoomable={false}
+      onCenterChanged={handleCenterChanged}
+      onBoundsChanged={handleBoundsChanged}
+      className="h-full w-full"
+    >
+      {!isMapMarkerFetching && (
+        <MarkerClusterer
+          data-cid="MarkerClusterer-tCcELZ"
+          gridSize={50}
+          onClusterclick={handleClusterClick}
+          disableClickZoom={true}
         >
-          <MoveMyPosButton data-cid="MoveMyPosButton-zxAiyB" />
-          <ZoomController data-cid="ZoomController-UIJLBM" />
-        </div>
-      </Map>
-    </>
+          {mapMarkers.map((item) => (
+            <MapMarker
+              data-cid="MapMarker-PiXtl2"
+              key={item.lostItemId}
+              position={{ lat: item.latitude, lng: item.longitude }}
+              onClick={() => handleMarkerClick(item)}
+            />
+          ))}
+        </MarkerClusterer>
+      )}
+      <div
+        data-cid="div-HXF63W"
+        className="absolute bottom-10 right-10 z-10 flex items-center gap-2"
+      >
+        <MoveMyPosButton data-cid="MoveMyPosButton-zxAiyB" />
+        <ZoomController data-cid="ZoomController-UIJLBM" />
+      </div>
+    </Map>
   );
 }
