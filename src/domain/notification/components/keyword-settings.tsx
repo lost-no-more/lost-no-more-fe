@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 
 import { GenericSelect } from '@/shared/components/generic-select';
 import type { KeywordItem } from '@/shared/types/keyword';
-import type { LostCategory, LostLocation } from '@/shared/types/lost-property';
-import { LostCategories, LostLocations } from '@/shared/types/lost-property';
+import type { LostCategory, LostLocationForKeyword } from '@/shared/types/lost-property';
+import { LostCategories, LostLocationsForKeywords } from '@/shared/types/lost-property';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
@@ -23,8 +23,12 @@ export default function KeywordSettings({
   updateKeyword,
 }: KeywordSettingsProps) {
   const [keywordText, setKeywordText] = useState(keyword.text);
-  const [selectedCategory, setSelectedCategory] = useState<LostCategory>('전체');
-  const [selectedLocation, setSelectedLocation] = useState<LostLocation>('전체');
+  const [selectedCategory, setSelectedCategory] = useState<LostCategory>(
+    keyword.category || '전체'
+  );
+  const [selectedLocation, setSelectedLocation] = useState<LostLocationForKeyword>(
+    keyword.location || '전체'
+  );
   const [error, setError] = useState<string>('');
 
   const handleClearInput = () => {
@@ -41,7 +45,7 @@ export default function KeywordSettings({
     updateKeyword(keyword.id, {
       text: keywordText,
       category: selectedCategory,
-      location: selectedLocation
+      location: selectedLocation,
     });
 
     onBackClick();
@@ -148,10 +152,11 @@ export default function KeywordSettings({
           data-cid="div-WtwYbE"
           className="space-y-2"
         >
-          <GenericSelect data-cid="GenericSelect-EXfUuk"
+          <GenericSelect
+            data-cid="GenericSelect-EXfUuk"
             value={selectedLocation}
             onChange={setSelectedLocation}
-            options={[...LostLocations]}
+            options={[...LostLocationsForKeywords]}
             width="w-60"
             label="지역"
             placeholder="지역을 선택하세요"

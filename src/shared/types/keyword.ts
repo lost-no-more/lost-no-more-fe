@@ -1,10 +1,10 @@
-import type { LostCategory, LostLocation } from '@/shared/types/lost-property';
+import type { LostCategory, LostLocationForKeyword } from '@/shared/types/lost-property';
 
 export interface KeywordItem {
   id: string;
   text: string;
   category: LostCategory;
-  location: LostLocation;
+  location: LostLocationForKeyword;
 }
 
 export interface UpdateKeywordListParams {
