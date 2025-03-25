@@ -8,7 +8,7 @@ import type { LostLocation } from '@/shared/types/lost-property';
 import { debounce } from 'lodash';
 import { Map, MapMarker, MarkerClusterer, useKakaoLoader } from 'react-kakao-maps-sdk';
 
-import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';
+import { useLostNoMoreMapStore } from '../stores/lost-no-more-map-store';
 import { useMapPanelStore } from '../stores/map-panel-store';
 import MoveMyPosButton from './move-mypos-button';
 import ZoomController from './zoom-controller';
@@ -25,7 +25,9 @@ export default function LostNoMoreMap() {
     appkey: process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY ?? '',
     libraries: ['clusterer'],
   });
-  const { center, setCenter, level } = useLostNoMoreMapContext();
+  const center = useLostNoMoreMapStore((state) => state.center);
+  const setCenter = useLostNoMoreMapStore((state) => state.setCenter);
+  const level = useLostNoMoreMapStore((state) => state.level);
   const setLostItemIds = useMapPanelStore((state) => state.setLostItemIds);
 
   const updateTopLeftLat = useSearchStore((state) => state.updateTopLeftLat);

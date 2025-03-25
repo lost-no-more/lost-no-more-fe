@@ -1,6 +1,5 @@
 import LostNoMoreMap from '@/domain/map/components/lost-no-more-map';
 import MapPanelSwitch from '@/domain/map/components/map-panel-switch';
-import { LostNoMoreMapProvider } from '@/domain/map/contexts/lost-no-more-map-context';
 import SearchFilter from '@/domain/search/components/search-filter';
 import Headerbar from '@/shared/components/headerbar';
 import { QueryProvider } from '@/shared/lib/query-client';
@@ -18,11 +17,9 @@ export default function SearchPage() {
         className="flex h-0 flex-1"
       >
         <MapPanelSwitch data-cid="MapPanelSwitch-grWpHo" />
-        <LostNoMoreMapProvider data-cid="LostNoMoreMapProvider-bLJEWL">
-          <QueryProvider data-cid="QueryProvider-1J9J9">
-            <LostNoMoreMap data-cid="LostNoMoreMap-ue0XpN" />
-          </QueryProvider>
-        </LostNoMoreMapProvider>
+        <QueryProvider data-cid="QueryProvider-1J9J9">
+          <LostNoMoreMap data-cid="LostNoMoreMap-ue0XpN" />
+        </QueryProvider>
       </div>
     </div>
   );
