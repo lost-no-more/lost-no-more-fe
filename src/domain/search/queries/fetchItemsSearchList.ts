@@ -10,7 +10,7 @@ export interface ItemsSearchListProps {
 
 interface ItemsSerachListData {
   totalCont: number;
-  lostItems: {
+  lostItemList: {
     lostItemId: number;
     name: string;
     date: string;
@@ -25,7 +25,11 @@ export type ItemsSearchListResponse = Response<ItemsSerachListData>;
 export async function fetchItemsSearchList({
   lostItemIds,
 }: ItemsSearchListProps): Promise<ItemsSearchListResponse> {
+  const searchParams = new URLSearchParams({
+    lostItemIds: lostItemIds.join(','),
+  });
   return await ApiClient.get(ApiEndpoint.ITEMS_SEARCH_LIST, {
+    searchParams,
     next: {
       revalidate: ITEMS_SEARCH_LIST_REVALIDATE_MS,
     },
