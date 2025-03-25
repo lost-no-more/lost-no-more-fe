@@ -9,7 +9,7 @@ import { debounce } from 'lodash';
 import { Map, MapMarker, MarkerClusterer, useKakaoLoader } from 'react-kakao-maps-sdk';
 
 import { useLostNoMoreMapContext } from '../contexts/lost-no-more-map-context';
-import { useMapPanelContext } from '../contexts/map-panel-context';
+import { useMapPanelStore } from '../stores/map-panel-store';
 import MoveMyPosButton from './move-mypos-button';
 import ZoomController from './zoom-controller';
 
@@ -26,7 +26,7 @@ export default function LostNoMoreMap() {
     libraries: ['clusterer'],
   });
   const { center, setCenter, level } = useLostNoMoreMapContext();
-  const { setLostItemIds } = useMapPanelContext();
+  const setLostItemIds = useMapPanelStore((state) => state.setLostItemIds);
 
   const updateTopLeftLat = useSearchStore((state) => state.updateTopLeftLat);
   const updateTopLeftLon = useSearchStore((state) => state.updateTopLeftLon);
@@ -62,7 +62,7 @@ export default function LostNoMoreMap() {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [setCenter]);
 
   const { data: mapMarkers, isFetching: isMapMarkerFetching } = useSearchMapMarker();
 
@@ -90,6 +90,11 @@ export default function LostNoMoreMap() {
       }, MAP_REFRESH_DELAY),
     [updateBottomRightLat, updateBottomRightLon, updateTopLeftLat, updateTopLeftLon]
   );
+
+  useEffect(() => {
+    if (isMapMarkerFetching) return;
+    setLostItemIds(mapMarkers.map((item) => item.lostItemId));
+  }, [mapMarkers, isMapMarkerFetching, setLostItemIds]);
 
   // 단일 마커 클릭 핸들러
   const handleMarkerClick = (item: { lostItemId: number; latitude: number; longitude: number }) => {

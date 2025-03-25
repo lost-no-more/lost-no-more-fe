@@ -6,7 +6,7 @@ import type { LostCardProps } from '@/domain/lost-item/components/lost-card';
 import LostCard from '@/domain/lost-item/components/lost-card';
 import ListView from '@/shared/components/list-view';
 
-import { useMapPanelContext } from '../contexts/map-panel-context';
+import { useMapPanelStore } from '../stores/map-panel-store';
 
 const CHUNK_SIZE = 15;
 
@@ -28,7 +28,9 @@ async function fetchLostItems(ids: number[]): Promise<LostCardProps[]> {
 }
 
 export default function MapPanel() {
-  const { openPanel, lostItemIds, setCurrentItemId } = useMapPanelContext();
+  const openPanel = useMapPanelStore((state) => state.openPanel);
+  const lostItemIds = useMapPanelStore((state) => state.lostItemIds);
+  const setCurrentItemId = useMapPanelStore((state) => state.setCurrentItemId);
   const [items, setItems] = useState<LostCardProps[]>([]);
   const [cursor, setCursor] = useState(0);
   const [isFetching, setIsFetching] = useState(false);

@@ -9,7 +9,7 @@ import useBoolean from '@/shared/hooks/useBoolean';
 import type { LostLocation } from '@/shared/types/lost-property';
 import { Building2Icon, CalendarIcon, ChevronLeftIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 
-import { useMapPanelContext } from '../contexts/map-panel-context';
+import { useMapPanelStore } from '../stores/map-panel-store';
 
 interface MapDetailPanelProps {
   name: string;
@@ -23,7 +23,8 @@ interface MapDetailPanelProps {
 
 export default function MapDetailPanel() {
   const { value: isLoading, setFalse: completeLoad } = useBoolean(true);
-  const { currentItemId, closePanel } = useMapPanelContext();
+  const currentItemId = useMapPanelStore((state) => state.currentItemId);
+  const closePanel = useMapPanelStore((state) => state.closePanel);
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [acquisitionLocation, setAcquisitionLocation] = useState<LostLocation | null>(null);
