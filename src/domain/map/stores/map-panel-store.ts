@@ -9,24 +9,28 @@ import { devtools } from 'zustand/middleware';
  * @property {number} currentItemId - 현재 선택된 분실물 아이템의 ID.
  * @property {number} scrollPosition - 맵 패널의 스크롤 위치.
  * @property {boolean} isPanelOpen - 맵 패널이 열려 있는지 여부.
+ * @property {boolean} isLoadingMapPanel - 맵 패널이 로딩 중인지 여부.
  *
  * @property {(ids: number[]) => void} setLostItemIds - 분실물 아이템 ID 목록을 설정하는 함수.
  * @property {(id: number) => void} setCurrentItemId - 현재 선택된 분실물 아이템 ID를 설정하는 함수.
  * @property {(position: number) => void} setScrollPosition - 맵 패널의 스크롤 위치를 설정하는 함수.
  * @property {() => void} openPanel - 맵 패널을 여는 함수.
  * @property {() => void} closePanel - 맵 패널을 닫는 함수.
+ * @property {(isLoading: boolean) => void} setIsLoadingMapPanel - 맵 패널의 로딩 상태를 설정하는 함수.
  */
 interface MapPanelState {
   lostItemIds: number[];
   currentItemId: number;
   scrollPosition: number;
   isPanelOpen: boolean;
+  isMapPanelLoading: boolean;
 
   setLostItemIds: (ids: number[]) => void;
   setCurrentItemId: (id: number) => void;
   setScrollPosition: (position: number) => void;
   openPanel: () => void;
   closePanel: () => void;
+  setIsMapPanelLoading: (isLoading: boolean) => void;
 }
 
 export const useMapPanelStore = create<MapPanelState>()(
@@ -35,6 +39,7 @@ export const useMapPanelStore = create<MapPanelState>()(
     currentItemId: 0,
     scrollPosition: 0,
     isPanelOpen: false,
+    isMapPanelLoading: false,
 
     setLostItemIds: (ids) =>
       set((state) => ({
@@ -60,6 +65,11 @@ export const useMapPanelStore = create<MapPanelState>()(
     closePanel: () =>
       set(() => ({
         isPanelOpen: false,
+      })),
+
+    setIsMapPanelLoading: (isLoading) =>
+      set(() => ({
+        isMapPanelLoading: isLoading,
       })),
   }))
 );

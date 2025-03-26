@@ -29,6 +29,7 @@ export default function LostNoMoreMap() {
   const setCenter = useLostNoMoreMapStore((state) => state.setCenter);
   const level = useLostNoMoreMapStore((state) => state.level);
   const setLostItemIds = useMapPanelStore((state) => state.setLostItemIds);
+  const setIsMapPanelLoading = useMapPanelStore((state) => state.setIsMapPanelLoading);
 
   const updateTopLeftLat = useSearchStore((state) => state.updateTopLeftLat);
   const updateTopLeftLon = useSearchStore((state) => state.updateTopLeftLon);
@@ -94,9 +95,10 @@ export default function LostNoMoreMap() {
   );
 
   useEffect(() => {
+    setIsMapPanelLoading(isMapMarkerFetching);
     if (isMapMarkerFetching) return;
     setLostItemIds(mapMarkers.map((item) => item.lostItemId));
-  }, [mapMarkers, isMapMarkerFetching, setLostItemIds]);
+  }, [mapMarkers, isMapMarkerFetching, setLostItemIds, setIsMapPanelLoading]);
 
   // 단일 마커 클릭 핸들러
   const handleMarkerClick = (item: { lostItemId: number; latitude: number; longitude: number }) => {
