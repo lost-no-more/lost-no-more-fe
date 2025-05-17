@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-import { useKeywordManagement } from '@/domain/notification/hooks/useKeywordManagement';
+import { KeywordListContainer } from '@/app/mypage/_containers/keyword-list-container';
 import KeywordInput from '@/domain/notification/components/keyword-input';
-import KeywordList from '@/domain/notification/components/keyword-list';
 import KeywordSettings from '@/domain/notification/components/keyword-settings';
+import { useKeywordManagement } from '@/domain/notification/hooks/useKeyword';
 import { useNotificationSettings } from '@/domain/notification/hooks/useNotificationSettings';
 import CustomSwitch from '@/shared/components/custom-switch';
 import { Button } from '@/shared/ui/button';
@@ -102,23 +102,13 @@ export const NotificationsSection = () => {
                   addKeyword={addKeyword}
                 />
 
-                {isLoading ? (
-                  <p data-cid="p-fw61Du" className="text-center py-4">키워드를 불러오는 중...</p>
-                ) : keywords.length === 0 ? (
-                  <p
-                    data-cid="p-Hb9FyA"
-                    className="text-center text-muted-foreground py-8"
-                  >
-                    등록된 키워드가 없습니다.
-                  </p>
-                ) : (
-                  <KeywordList
-                    data-cid="KeywordList-mjaArg"
-                    keywords={keywords}
-                    removeKeyword={removeKeyword}
-                    onSettingsClick={handleSettingsClick}
-                  />
-                )}
+                <KeywordListContainer
+                  data-cid="KeywordListDataContainer-c4fqbT"
+                  isLoading={isLoading}
+                  keywords={keywords}
+                  removeKeyword={removeKeyword}
+                  handleSettingsClick={handleSettingsClick}
+                />
               </div>
               <div
                 data-cid="div-74guDL"
