@@ -1,7 +1,6 @@
-import { BASE_URL } from '@/shared/config/api-config';
+import ApiClient from '@/shared/lib/api-client';
 import { ApiEndpoint, getAuthHeaders } from '@/shared/types/api-endpoint';
 import type { Response } from '@/shared/types/response';
-import ky from 'ky';
 
 export interface SubscribeResponse {
   totalCount: number;
@@ -13,14 +12,6 @@ export interface SubscribeResponse {
   }>;
 }
 
-const api = ky.create({
-  prefixUrl: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  credentials: 'include',
-});
-
 export const keywordApi = {
   subscribe: async (
     keyword: string,
@@ -31,7 +22,7 @@ export const keywordApi = {
       const token = localStorage.getItem('accessToken');
       const headers = getAuthHeaders(token);
 
-      return api
+      return ApiClient
         .post(ApiEndpoint.KEYWORD.SUBSCRIBE, {
           headers,
           json: {
@@ -60,7 +51,7 @@ export const keywordApi = {
       const token = localStorage.getItem('accessToken');
       const headers = getAuthHeaders(token);
 
-      return api
+      return ApiClient
         .get(ApiEndpoint.KEYWORD.SUBSCRIBE, {
           headers,
         })
@@ -84,7 +75,7 @@ export const keywordApi = {
       const token = localStorage.getItem('accessToken');
       const headers = getAuthHeaders(token);
 
-      return api
+      return ApiClient
         .delete(ApiEndpoint.KEYWORD.SUBSCRIBE_DETAIL(subscribeId), {
           headers,
         })
@@ -129,7 +120,7 @@ export const keywordApi = {
         requestBody.region = updateData.region;
       }
 
-      return api
+      return ApiClient
         .put(ApiEndpoint.KEYWORD.SUBSCRIBE_DETAIL(subscribeId), {
           headers,
           json: requestBody,
