@@ -1,20 +1,19 @@
-import { BASE_URL } from '@/shared/config/api-config';
+import ApiClient from '@/shared/lib/api-client';
 import type { Provider } from '@/shared/types/api-endpoint';
 import { ApiEndpoint, getAuthHeaders } from '@/shared/types/api-endpoint';
 import type { Response } from '@/shared/types/response';
 import { isTokenExpired } from '@/shared/utils/jwt-utils';
-import ky from 'ky';
 
 type OAuthUrlData = string;
 type TokenData = string;
 
-const api = ky.create({
-  prefixUrl: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  credentials: 'include',
-});
+const getHeaders = (token?: string): Record<string, string> => {
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+};
 
 async function attemptTokenReissue(): Promise<string | null> {
   try {
@@ -58,7 +57,7 @@ export const authApi = {
       url = `${url}?state=${state}`;
     }
 
-    return api.get(url, { headers }).json<Response<OAuthUrlData>>();
+    return ApiClient.get(url, { headers }).json<Response<OAuthUrlData>>();
   },
 
   getToken: async (
@@ -82,27 +81,23 @@ export const authApi = {
 
     const headers = getAuthHeaders(options?.token);
 
-    return api
-      .post(ApiEndpoint.OAUTH_TOKEN(provider, code), {
-        headers,
-      })
-      .json<Response<TokenData>>();
+    return ApiClient.post(ApiEndpoint.OAUTH_TOKEN(provider, code), {
+      headers,
+    }).json<Response<TokenData>>();
   },
 
   logout: async (token: string) => {
     return authenticatedRequest((currentToken) => {
-      const headers = getAuthHeaders(currentToken);
-      return api
-        .delete(ApiEndpoint.LOGOUT, {
-          headers,
-        })
-        .json<Response<null>>();
+      const headers = getHeaders(currentToken);
+      return ApiClient.delete(ApiEndpoint.LOGOUT, {
+        headers,
+      }).json<Response<null>>();
     }, token);
   },
 
   reissueToken: async () => {
     try {
-      return await api.post(ApiEndpoint.REISSUE, {}).json<Response<TokenData>>();
+      return await ApiClient.post(ApiEndpoint.REISSUE, {}).json<Response<TokenData>>();
     } catch (error) {
       console.error(':', error);
       throw error;
@@ -116,12 +111,10 @@ export const authApi = {
         : ApiEndpoint.WITHDRAW(provider);
 
     return authenticatedRequest((currentToken) => {
-      const headers = getAuthHeaders(currentToken);
-      return api
-        .delete(endpoint, {
-          headers,
-        })
-        .json<Response<null>>();
+      const headers = getHeaders(currentToken);
+      return ApiClient.delete(endpoint, {
+        headers,
+      }).json<Response<null>>();
     }, token);
   },
 };
