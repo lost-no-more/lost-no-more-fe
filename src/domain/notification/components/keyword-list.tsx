@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { KeywordItem } from '@/shared/types/keyword';
+import type { KeywordItem } from '@/domain/notification/types/keyword';
 import { Button } from '@/shared/ui/button';
 import { SlidersHorizontal, Trash2 } from 'lucide-react';
 

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 import { GenericSelect } from '@/shared/components/generic-select';
-import type { KeywordItem } from '@/shared/types/keyword';
+import type { KeywordItem } from '@/domain/notification/types/keyword';
 import type { LostCategory, LostLocationForKeyword } from '@/shared/types/lost-property';
 import { LostCategories, LostLocationsForKeywords } from '@/shared/types/lost-property';
 import { Button } from '@/shared/ui/button';

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import type { KeywordItem } from '@/shared/types/keyword';
+import type { KeywordItem } from '@/domain/notification/types/keyword';
 
-import { useKeywords } from './useKeywords';
+import { useKeywords } from './useKeywordQuery';
 
 
 export const useKeywordManagement = () => {

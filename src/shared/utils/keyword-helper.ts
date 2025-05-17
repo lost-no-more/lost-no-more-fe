@@ -1,4 +1,4 @@
-import type { KeywordItem, UpdateKeywordListParams } from '@/shared/types/keyword';
+import type { KeywordItem, UpdateKeywordListParams } from '@/domain/notification/types/keyword';
 
 export const generateId = (): string => {
   return Date.now().toString() + Math.random().toString(36).substr(2, 5);
