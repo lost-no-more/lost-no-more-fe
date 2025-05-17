@@ -1,5 +1,5 @@
 import { useAuth } from '@/domain/auth/hooks/useAuth';
-import type { LostCategory, LostLocation } from '@/shared/types/lost-property';
+import type { LostCategory, LostLocationForKeyword } from '@/shared/types/lost-property';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { keywordApi } from '../apis/keyword-api';
@@ -28,7 +28,7 @@ export function useKeywords() {
         id: String(item.subscribeId),
         text: item.keyword,
         category: item.category as LostCategory,
-        location: item.region as LostLocation,
+        location: item.region as LostLocationForKeyword,
       }));
 
       return keywords;

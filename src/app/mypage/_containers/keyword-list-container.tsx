@@ -5,7 +5,7 @@ import type { KeywordItem } from '@/domain/notification/types/keyword';
 
 interface KeywordListContainerProps {
   isLoading: boolean;
-  keywords: string[];
+  keywords: KeywordItem[];
   removeKeyword: (keyword: string) => void;
   handleSettingsClick: (keyword: KeywordItem) => void;
 }
@@ -43,7 +43,7 @@ export function KeywordListContainer({
       data-cid="KeywordList-mjaArg"
       keywords={keywords}
       removeKeyword={removeKeyword}
-      handleSettingsClick={handleSettingsClick}
+      onSettingsClick={handleSettingsClick}
     />
   );
 }
