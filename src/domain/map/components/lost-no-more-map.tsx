@@ -128,11 +128,12 @@ export default function LostNoMoreMap() {
             lat: Number(marker.getPosition().getLat().toFixed(6)),
             lng: Number(marker.getPosition().getLng().toFixed(6)),
           };
-
-          const matchingItem = mapMarkers.find((item) => isSamePosition(position, item));
-          return matchingItem?.lostItemId;
+          return mapMarkers
+            .filter((item) => isSamePosition(position, item))
+            .map((item) => item.lostItemId);
         })
-        .filter((id): id is number => id !== undefined);
+        .flat()
+        .filter((id, idx, arr) => arr.indexOf(id) === idx); // 중복 제거
       setLostItemIds(lostItemIDs);
     },
     [mapMarkers, setLostItemIds]
