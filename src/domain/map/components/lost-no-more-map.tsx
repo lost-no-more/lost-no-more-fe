@@ -36,36 +36,42 @@ export default function LostNoMoreMap() {
   const updateBottomRightLat = useSearchStore((state) => state.updateBottomRightLat);
   const updateBottomRightLon = useSearchStore((state) => state.updateBottomRightLon);
 
+  const location = useSearchStore((state) => state.location);
+
   useEffect(() => {
+    const cities: Partial<Record<LostLocation, { lat: number; lng: number }>> = {
+      서울특별시: { lat: 37.5665, lng: 126.978 },
+      강원도: { lat: 37.8852, lng: 127.7299 },
+      경기도: { lat: 37.2888, lng: 127.0535 },
+      경상남도: { lat: 35.2377, lng: 128.6918 },
+      경상북도: { lat: 36.5759, lng: 128.5055 },
+      광주광역시: { lat: 35.1595, lng: 126.8526 },
+      대구광역시: { lat: 35.8714, lng: 128.6014 },
+      대전광역시: { lat: 36.3504, lng: 127.3845 },
+      부산광역시: { lat: 35.1796, lng: 129.0756 },
+      울산광역시: { lat: 35.5384, lng: 129.3114 },
+      인천광역시: { lat: 37.4563, lng: 126.7052 },
+      전라남도: { lat: 34.816, lng: 126.4627 },
+      전라북도: { lat: 35.8202, lng: 127.1088 },
+      충청남도: { lat: 36.6588, lng: 126.6725 },
+      충청북도: { lat: 36.6353, lng: 127.4915 },
+      제주특별자치도: { lat: 33.4996, lng: 126.5312 },
+      세종특별자치시: { lat: 36.4801, lng: 127.289 },
+    };
+    if (location && cities[location]) {
+      const target = cities[location];
+      if (center.lat !== target.lat || center.lng !== target.lng) {
+        setCenter(target);
+      }
+    }
     const unsubscribe = useSearchStore.subscribe(
       (state) => state.location,
       (newLocation) => {
-        const cities: Partial<Record<LostLocation, { lat: number; lng: number }>> = {
-          서울특별시: { lat: 37.5665, lng: 126.978 },
-          강원도: { lat: 37.8852, lng: 127.7299 },
-          경기도: { lat: 37.2888, lng: 127.0535 },
-          경상남도: { lat: 35.2377, lng: 128.6918 },
-          경상북도: { lat: 36.5759, lng: 128.5055 },
-          광주광역시: { lat: 35.1595, lng: 126.8526 },
-          대구광역시: { lat: 35.8714, lng: 128.6014 },
-          대전광역시: { lat: 36.3504, lng: 127.3845 },
-          부산광역시: { lat: 35.1796, lng: 129.0756 },
-          울산광역시: { lat: 35.5384, lng: 129.3114 },
-          인천광역시: { lat: 37.4563, lng: 126.7052 },
-          전라남도: { lat: 34.816, lng: 126.4627 },
-          전라북도: { lat: 35.8202, lng: 127.1088 },
-          충청남도: { lat: 36.6588, lng: 126.6725 },
-          충청북도: { lat: 36.6353, lng: 127.4915 },
-          제주특별자치도: { lat: 33.4996, lng: 126.5312 },
-          세종특별자치시: { lat: 36.4801, lng: 127.289 },
-        };
-
-        if (newLocation !== null && cities[newLocation]) setCenter(cities[newLocation]);
+        if (newLocation && cities[newLocation]) setCenter(cities[newLocation]);
       }
     );
-
     return () => unsubscribe();
-  }, [setCenter]);
+  }, [location, setCenter, center]);
 
   const { data: mapMarkers, isFetching: isMapMarkerFetching } = useSearchMapMarker();
 
