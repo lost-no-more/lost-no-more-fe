@@ -39,6 +39,7 @@ export default function MapPanel() {
         data-cid="ListView-Me66Iy"
         className="w-[314px] py-3 pl-5 pr-3.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar]:w-1.5"
         items={lostItems}
+        isInfinite
         itemHeight={291}
         renderItem={(item) => (
           <LostCard
