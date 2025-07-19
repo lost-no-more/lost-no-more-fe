@@ -58,20 +58,12 @@ export default function LostNoMoreMap() {
       제주특별자치도: { lat: 33.4996, lng: 126.5312 },
       세종특별자치시: { lat: 36.4801, lng: 127.289 },
     };
+
+    // location 상태가 변경될 때만 지도 위치를 이동
     if (location && cities[location]) {
-      const target = cities[location];
-      if (center.lat !== target.lat || center.lng !== target.lng) {
-        setCenter(target);
-      }
+      setCenter(cities[location]);
     }
-    const unsubscribe = useSearchStore.subscribe(
-      (state) => state.location,
-      (newLocation) => {
-        if (newLocation && cities[newLocation]) setCenter(cities[newLocation]);
-      }
-    );
-    return () => unsubscribe();
-  }, [location, setCenter, center]);
+  }, [location, setCenter]);
 
   const { data: mapMarkers, isFetching: isMapMarkerFetching } = useSearchMapMarker();
 
